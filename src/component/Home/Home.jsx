@@ -46,8 +46,11 @@ function Home() {
       Connect with me
     </div> */}
     
-<button className="bg-gradient-to-r from-purple-600  to-orange-500 hover:from-purple-400 hover:to-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-xl transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce "><AnchorLink className="anchor-link" offset={50} href="#Contact"> Connect with me</AnchorLink>
-</button>
+ <div className="md:flex items-center md:items-stretch md:flex-rows mx-auto my-2  bg-gradient-to-r from-purple-600  to-orange-500 hover:to-blue-500 py-3 px-6 rounded-full shadow-xl text-white cursor-pointer font-extrabold transition duration-300 transform hover:scale-105">
+        <AnchorLink className="anchor-link" offset={50} href="#Contact">
+          Connect With Me
+        </AnchorLink>
+      </div>
     {/* <div className="hero-resume p-3 md:p-5 cursor-pointer border-2 border-white rounded-full my-2 md:my-0 px-7 md:px-10 py-2 hover:border-purple-500">
       My resume
     </div> */}
