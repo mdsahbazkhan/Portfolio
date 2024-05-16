@@ -17,14 +17,14 @@ function Navbar() {
   ];
 
   return (
-    <header className="bg-gray-800 text-white">
+    <header className="bg-gray-800 text-white fixed w-full top-0 z-10">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0">
               <img className="h-8 w-auto" src={Logo} alt="Logo" />
             </div>
-            <div className="hidden md:ml-6 md:flex md:space-x-8">
+            <div className="hidden md:flex md:items-center md:space-x-8 ml-6">
               {menuItems.map((item) => (
                 <AnchorLink
                   key={item.name}
@@ -68,7 +68,7 @@ function Navbar() {
         </div>
       </nav>
       {showMenu && (
-        <div className="md:hidden">
+        <div className="md:hidden absolute top-16 right-0 w-full bg-gray-800 z-10">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {menuItems.map((item) => (
               <AnchorLink
@@ -95,6 +95,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
 
 
