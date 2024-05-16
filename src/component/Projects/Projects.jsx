@@ -20,7 +20,7 @@ function Projects() {
         <div className="myproject-title  ">
             <h1 className='text-4xl  md:text-5xl font-bold relative flex flex-col items-center gap-4 transition duration-300     bg-gradient-to-tr from-purple-600 to-orange-500 text-transparent bg-clip-text  '>My Projects</h1>
         </div>
-       <div className="myproject-container relative grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-10 m-2">
+       <div className="myproject-container relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 m-2">
             {visibleProjects.map((work,index)=>(
                    
                     <a key={index} href={work.p_href} target="_blank" rel="noopener noreferrer" className='bg-gray-900 rounded-2xl shadow-sm shadow-sky-500 outline outline-slate-400 -outline-offset-8 transform hover:scale-105 '>
