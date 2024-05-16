@@ -2,99 +2,117 @@ import React, { useState } from "react";
 import Logo from "../../assets/Logo.png";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
-const navItems = [
-  { name: "Home", href: "#Home" },
-  { name: "About", href: "#About" },
-  { name: "Projects", href: "#Projects" },
-  { name: "Contact", href: "#Contact" },
-];
-
 function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [menu, setMenu] = useState("home");
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const handleMenuClick = (menuItem) => {
+    setMenu(menuItem);
+    setShowMenu(false); // Close the menu after clicking a menu item
   };
 
   return (
-    <header className="bg-gray-800 text-white fixed w-full top-0 z-10">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <img className="h-8 w-auto" src={Logo} alt="Logo" />
-            <div className="hidden md:flex md:items-center md:space-x-8 ml-6">
-              {navItems.map((item) => (
-                <AnchorLink
-                  key={item.name}
-                  href={item.href}
-                  className="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 text-white hover:text-gray-300 hover:border-gray-300"
-                >
-                  {item.name}
-                </AnchorLink>
-              ))}
-            </div>
-          </div>
-          <div className="md:hidden">
-            <button
-              onClick={handleDrawerToggle}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
-            >
-              <svg
-                className="h-6 w-6"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                {mobileOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-      </nav>
-      {mobileOpen && (
-        <div className="md:hidden fixed inset-0 bg-gray-800 bg-opacity-90 z-20">
-          <div className="absolute top-16 right-0 w-full bg-gray-800">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navItems.map((item) => (
-                <AnchorLink
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-300 hover:bg-gray-700"
-                >
-                  {item.name}
-                </AnchorLink>
-              ))}
-            </div>
-            <div className="px-5 py-3 border-t border-gray-700">
-              <AnchorLink
-                href="#Contact"
-                className="block w-full text-center px-5 py-3 rounded-md text-base font-medium bg-gradient-to-tr from-purple-600 to-orange-500 text-white hover:from-purple-700 hover:to-orange-600"
-              >
-                Connect With Me
-              </AnchorLink>
-            </div>
-          </div>
+    <div className="flex items-center justify-between shadow-md relative px-2 py-2 ">
+      <img className="mx-auto  my-2" src={Logo} alt="Logo" style={{ width: "115px" }} />
+      <div className="md:hidden " onClick={toggleMenu}>
+        {!showMenu && (
+          <svg
+            className="w-6 h-6 cursor-pointer bg-slate-800 border rounded-md mr-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        )}
+      </div>
+
+      {showMenu && (
+        <div className="absolute top-3 right-2 md:hidden bg-slate-800 border right-2 rounded-md" onClick={toggleMenu}>
+          <svg
+            className="w-6 h-6 cursor-pointer"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
         </div>
       )}
-    </header>
+
+      <ul
+        className={`nav-menu md:flex ${
+          showMenu ? "block" : "hidden"
+        } items-center md:items-stretch md:flex-rows`}
+      >
+        <li
+          id="home"
+          className={`px-4 py-2 duration-200 font-extrabold cursor-pointer flex flex-col gap-1 ${
+            menu === "home" ? "text-orange-500 underline" : "text-white"
+          }`}
+          onClick={() => handleMenuClick("home")}
+        >
+          <AnchorLink className="anchor-link" href="#Home">
+            <p>Home</p>
+          </AnchorLink>
+        </li>
+        <li
+          id="about"
+          className={`px-4 py-2 duration-200 font-extrabold cursor-pointer flex flex-col gap-1 ${
+            menu === "about" ? "text-orange-500 underline" : "text-white"
+          }`}
+          onClick={() => handleMenuClick("about")}
+        >
+          <AnchorLink className="anchor-link" offset={50} href="#About">
+            <p>About Me</p>
+          </AnchorLink>
+        </li>
+        <li
+          id="projects"
+          className={`px-4 py-2 duration-200 font-extrabold cursor-pointer flex flex-col gap-1 ${
+            menu === "projects" ? "text-orange-500 underline" : "text-white"
+          }`}
+          onClick={() => handleMenuClick("projects")}
+        >
+          <AnchorLink className="anchor-link" offset={50} href="#Projects">
+            <p>Projects</p>
+          </AnchorLink>
+        </li>
+        <li
+          id="contact"
+          className={`px-4 py-2 duration-200 font-extrabold cursor-pointer flex flex-col gap-1 ${
+            menu === "contact" ? "text-orange-500 underline" : "text-white"
+          }`}
+          onClick={() => handleMenuClick("contact")}
+        >
+          <AnchorLink className="anchor-link" offset={50} href="#Contact">
+            <p>Contact</p>
+          </AnchorLink>
+        </li>
+      </ul>
+
+      <div
+        className={`md:flex ${
+          showMenu ? "block" : "hidden"
+        } items-center md:items-stretch md:flex-rows mx-auto my-2 px-5 py-3 rounded-full bg-gradient-to-tr from-purple-600 to-orange-500 text-white cursor-pointer font-extrabold transition duration-300 transform hover:scale-105`}
+      >
+        <AnchorLink className="anchor-link" offset={50} href="#Contact">
+          Connect With Me
+        </AnchorLink>
+      </div>
+    </div>
   );
 }
 
 export default Navbar;
+
+
 
 
 
