@@ -17,12 +17,12 @@ function Navbar() {
   };
 
   return (
-    <div className="flex items-center justify-between shadow-md relative ">
+    <div className="flex items-center justify-between shadow-md relative px-2 py-2 ">
       <img className="mx-auto  my-2" src={Logo} alt="Logo" style={{ width: "115px" }} />
-      <div className="md:hidden bg-slate-800 border rounded-md mr-1" onClick={toggleMenu}>
+      <div className="md:hidden " onClick={toggleMenu}>
         {!showMenu && (
           <svg
-            className="w-6 h-6 cursor-pointer"
+            className="w-6 h-6 cursor-pointer bg-slate-800 border rounded-md mr-1"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
