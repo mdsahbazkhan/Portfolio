@@ -19,7 +19,7 @@ function Navbar() {
   return (
     <div className="flex items-center justify-between shadow-md relative ">
       <img className="mx-auto  my-2" src={Logo} alt="Logo" style={{ width: "115px" }} />
-      <div className="md:hidden" onClick={toggleMenu}>
+      <div className="md:hidden hover:bg-slate-800 border rounded-md mr-1" onClick={toggleMenu}>
         {!showMenu && (
           <svg
             className="w-6 h-6 cursor-pointer"
@@ -34,7 +34,7 @@ function Navbar() {
       </div>
 
       {showMenu && (
-        <div className="absolute top-3 right-2 md:hidden" onClick={toggleMenu}>
+        <div className="absolute top-3 right-2 md:hidden hover:bg-slate-800 border right-2 rounded-md" onClick={toggleMenu}>
           <svg
             className="w-6 h-6 cursor-pointer"
             fill="none"
