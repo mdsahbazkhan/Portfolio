@@ -125,7 +125,7 @@ function DrawerAppBar() {
         >
           <div className="fixed top-0 left-0 w-60 h-full bg-gray-950 shadow-md z-30">
             <div className="text-center" onClick={toggleMenu}>
-              <img className="mx-auto my-2 p-1" src={Logo} alt="Logo" style={{ width: '115px' }} />
+              <img className="mx-auto my-2 p-2" src={Logo} alt="Logo" style={{ width: '115px' }} />
               <hr className="border-gray-200" />
               <ul>
                 {navItems.map((item) => (
