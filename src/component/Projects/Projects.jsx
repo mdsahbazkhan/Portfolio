@@ -24,7 +24,7 @@ function Projects() {
             {visibleProjects.map((work,index)=>(
                    
                     <a key={index} href={work.p_href} target="_blank" rel="noopener noreferrer" className='bg-gray-900 rounded-2xl shadow-sm shadow-sky-500 outline outline-slate-400 -outline-offset-8 transform hover:scale-105 '>
-            <img  className="  hover: duration-300 group overflow-hidden relative after:duration-500 before:duration-500 hover:scale-105   hover:after:duration-500 hover:after:translate-x-24 hover:before:translate-y-12 hover:before:-translate-x-32 hover:duration-100 after:absolute  after:bg-sky-700 after:rounded-full  after:blur-xl after:bottom-2 after:right-16 after:w-12 after:h-12  before:absolute before:bg-sky-400 before:rounded-full  before:blur-xl before:top-20 before:right-16 before:w-12 before:h-12  hover:rotate-12 flex justify-center items-center h-72 w-80  bg-neutral-900 rounded-2xl outline  "  src={work.p_img} alt="" />
+            <img  className="  hover: duration-300 group overflow-hidden relative after:duration-500 before:duration-500 hover:scale-105   hover:after:duration-500 hover:after:translate-x-24 hover:before:translate-y-12 hover:before:-translate-x-32 hover:duration-100 after:absolute  after:bg-sky-700 after:rounded-full  after:blur-xl after:bottom-2 after:right-16 after:w-12 after:h-12  before:absolute before:bg-sky-400 before:rounded-full  before:blur-xl before:top-20 before:right-16 before:w-12 before:h-12  hover:rotate-12 flex justify-center items-center h-80 w-80  bg-neutral-900 rounded-2xl outline  "  src={work.p_img} alt="" />
             <div className="relative bottom-0 left-0 right-0 bg-gray-900 text-white p-2 text-center rounded-b-2xl">{work.p_name}</div>
           </a>
             ))}
