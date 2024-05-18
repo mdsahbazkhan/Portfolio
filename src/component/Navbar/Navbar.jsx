@@ -73,7 +73,7 @@ function DrawerAppBar() {
           <div className="flex items-center md:hidden" onClick={toggleMenu}>
             {!showMenu ? (
               <svg
-                className="w-6 h-6 cursor-pointer bg-slate-900 border right-2 rounded-md mr-1"
+                className="w-6 h-6 cursor-pointer bg-slate-900 border right-2 top-3 rounded-md mr-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -83,7 +83,7 @@ function DrawerAppBar() {
               </svg>
             ) : (
               <svg
-                className="w-6 h-6 cursor-pointer absolute top-2 right-2 bg-slate-900 border rounded-md"
+                className="w-6 h-6 cursor-pointer absolute top-3 right-2 bg-slate-900 border rounded-md"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
