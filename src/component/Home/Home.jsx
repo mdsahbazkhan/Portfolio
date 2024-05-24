@@ -55,7 +55,7 @@ function Home() {
       My resume
     </div> */}
     <button onClick={handleDownload}
-  className="cursor-pointer flex justify-between  px-3 py-2 rounded-full text-white tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1 font-mono w-[150px]"
+  className="cursor-pointer flex justify-between  px-6 py-3 rounded-full text-white tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1 font-extrabold w-[150px]"
 >
   Resume
   <svg
