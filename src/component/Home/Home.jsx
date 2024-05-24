@@ -55,7 +55,7 @@ function Home() {
       My resume
     </div> */}
     <button onClick={handleDownload}
-  className="cursor-pointer flex justify-between  px-5 py-2 mt-1 rounded-full text-white tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1  w-[190px] text-2xl hover:animate-pulse active:animate-bounce"
+  className="cursor-pointer flex justify-between  px-3 py-2 rounded-full text-white tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1 font-mono w-[150px]"
 >
   Resume
   <svg
@@ -64,7 +64,7 @@ function Home() {
     viewBox="0 0 24 24"
     strokeWidth="3"
     stroke="currentColor"
-    className="w-8 h-9 animate-bounce"
+    className="w-8 h-8 animate-bounce"
   >
     <path
       strokeLinecap="round"
