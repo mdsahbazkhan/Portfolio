@@ -42,29 +42,25 @@ function Home() {
     I am a Frontend Developer from Hyderabad, India. I am an Engineering Student.
   </p>
   <div className="hero-action flex flex-col md:flex-row items-center text-lg md:text-xl mb-6 md:mb-8 gap-7 md:gap-10">
-    {/* <div className="hero-connect p-3 md:p-5 my-2 md:my-0 px-5 md:px-8 py-2 rounded-full bg-gradient-to-tr from-purple-600 to-orange-500 text-white cursor-pointer hover:border-2 border-white">
-      Connect with me
-    </div> */}
+   
     
- <div className="md:flex items-center md:items-stretch md:flex-rows mx-auto my-2  bg-gradient-to-r from-purple-600  to-orange-500 hover:to-blue-500 py-3 px-6 rounded-full shadow-xl text-white cursor-pointer font-extrabold transition duration-300 transform hover:scale-105">
+ <div className="md:flex items-center md:items-stretch md:flex-rows mx-auto my-2  bg-gradient-to-r from-purple-600  to-orange-500 hover:to-blue-500 py-3 px-6 rounded-2xl shadow-xl text-white cursor-pointer font-extrabold transition duration-300 transform hover:scale-105">
         <AnchorLink className="anchor-link" offset={50} href="#Contact">
           Connect With Me
         </AnchorLink>
       </div>
-    {/* <div className="hero-resume p-3 md:p-5 cursor-pointer border-2 border-white rounded-full my-2 md:my-0 px-7 md:px-10 py-2 hover:border-purple-500">
-      My resume
-    </div> */}
+   
     <button onClick={handleDownload}
-  className="cursor-pointer flex justify-between  px-5 py-2 mt-1 rounded-full text-white tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1  w-[190px] text-2xl hover:animate-pulse active:animate-bounce"
+  className="cursor-pointer flex justify-between   px-6 py-3 rounded-2xl text-white tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-300 hover:ring-1  font-extrabold  border border-white border-opacity-10  "
 >
   Resume
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    strokeWidth="3"
+    strokeWidth="2"
     stroke="currentColor"
-    className="w-8 h-9 animate-bounce"
+    className="h-6 w-6 animate-bounce "
   >
     <path
       strokeLinecap="round"
