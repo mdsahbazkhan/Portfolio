@@ -60,7 +60,7 @@ function Home() {
     viewBox="0 0 24 24"
     strokeWidth="2"
     stroke="currentColor"
-    className="h-6 w-6 animate-bounce "
+    className="h-6 w- animate-bounce "
   >
     <path
       strokeLinecap="round"
