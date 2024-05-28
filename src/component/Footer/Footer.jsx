@@ -4,16 +4,16 @@ import Logo from "../../assets/Logo.png";
 
 export default function Footer() {
   return (
-    <footer className="border-y">
-    <div className="max-w-screen-xl mx-auto p-4 lg:p-2 flex flex-col sm:flex-row items-center justify-between">
-        <div className="mx-auto sm:my-">
+    <footer className="border-y border-white border-opacity-10 rounded-lg  bg-opacity-5 shadow-xl backdrop-blur-lg  ">
+    <div className="max-w-screen-xl mx-auto p-2 lg:p-2 flex flex-col sm:flex-row items-center justify-between">
+        {/* <div className="mx-auto sm:my-">
           <img
             className="mx-auto    mr-4 "
             src={Logo}
             alt="Logo"
             style={{ width: "115px" }}
           />
-        </div>
+        </div> */}
         <span className="text-xl  sm:text-center m-auto">
           © 2024 . All Rights Reserved.
         </span>
@@ -21,7 +21,7 @@ export default function Footer() {
         <div className="flex  space-x-5 sm:justify-center sm:mt-0 m-auto">
           <a
             href="https://github.com/mdsahbazkhan"
-            className="text-white-200 hover:text-blue-500"
+            className="text-white-200 hover:text-blue-500 transform transition duration-500 ease-in-out hover:scale-105"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -42,7 +42,7 @@ export default function Footer() {
           </a>
           <a
             href="https://www.linkedin.com/in/sahbaz-khan-a95680262"
-            className="text-white-200 hover:text-blue-500  "
+            className="text-white-200 hover:text-blue-500 transform transition duration-500 ease-in-out hover:scale-105 "
             target="_blank"
             rel="noopener noreferrer"
           >
