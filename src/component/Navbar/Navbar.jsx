@@ -22,7 +22,7 @@ function Navbar() {
     { id: "contact", label: "Contact", href: "#Contact" },
   ];
   return (
-    <div className="navbar fixed top-5 left-8 right-8 flex items-center justify-between border border-white border-opacity-10 rounded-lg py-2 px-3 lg:max-w-screen-md mx-auto  bg-opacity-5 shadow-md backdrop-blur-lg text-white z-50 ">
+    <div className="navbar fixed top-5 left-8 right-8 flex items-center justify-between border border-white border-opacity-10 rounded-lg py-3 px-3 lg:max-w-screen-md mx-auto  bg-opacity-5 shadow-md backdrop-blur-lg text-white z-50 ">
       <img src={Logo} alt="Logo" style={{ width: "130px" }} />
       <img src={menu_open}onClick={openMenu} alt="" className="nav-mob-open "/>
 
