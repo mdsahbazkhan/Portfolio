@@ -5,7 +5,7 @@ function About() {
   return (
 
 
-<div id="About" className=" flex flex-col items-center justify-center gap-20 md:gap-10 lg:gap-20 mt-28 md:mt-28 mx-4 lg:mx-20 ">
+<div id="About" className=" flex flex-col items-center justify-center   lg:gap-20 mt-10 md:mt-20 mx-4 lg:mx-20 ">
   <div className="about-title relative   " >
     <h1 className=" text-4xl md:text-5xl font-bold bg-gradient-to-tr from-purple-600 to-orange-500 text-transparent bg-clip-text ">About Me</h1>
   </div>
