@@ -10,9 +10,9 @@ function About() {
     <h1 className=" text-4xl md:text-5xl font-bold bg-gradient-to-tr from-purple-600 to-orange-500 text-transparent bg-clip-text ">About Me</h1>
   </div>
   <div className="about-section flex flex-col md:flex-row gap-10 md:gap-20 " >
-    <div className="about-left">
+{/*     <div className="about-left">
       <img src={Profile_img} alt="Your Image" className="rounded-md h-full w-96" />
-    </div>
+    </div> */}
     <div className="about-right mt-10 md:mt-0 flex flex-col gap-10 ">
       <div className="about-para">
         <p className="text-base md:text-lg max-w-5xl">
