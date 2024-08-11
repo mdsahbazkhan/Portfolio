@@ -1,4 +1,4 @@
-import project1 from "../assets/project13.png";
+import project1 from "../assets/project1.png";
 import project2 from "../assets/project2.png";
 import project3 from "../assets/project3.png";
 import project4 from "../assets/project4.png";
@@ -10,7 +10,7 @@ import project9 from "../assets/project9.png";
 import project10 from "../assets/project10.png";
 import project11 from "../assets/project11.png";
 import project12 from "../assets/project12.png";
-import project13 from "../assets/project1.png";
+import project13 from "../assets/project13.png";
 
 const project_data = [
   {
