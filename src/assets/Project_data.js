@@ -1,4 +1,4 @@
-import project1 from "../assets/project1.png";
+import project1 from "../assets/project13.png";
 import project2 from "../assets/project2.png";
 import project3 from "../assets/project3.png";
 import project4 from "../assets/project4.png";
@@ -10,13 +10,14 @@ import project9 from "../assets/project9.png";
 import project10 from "../assets/project10.png";
 import project11 from "../assets/project11.png";
 import project12 from "../assets/project12.png";
+import project13 from "../assets/project1.png";
 
 const project_data = [
   {
     p_no: 1,
     p_img: project1,
-    p_href: " https://currencyconvert2.netlify.app ",
-    p_name: "Currency Converter"
+    p_href: " https://questionspucho.netlify.app ",
+    p_name: "questionpucho"
   },
   {
     p_no: 2,
@@ -84,6 +85,12 @@ const project_data = [
     p_img:project12,
     p_href: "https://textutils5.netlify.app",
     p_name:"TextUtils"
+  },
+  {
+    p_no: 13,
+    p_img:project13,
+    p_href: " https://currencyconvert2.netlify.app ",
+    p_name: "Currency Converter"
   },
 ];
 export default project_data;
