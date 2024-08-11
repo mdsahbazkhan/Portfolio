@@ -19,11 +19,11 @@ const project_data = [
     p_href: " https://questionspucho.netlify.app ",
     p_name: "questionpucho"
   },
-  {
+   {
     p_no: 2,
-    p_img: project2,
-    p_href: "https://elegant-crostata-27509e.netlify.app",
-    p_name:"TicTacToe"
+    p_img: project7,
+    p_href: "https://snapify-tau.vercel.app/",
+    p_name:"Snapify"
   },
   {
     p_no: 3,
@@ -50,11 +50,12 @@ const project_data = [
     p_href: "https://password-generate4.netlify.app",
     p_name:"Password Generator"
   },
-  {
+
+    {
     p_no: 7,
-    p_img: project7,
-    p_href: "https://snapify-tau.vercel.app/",
-    p_name:"Snapify"
+    p_img: project2,
+    p_href: "https://elegant-crostata-27509e.netlify.app",
+    p_name:"TicTacToe"
   },
   {
     p_no: 8,
