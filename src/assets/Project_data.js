@@ -27,9 +27,9 @@ const project_data = [
   },
   {
     p_no: 3,
-    p_img: project3,
-    p_href: " https://ephemeral-cheesecake-cd1246.netlify.app",
-    p_name:"Calculator"
+    p_img: project14,
+    p_href: " https://javascriptquiz-beg-adv.netlify.app",
+    p_name:"QuizGame"
   },
   {
     p_no: 4,
@@ -93,5 +93,12 @@ const project_data = [
     p_href: " https://currencyconvert2.netlify.app ",
     p_name: "Currency Converter"
   },
+  {
+    p_no: 14,
+    p_img:project3,
+    p_href: " https://ephemeral-cheesecake-cd1246.netlify.app ",
+    p_name: "Calculator"
+  },
+
 ];
 export default project_data;
