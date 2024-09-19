@@ -22,7 +22,7 @@ function Home() {
     return () => clearTimeout(typingTimer);
   }, [textToType]);
   const handleDownload = () => {
-    const url = "https://dl.dropboxusercontent.com/scl/fi/dgkkvxe0jj0ta5qq7xug8/sahbaz-.cv-resume-2.pdf?rlkey=kuz7uqls8avv1rmjfnrryjkfw&st=0iotgmuc&dl=0";
+    const url = "https://www.dropbox.com/scl/fi/kkyulnpdocjb8iheisysl/Resume_MD_Sahbaz_Alam.pdf?rlkey=fh6pxevuf31inzxfycxcalw18&st=tiqff05n&dl=0";
     const anchor = document.createElement("a");
     anchor.href = url;
     anchor.download = "resume.pdf"; // Set the filename here
