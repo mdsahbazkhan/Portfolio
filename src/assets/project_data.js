@@ -1,6 +1,6 @@
 // project_data.js
 import project1 from "../assets/project1.png";
-import project2 from "../assets/project7.png";
+// import project2 from "../assets/project7.png";
 
 const project_data = [
   {
