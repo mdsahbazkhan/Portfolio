@@ -10,7 +10,7 @@ function Projects() {
   };
 
   return (
-    <section className="py-12 px-6 " id="projects">
+    <section className="py-12 px-6 " id="Projects">
       <div className="max-w-3xl mx-auto text-center mb-10">
         <motion.h2
           className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-purple-500"

@@ -54,7 +54,7 @@ import { motion } from "framer-motion";
 export default function About() {
   return (
     <section
-      id="about"
+      id="About"
       className="py-20 px-6 md:px-16 lg:px-24 text-white transition-colors duration-500"
     >
       <div className="max-w-4xl mx-auto text-center md:text-left">
