@@ -1,56 +1,118 @@
-import React from "react";
-import Profile_img from "../../assets/Profile_img.png";
+// function About() {
+//   return (
+//     <section
+//       id="about"
+//       className="pb-20 px-6 text-white transition-colors duration-500"
+//     >
+//       <div className="max-w-4xl mx-auto text-center">
+//         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8">
+//           About Me
+//         </h2>
 
-function About() {
+//         <p className="text-md sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+//           Hi, I’m{" "}
+//           <span className="font-semibold text-white">Md Sahbaz Alam</span>, a{" "}
+//           <span className="font-semibold text-white">
+//             Computer Science student
+//           </span>{" "}
+//           and passionate{" "}
+//           <span className="font-semibold text-white">Frontend Developer</span>.
+//           I enjoy building clean, responsive, and user-friendly web applications
+//           using
+//           <span className="font-semibold text-white">
+//             {" "}
+//             React.js, JavaScript, Tailwind CSS
+//           </span>
+//           , and <span className="font-semibold text-white">Material UI</span>.
+//         </p>
+
+//         <p className="text-md sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed mt-6">
+//           I have completed an{" "}
+//           <span className="font-semibold text-white">
+//             internship as a Frontend Developer
+//           </span>
+//           , where I gained hands-on experience working on real projects and
+//           improving my problem-solving skills. Along with that, I’ve built
+//           multiple practice projects to strengthen my fundamentals and sharpen
+//           my frontend development skills.
+//         </p>
+
+//         <p className="text-md sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed mt-6">
+//           Currently, I’m focused on enhancing my skills and looking for new
+//           opportunities where I can contribute, learn, and grow as a developer.
+//         </p>
+//       </div>
+//     </section>
+//   );
+// }
+
+// export default About;
+
+"use client";
+import { motion } from "framer-motion";
+
+export default function About() {
   return (
+    <section
+      id="about"
+      className="py-20 px-6 md:px-16 lg:px-24 text-white transition-colors duration-500"
+    >
+      <div className="max-w-4xl mx-auto text-center md:text-left">
+        {/* Heading */}
+        <motion.h2
+          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-purple-500"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          About Me
+        </motion.h2>
 
+        {/* Paragraphs */}
+        <motion.p
+          className="text-md sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Hi, I’m{" "}
+          <span className="text-purple-400 font-semibold">Md Sahbaz Alam</span>,
+          a <span className="text-purple-300">Computer Science student</span>{" "}
+          and passionate{" "}
+          <span className="text-purple-300">Frontend Developer</span>. I enjoy
+          building clean, responsive, and user-friendly web applications using{" "}
+          <span className="text-purple-300">
+            React.js, JavaScript, Tailwind CSS
+          </span>
+          , and <span className="text-purple-300">Material UI</span>.
+        </motion.p>
 
-<div id="About" className=" flex flex-col items-center justify-center   lg:gap-20 mt-10 md:mt-20 mx-4 lg:mx-20 ">
-  <div className="about-title relative   " >
-    <h1 className=" text-4xl md:text-5xl font-bold bg-gradient-to-tr from-purple-600 to-orange-500 text-transparent bg-clip-text ">About Me</h1>
-  </div>
-  <div className="about-section flex flex-col md:flex-row gap-10 md:gap-20 " >
-{/*     <div className="about-left">
-      <img src={Profile_img} alt="Your Image" className="rounded-md h-full w-96" />
-    </div> */}
-    <div className="about-right mt-10 md:mt-0 flex flex-col gap-10 ">
-      <div className="about-para">
-        <p className="text-base md:text-lg max-w-5xl">
-         Hey! I'm [Sahbaz Khan], and I'm all about making responsive websites awesome. I know my way around HTML, CSS, JavaScript, React JS, and I love bringing designs to life on the web. I'm passionate about creating user-friendly experiences that make people say 'wow'. Take a look at my projects below to see what I've been up to!
-        </p>
-      </div>
-       <div className="about-skills ">
-        <div className="about-skill flex items-center gap-4 md:gap-6 lg:gap-12 mb-4 md:mb-6 lg:mb-8 transition duration-300 transform hover:scale-105 max-w ">
-          <p className="text-base md:text-lg font-semibold min-w-28">HTML , CSS & Tailwind CSS</p>
-          <hr className="w-1/2 h-1 md:h-2 rounded-full bg-gradient-to-tr from-purple-600 to-orange-500" style={{ width: "80%" }} />
-          
-        </div>
-        <div className="about-skill flex items-center gap-4 md:gap-6 lg:gap-12 mb-4 md:mb-6 lg:mb-8 transition duration-300 transform hover:scale-105">
-          <p className="text-base md:text-lg font-semibold min-w-28">JavaScript</p>
-          <hr className="w-1/2 h-1 md:h-2 rounded-full bg-gradient-to-tr from-purple-600 to-orange-500" style={{ width: "70%" }} />
-          
-        </div>
-        <div className="about-skill flex items-center gap-4 md:gap-6 lg:gap-12 mb-4 md:mb-6 lg:mb-8 transition duration-300 transform hover:scale-105">
-          <p className="text-base md:text-lg font-semibold min-w-28">React JS</p>
-          <hr className="w-1/2 h-1 md:h-2 rounded-full bg-gradient-to-tr from-purple-600 to-orange-500" style={{ width: "60%" }} />
-        </div>
-        
-      </div>
-      <div className="about-achievements flex flex-col items-center justify-center w-full my-6 md:my-10 gap-6 md:gap-10 lg:gap-20">
-        <div className="about-achievement flex flex-col items-center gap-2 md:gap-4 transition duration-300 transform hover:scale-105 my-auto m-auto">
-          <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-tr from-purple-600 to-orange-500 text-transparent bg-clip-text">
-            10+
-          </h1>
-          <p className="text-sm md:text-base font-semibold">PROJECTS COMPLETED</p>
-          
-        </div>
-       
-      </div>
-    </div>
-  </div>
-</div>
+        <motion.p
+          className="text-md sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          I have completed an{" "}
+          <span className="text-purple-300">
+            internship as a Frontend Developer
+          </span>
+          , where I gained hands-on experience working on real projects and
+          improving my problem-solving skills. Along with that, I’ve built
+          multiple practice projects to strengthen my fundamentals and sharpen
+          my frontend development skills.
+        </motion.p>
 
+        <motion.p
+          className="text-md sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          Currently, I’m focused on enhancing my skills and looking for new
+          opportunities where I can contribute, learn, and grow as a developer.
+        </motion.p>
+      </div>
+    </section>
   );
 }
-
-export default About;

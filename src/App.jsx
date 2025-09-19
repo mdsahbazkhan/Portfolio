@@ -40,8 +40,8 @@ function App() {
     >
       <Navbar />
       <Home />
-      <Skills />
       <About />
+      <Skills />
       <Projects />
       <Contact />
       <Footer />

@@ -1,66 +1,88 @@
-
-
-
-
-import React, { useState } from 'react';
-import project_data from "../../assets/Project_data";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import project_data from "../../assets/project_data";
 
 function Projects() {
-  const [showMore, setShowMore] = useState(false);
+  const [openIndex, setOpenIndex] = useState(null);
 
-  // Function to toggle the showMore state
-  const toggleShowMore = () => {
-    setShowMore(!showMore);
+  const toggleAccordion = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Determine the number of images to display based on the showMore state
-  const numImagesToShow = showMore ? project_data.length : 6;
-  const visibleProjects = project_data.slice(0, numImagesToShow);
-
-  // Check if all photos are displayed
-  const allPhotosDisplayed = visibleProjects.length === project_data.length;
-
   return (
-    <div id="Projects" className="myproject flex flex-col items-center justify-center gap-20 mt-32 gap-y-8">
-      <div className="myproject-title">
-        <h1 className="text-4xl md:text-5xl font-bold flex flex-col items-center gap-4 bg-gradient-to-tr from-purple-600 to-orange-500 text-transparent bg-clip-text">
+    <section className="py-12 px-6 " id="projects">
+      <div className="max-w-3xl mx-auto text-center mb-10">
+        <motion.h2
+          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-purple-500"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           My Projects
-        </h1>
+        </motion.h2>
       </div>
-      <div className="myproject-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 m-2">
-        {visibleProjects.map((work, index) => (
-          <a
-            key={index}
-            href={work.p_href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative transform transition duration-500 hover:scale-105 border border-white border-opacity-10 rounded-lg shadow-4xl hover:shadow-2xl hover:-translate-y-2 backdrop-blur-lg bg-opacity-5"
+
+      <div className="max-w-3xl mx-auto space-y-4">
+        {project_data.map((project, index) => (
+          <div
+            key={project.p_no}
+            className="border border-gray-300 rounded-xl  shadow-md"
           >
-            <div className="absolute inset-4  opacity-30 pointer-events-none rounded-lg"></div>
-            <img
-              className="rounded-lg w-72 h-80 object-cover"
-              src={work.p_img}
-              alt=""
-            />
-          </a>
+            {/* Accordion Header */}
+            <button
+              onClick={() => toggleAccordion(index)}
+              className="w-full flex justify-between items-center px-5 py-4 text-left text-lg font-medium text-gray-800 focus:outline-none"
+            >
+              <span className="text-gray-300 -2">{project.p_name}</span>
+              <span className="text-gray-500">
+                {openIndex === index ? "▲" : "▼"}
+              </span>
+            </button>
+
+            {/* Accordion Body */}
+            {openIndex === index && (
+              <div className="px-5 pb-5 text-gray-600 space-y-3">
+                <img
+                  src={project.p_img}
+                  alt={project.p_name}
+                  className="w-full max-h-60 object-contain rounded-lg mx-auto"
+                />
+
+                <p className="text-gray-300 py-2">{project.p_desc}</p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {project.tech.split(",").map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 text-xs bg-purple-100 text-purple-700 rounded-full"
+                    >
+                      {tech.trim()}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-4 mt-3">
+                  <a
+                    href={project.p_href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition"
+                  >
+                    Live
+                  </a>
+                  <a
+                    href={project.p_github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gray-800 text-white text-sm rounded-lg hover:bg-gray-900 transition"
+                  >
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
         ))}
       </div>
-      {!allPhotosDisplayed ? (
-        <button
-          onClick={toggleShowMore}
-          className="relative bg-neutral-800 h-16 w-64 border text-left p-3 text-gray-50 text-base font-bold rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:border-rose-300 hover:text-rose-300 before:absolute before:w-12 before:h-12 before:content-[''] before:right-1 before:top-1 before:bg-violet-500 before:rounded-full before:blur-lg after:absolute after:w-20 after:h-20 after:content-[''] after:right-8 after:top-2 after:bg-rose-300 after:rounded-full after:blur-lg"
-        >
-          Show more
-        </button>
-      ) : (
-        <button
-          onClick={toggleShowMore}
-          className="relative bg-neutral-800 h-16 w-64 border text-left p-3 text-gray-50 text-base font-bold rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:border-rose-300 hover:text-rose-300 before:absolute before:w-12 before:h-12 before:content-[''] before:right-1 before:top-1 before:bg-violet-500 before:rounded-full before:blur-lg after:absolute after:w-20 after:h-20 after:content-[''] after:right-8 after:top-2 after:bg-rose-300 after:rounded-full after:blur-lg"
-        >
-          Show less
-        </button>
-      )}
-    </div>
+    </section>
   );
 }
 

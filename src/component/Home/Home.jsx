@@ -65,6 +65,7 @@ function Home() {
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
+        viewport={{ once: false, amount: 0.3 }}
         className="flex flex-col items-center md:items-start text-center md:text-left gap-6 md:gap-8 max-w-xl w-full"
       >
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-snug">
@@ -139,6 +140,7 @@ function Home() {
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
+        viewport={{ once: false, amount: 0.3 }}
         className="flex-shrink-0 w-64 sm:w-72 md:w-80 lg:w-96 aspect-square rounded-full overflow-hidden shadow-2xl border-4 border-purple-500"
       >
         <img
