@@ -82,7 +82,7 @@ export default function About() {
           <span className="text-purple-300">Frontend Developer</span>. I enjoy
           building clean, responsive, and user-friendly web applications using{" "}
           <span className="text-purple-300">
-            React.js, JavaScript, Tailwind CSS
+            JavaScript, Next.js, React.js, TypeScript, Tailwind CSS
           </span>
           , and <span className="text-purple-300">Material UI</span>.
         </motion.p>

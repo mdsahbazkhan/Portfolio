@@ -13,15 +13,15 @@ const project_data = [
       "A StackOverflow clone built as a college project to ask and answer programming questions.",
     tech: "React, Node.js, Express, MongoDB, Redux, Tailwind CSS, CSS, Netlify",
   },
-  {
-    p_no: 2,
-    p_img: project2,
-    p_href: "https://snapify-tau.vercel.app/",
-    p_github: "https://github.com/mdsahbazkhan/SNAPIFY",
-    p_name: "Snapify",
-    p_desc: "Music app UI built with React and Tailwind CSS",
-    tech: "React, Tailwind CSS, Appwrite, Vercel",
-  },
+  // {
+  //   p_no: 2,
+  //   p_img: project2,
+  //   p_href: "https://snapify-tau.vercel.app/",
+  //   p_github: "https://github.com/mdsahbazkhan/SNAPIFY",
+  //   p_name: "Snapify",
+  //   p_desc: "Music app UI built with React and Tailwind CSS",
+  //   tech: "React, Tailwind CSS, Appwrite, Vercel",
+  // },
 ];
 
 export default project_data;
