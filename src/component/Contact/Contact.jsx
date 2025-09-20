@@ -33,7 +33,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="py-20 px-4 md:px-16 lg:px-24 text-white">
+    <section id="Contact" className="py-20 px-4 md:px-16 lg:px-24 text-white">
       {/* Heading */}
       <motion.h1
         className="text-4xl sm:text-5xl md:text-6xl font-bold mb-12 text-purple-500 text-center md:text-left"
