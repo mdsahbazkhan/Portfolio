@@ -81,7 +81,7 @@ function Home() {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-4">
-          <div className="bg-gradient-to-r from-purple-600 to-orange-500 hover:to-blue-500 py-3 px-6 rounded-2xl shadow-xl cursor-pointer font-bold transition transform hover:scale-105">
+          <div className=" bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 py-3 px-6 rounded-2xl text-white font-bold shadow-lg hover:scale-105 transform transition">
             <AnchorLink offset={50} href="#Contact">
               Connect With Me
             </AnchorLink>
