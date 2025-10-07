@@ -49,7 +49,7 @@ export default function Skills() {
       className="py-20 px-6 md:px-16 lg:px-24 flex flex-col items-center transition-colors duration-500"
     >
       <motion.h2
-        className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-purple-500"
+        className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8  text-purple-800 dark:text-purple-500"
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -68,7 +68,7 @@ export default function Skills() {
         {skills.map((skill, i) => (
           <motion.div
             key={i}
-            className="bg-gray-200 dark:bg-gray-800 rounded-2xl shadow-lg flex flex-col items-center justify-center p-6"
+            className="bg-gray-500 dark:bg-gray-800 rounded-2xl shadow-lg flex flex-col items-center justify-center p-6"
             variants={item}
           >
             <div className="text-5xl mb-3">{skill.icon}</div>

@@ -13,7 +13,7 @@ function Projects() {
     <section className="py-12 px-6 " id="Projects">
       <div className="max-w-3xl mx-auto text-center mb-10">
         <motion.h2
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-purple-500"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8  text-purple-800 dark:text-purple-500"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -33,8 +33,8 @@ function Projects() {
               onClick={() => toggleAccordion(index)}
               className="w-full flex justify-between items-center px-5 py-4 text-left text-lg font-medium text-gray-800 focus:outline-none"
             >
-              <span className="text-gray-300 -2">{project.p_name}</span>
-              <span className="text-gray-500">
+              <span className=" dark:text-gray-300 ">{project.p_name}</span>
+              <span className="text-gray-600">
                 {openIndex === index ? "▲" : "▼"}
               </span>
             </button>
@@ -48,7 +48,9 @@ function Projects() {
                   className="w-full max-h-60 object-contain rounded-lg mx-auto"
                 />
 
-                <p className="text-gray-300 py-2">{project.p_desc}</p>
+                <p className="text-gray-900 dark:text-gray-300 py-2">
+                  {project.p_desc}
+                </p>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {project.tech.split(",").map((tech, i) => (
                     <span

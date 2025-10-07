@@ -25,7 +25,7 @@ export default function ExperienceTimeline() {
       <div className="max-w-4xl mx-auto">
         {/* Heading */}
         <motion.h2
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-12 text-purple-500 text-center md:text-left"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-12  text-purple-800 dark:text-purple-500 text-center md:text-left"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -34,7 +34,7 @@ export default function ExperienceTimeline() {
         </motion.h2>
 
         {/* Timeline */}
-        <div className="relative border-l-2 border-purple-500 ml-6">
+        <div className="relative border-l-2 border-gray-900 dark:border-purple-500 ml-6">
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
@@ -44,30 +44,30 @@ export default function ExperienceTimeline() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               {/* Timeline Circle */}
-              <span className="absolute -left-4 top-2 w-4 h-4 rounded-full bg-purple-500 border-2 border-white ml-6"></span>
+              <span className="absolute -left-8 top-0 w-4 h-4 rounded-full bg-gray-800 dark:bg-purple-500 border-2 border-white ml-6"></span>
 
               {/* Content */}
-              <h3 className="text-2xl font-semibold text-purple-300 mb-1">
+              <h3 className="text-2xl font-semibold text-gray-800 dark:text-purple-300 mb-1">
                 {exp.role}
               </h3>
-              <p className="text-lg text-gray-400 mb-2">
+              <p className="text-lg text-gray-600 dark:text-gray-400 mb-2 ">
                 <a
                   href={exp.companyLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-purple-400 underline"
+                  className=" hover:text-gray-900 dark:hover:text-purple-400 underline"
                 >
                   {exp.company}
                 </a>{" "}
                 • {exp.duration}
               </p>
               <p className="text-gray-300 mb-2">
-                <span className="font-semibold text-purple-300">
+                <span className="font-semibold text-gray-800 dark:text-purple-300">
                   Tech Stack:
                 </span>{" "}
                 {exp.techStack.join(", ")}
               </p>
-              <ul className="list-disc list-inside text-gray-300 space-y-2">
+              <ul className="list-disc list-inside text-gray-100 space-y-2">
                 {exp.description.map((point, i) => (
                   <li key={i}>{point}</li>
                 ))}

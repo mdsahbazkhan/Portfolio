@@ -1,11 +1,13 @@
 import { useRef, useState, useEffect } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import Logo from "../../assets/Logo.png";
+
 import menu_open from "../../assets/menu_open.svg";
 import menu_close from "../../assets/menu_close.svg";
 import "./Navbar.css";
+import ModeButton from "../modeButton";
+import PropTypes from "prop-types";
 
-function Navbar() {
+function Navbar({ darkMode, toggleMode }) {
   const menuRef = useRef();
   const [activeSection, setActiveSection] = useState("Home");
 
@@ -42,24 +44,35 @@ function Navbar() {
   }, []);
 
   return (
-    <div className="navbar fixed top-5 left-8 right-8 flex items-center justify-between border border-white border-opacity-10 rounded-lg py-3 px-3 lg:max-w-screen-md mx-auto bg-opacity-5 shadow-md backdrop-blur-lg text-white z-50">
-      <img src={Logo} alt="Logo" style={{ width: "130px" }} />
+    <div className="navbar fixed  left-0 right-0 flex items-center justify-between border border-white border-opacity-10 rounded-lg py-3 px-3 lg:max-w-screen-md mx-auto bg-opacity-5 shadow-md backdrop-blur-lg text-white z-50">
+      <div className="flex items-center gap-14">
+        <span className="text-2xl font-bold text-purple-800 dark:text-purple-500 hover:scale-105 transition">
+          Sahbaz Alam
+        </span>
+      </div>
+
+      {/* Desktop ModeButton */}
+
       <img src={menu_open} onClick={openMenu} alt="" className="nav-mob-open" />
 
       <ul
         ref={menuRef}
-        className="nav-menu items-center list-none gap-4 font-semibold flex"
+        className="nav-menu items-center list-none gap-4 font-semibold flex flex-col md:flex-row"
       >
-        <img
-          src={menu_close}
-          onClick={closeMenu}
-          alt=""
-          className="nav-mob-close"
-        />
+        <div className="flex w-full justify-between items-center md:hidden">
+          <img
+            src={menu_close}
+            onClick={closeMenu}
+            alt=""
+            className="nav-mob-close"
+          />
+          <ModeButton darkMode={darkMode} toggleMode={toggleMode} />
+        </div>
+
         {navItems.map((item) => (
           <li key={item.id}>
             <AnchorLink
-              className={`anchor-link bg-transparent transition duration-300 ${
+              className={`anchor-link bg-transparent relative transition duration-300 hover:scale-105 hover:text-purple-500 ${
                 activeSection === item.id
                   ? "text-purple-400 scale-110"
                   : "text-white"
@@ -68,22 +81,24 @@ function Navbar() {
               offset={50}
             >
               {item.label}
+              <span
+                className={`absolute left-0 bottom-0 h-[2px] bg-purple-400 transition-all duration-300 ${
+                  activeSection === item.id ? "w-full" : "w-0"
+                }`}
+              />
             </AnchorLink>
           </li>
         ))}
+        <div className="hidden md:block">
+          <ModeButton darkMode={darkMode} toggleMode={toggleMode} />
+        </div>
       </ul>
-
-      {/* <div className="nav-connect md:flex items-center gap-4">
-        <AnchorLink
-          className="anchor-link text-white cursor-pointer font-extrabold transition duration-300 ease-in-out hover:scale-105 backdrop-blur-md bg-transparent rounded-md border border-white border-opacity-10 shadow-md py-2 px-4 hover:shadow-xl"
-          offset={50}
-          href="#Contact"
-        >
-          Connect With Me
-        </AnchorLink>
-      </div> */}
     </div>
   );
 }
+Navbar.propTypes = {
+  darkMode: PropTypes.bool.isRequired,
+  toggleMode: PropTypes.func.isRequired,
+};
 
 export default Navbar;

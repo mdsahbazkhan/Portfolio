@@ -74,18 +74,24 @@ function Home() {
           </span>
         </h1>
 
-        <p className="text-md sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed">
+        <p className="text-md sm:text-lg md:text-xl lg:text-2xl text-gray-200 dark:text-gray-400 leading-relaxed">
           Frontend Developer from Hyderabad, India. Skilled in React, Next.js,
           Tailwind & MUI. Currently learning DSA & problem solving. 🚀
         </p>
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-4">
-          <div className=" bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 py-3 px-6 rounded-2xl text-white font-bold shadow-lg hover:scale-105 transform transition">
-            <AnchorLink offset={50} href="#Contact">
-              Connect With Me
-            </AnchorLink>
-          </div>
+          <AnchorLink
+            offset={50}
+            href="#Contact"
+            className={`inline-block px-6 py-3 rounded-2xl font-bold shadow-lg transition-transform duration-300 transform
+    bg-purple-600 text-white hover:bg-purple-500 hover:scale-105
+    focus:outline-none focus:ring-2 focus:ring-purple-400
+    dark:bg-purple-800 dark:hover:bg-purple-700
+  `}
+          >
+            Connect With Me
+          </AnchorLink>
 
           <button
             onClick={handleDownload}

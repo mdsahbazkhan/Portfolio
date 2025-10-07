@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import mail_icon from "../../assets/mail_icon.svg";
 import call_icon from "../../assets/call_icon.svg";
 import location_icon from "../../assets/location_icon.svg";
-
 export default function Contact() {
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -52,28 +51,39 @@ export default function Contact() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-800 dark:from-purple-500 to-pink-500 text-transparent bg-clip-text">
             Let's Talk
           </h2>
-          <p className="text-gray-300 text-lg">
+          <p className="text-gray-100 text-lg">
             I'm open to work on exciting projects! Feel free to reach out
             anytime, I will respond as soon as possible.
           </p>
 
           {/* Contact Cards */}
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-4 bg-gray-900 bg-opacity-50 backdrop-blur-md p-3 rounded-xl hover:scale-105 transition-transform cursor-pointer">
+            <a
+              className="flex items-center gap-4 bg-gray-900 bg-opacity-50 backdrop-blur-md p-3 rounded-xl hover:scale-105 transition-transform cursor-pointer"
+              href="mailto:amdsahbaz19@gmail.com?subject=Hello%20Sahbaz&body=Hi%20Sahbaz,%20I%20would%20like%20to%20get%20in%20touch%20regarding..."
+            >
               <img src={mail_icon} alt="Email" className="w-5 h-5" />
               <p>amdsahbaz19@gmail.com</p>
-            </div>
-            <div className="flex items-center gap-4 bg-gray-900 bg-opacity-50 backdrop-blur-md p-3 rounded-xl hover:scale-105 transition-transform cursor-pointer">
+            </a>
+            <a
+              href="tel:+916207785264"
+              className="flex items-center gap-4 bg-gray-900 bg-opacity-50 backdrop-blur-md p-3 rounded-xl hover:scale-105 transition-transform cursor-pointer"
+            >
               <img src={call_icon} alt="Phone" className="w-5 h-5" />
               <p>+91-6207785264</p>
-            </div>
-            <div className="flex items-center gap-4 bg-gray-900 bg-opacity-50 backdrop-blur-md p-3 rounded-xl hover:scale-105 transition-transform cursor-pointer">
+            </a>
+            <a
+              href="https://www.google.com/maps?q=17.451769350940094,78.40719182064657"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 bg-gray-900 bg-opacity-50 backdrop-blur-md p-3 rounded-xl hover:scale-105 transition-transform cursor-pointer"
+            >
               <img src={location_icon} alt="Location" className="w-5 h-5" />
-              <p>Hyderabad-18, India</p>
-            </div>
+              <p>Hyderabad-18, Telangana, India</p>
+            </a>
           </div>
         </motion.div>
 
@@ -94,20 +104,39 @@ export default function Contact() {
           <input
             type="email"
             name="email"
-            placeholder="Your Email"
+            placeholder="your.email@example.com"
             className="p-3 rounded-xl bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
           <textarea
             name="message"
             rows="5"
-            placeholder="Your Message"
+            placeholder="Your Message Here...."
             className="p-3 rounded-xl bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           ></textarea>
           <button
             type="submit"
-            className="mt-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 py-2 rounded-xl text-white font-bold shadow-lg hover:scale-105 transform transition"
+            className="inline-flex  justify-center items-center px-6 py-3 mt-3 rounded-xl font-bold shadow-lg
+             bg-purple-600 text-white hover:bg-purple-500  transform
+             focus:outline-none focus:ring-2 focus:ring-purple-400
+             dark:bg-purple-800 dark:hover:bg-purple-700
+             transition duration-300"
           >
             Send Message
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="ml-2"
+            >
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
           </button>
         </motion.form>
       </div>
