@@ -48,7 +48,7 @@ function Home() {
   // ----- Resume Download -----
   const handleDownload = () => {
     const url =
-      "https://www.dropbox.com/scl/fi/kkyulnpdocjb8iheisysl/Resume_MD_Sahbaz_Alam.pdf?rlkey=fh6pxevuf31inzxfycxcalw18&st=tiqff05n&dl=0";
+      "https://www.dropbox.com/scl/fi/m7ylxnt8d880q0rmwpyd3/Sahbaz_Resume-2025.pdf?rlkey=49tj7tpblje83rllarwn3nzuc&st=vkcmx3ws&dl=0";
     const anchor = document.createElement("a");
     anchor.href = url;
     anchor.download = "resume.pdf";
