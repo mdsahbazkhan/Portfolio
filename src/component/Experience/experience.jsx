@@ -7,7 +7,7 @@ export default function ExperienceTimeline() {
       role: "Frontend Developer Intern",
       company: "Kognito Kube Private Limited",
       companyLink: "https://kognitokube.com/",
-      duration: "April 2025 – May 2025",
+      duration: "April 2025 – June 2025",
       techStack: ["Next.js", "Redux", "Tailwind CSS", "Git", "GitHub"],
       description: [
         "Developed responsive web pages using React.js and Tailwind CSS.",
