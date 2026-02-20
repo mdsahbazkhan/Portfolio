@@ -4,10 +4,8 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import menu_open from "../../assets/menu_open.svg";
 import menu_close from "../../assets/menu_close.svg";
 import "./Navbar.css";
-import ModeButton from "../modeButton";
-import PropTypes from "prop-types";
 
-function Navbar({ darkMode, toggleMode }) {
+function Navbar() {
   const menuRef = useRef();
   const [activeSection, setActiveSection] = useState("Home");
 
@@ -17,6 +15,7 @@ function Navbar({ darkMode, toggleMode }) {
   const navItems = [
     { id: "Home", label: "Home", href: "#Home" },
     { id: "About", label: "About", href: "#About" },
+    { id: "Services", label: "Services", href: "#Services" },
     { id: "Skills", label: "Skills", href: "#Skills" },
     { id: "Experiences", label: "Experiences", href: "#Experiences" },
     { id: "Projects", label: "Projects", href: "#Projects" },
@@ -44,61 +43,59 @@ function Navbar({ darkMode, toggleMode }) {
   }, []);
 
   return (
-    <div className="navbar fixed  left-0 right-0 flex items-center justify-between border border-white border-opacity-10 rounded-lg py-3 px-3 lg:max-w-screen-md mx-auto bg-opacity-5 shadow-md backdrop-blur-lg text-white z-50">
+    <div className="navbar fixed left-0 right-0 flex items-center justify-between max-w-5xl mx-auto py-2 px-4 md:px-6 rounded-2xl mt-4 bg-gray-900/80 backdrop-blur-xl border border-purple-500/20 shadow-lg z-50">
       <div className="flex items-center gap-14">
-        <span className="text-2xl font-bold text-purple-800 dark:text-purple-500 hover:scale-105 transition">
+        <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hover:scale-105 transition-transform cursor-pointer">
           Sahbaz Alam
         </span>
       </div>
 
-      {/* Desktop ModeButton */}
-
-      <img src={menu_open} onClick={openMenu} alt="" className="nav-mob-open" />
+      <img
+        src={menu_open}
+        onClick={openMenu}
+        alt=""
+        className="nav-mob-open cursor-pointer hover:scale-110 transition-transform invert"
+      />
 
       <ul
         ref={menuRef}
-        className="nav-menu items-center list-none gap-4 font-semibold flex flex-col md:flex-row"
+        className="nav-menu items-center list-none gap-2 md:gap-4 font-semibold flex flex-col md:flex-row bg-gray-900/95 backdrop-blur-xl p-6 md:p-0 rounded-2xl md:rounded-none"
       >
-        <div className="flex w-full justify-between items-center md:hidden">
+        <div className="flex w-full justify-between items-center md:hidden mb-4">
+          <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Sahbaz Alam
+          </span>
           <img
             src={menu_close}
             onClick={closeMenu}
             alt=""
-            className="nav-mob-close"
+            className="nav-mob-close cursor-pointer hover:scale-110 transition-transform invert"
           />
-          <ModeButton darkMode={darkMode} toggleMode={toggleMode} />
         </div>
 
         {navItems.map((item) => (
           <li key={item.id}>
             <AnchorLink
-              className={`anchor-link bg-transparent relative transition duration-300 hover:scale-105 hover:text-purple-500 ${
+              className={`anchor-link bg-transparent relative px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 ${
                 activeSection === item.id
-                  ? "text-purple-400 scale-110"
-                  : "text-white"
+                  ? "text-purple-400"
+                  : "text-gray-300 hover:text-purple-400"
               }`}
               href={item.href}
               offset={50}
             >
               {item.label}
               <span
-                className={`absolute left-0 bottom-0 h-[2px] bg-purple-400 transition-all duration-300 ${
+                className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 ${
                   activeSection === item.id ? "w-full" : "w-0"
                 }`}
               />
             </AnchorLink>
           </li>
         ))}
-        <div className="hidden md:block">
-          <ModeButton darkMode={darkMode} toggleMode={toggleMode} />
-        </div>
       </ul>
     </div>
   );
 }
-Navbar.propTypes = {
-  darkMode: PropTypes.bool.isRequired,
-  toggleMode: PropTypes.func.isRequired,
-};
 
 export default Navbar;
