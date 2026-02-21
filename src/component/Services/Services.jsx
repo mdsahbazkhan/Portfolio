@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 import { FaCode, FaMobileAlt, FaShopify, FaPalette } from "react-icons/fa";
-import { SiTailwindcss, SiNextdotjs } from "react-icons/si";
 
 const services = [
   {
@@ -23,7 +22,7 @@ const services = [
       "Mobile-first websites that look great on all devices. Pixel-perfect UI with smooth user experience.",
     features: [
       "Mobile-First Approach",
-      "Cross-Browser Compatible",
+      "Cross-Browser Compatible", 
       "Fast Loading Speed",
       "Interactive Animations",
     ],
