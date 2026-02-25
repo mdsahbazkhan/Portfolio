@@ -15,7 +15,7 @@ function Navbar() {
   const navItems = [
     { id: "Home", label: "Home", href: "#Home" },
     { id: "About", label: "About", href: "#About" },
-    { id: "Services", label: "Services", href: "#Services" },
+    // { id: "Services", label: "Services", href: "#Services" },
     { id: "Skills", label: "Skills", href: "#Skills" },
     { id: "Experiences", label: "Experiences", href: "#Experiences" },
     { id: "Projects", label: "Projects", href: "#Projects" },
@@ -43,7 +43,7 @@ function Navbar() {
   }, []);
 
   return (
-    <div className="navbar fixed left-0 right-0 flex items-center justify-between max-w-5xl mx-auto py-2 px-4 md:px-6 rounded-2xl mt-4 bg-gray-900/80 backdrop-blur-xl border border-purple-500/20 shadow-lg z-50">
+    <div className="navbar fixed left-0 right-0 flex items-center justify-between max-w-full md:max-w-5xl mx-auto py-2 px-4 md:px-6 rounded-2xl mt-2 bg-gray-900/80 backdrop-blur-xl border border-purple-500/20 shadow-lg z-50">
       <div className="flex items-center gap-14">
         <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hover:scale-105 transition-transform cursor-pointer">
           Sahbaz Alam

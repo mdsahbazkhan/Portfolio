@@ -64,8 +64,12 @@ body.light-mode .nav-menu {
 }
 
 @media (max-width: 768px) {
+  /* Show navbar on mobile but styled differently */
   .navbar {
-    display: none;
+    display: flex;
+    max-width: 100%;
+    border-radius: 1rem;
+    margin: 0.5rem;
   }
 
   .nav-connect {
