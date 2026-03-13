@@ -7,10 +7,10 @@ import { FaGithub, FaLinkedin, FaCode } from "react-icons/fa";
 function Home() {
   // ----- Typing Effect -----
   const texts = [
-    "I'm Sahbaz Alam",
-    "Frontend Developer",
-    "React & Next.js Enthusiast",
-    "Learning DSA & Problem Solving",
+    "I'm Md Sahbaz Alam",
+    "MERN Stack Developer",
+    "React & Node.js Developer",
+    "Building Scalable Web Applications",
   ];
 
   const [displayText, setDisplayText] = useState("");
@@ -82,7 +82,9 @@ function Home() {
           className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-500/30"
         >
           <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-          <span className="text-sm text-purple-300">Available for work</span>
+          <span className="text-sm text-purple-300">
+            Open to Frontend & MERN Opportunities
+          </span>
         </motion.div>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-snug">
@@ -92,8 +94,10 @@ function Home() {
         </h1>
 
         <p className="text-md sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
-          Frontend Developer from Hyderabad, India. Skilled in React, Next.js,
-          Tailwind & MUI. Currently learning DSA & problem solving. 🚀
+          MERN Stack Developer from Hyderabad, India. Skilled in React, Next.js,
+          Node.js, MongoDB, Tailwind CSS, and Material UI. Passionate about
+          building modern, scalable, and user-friendly web applications while
+          continuously improving problem-solving skills.
         </p>
 
         {/* Buttons */}

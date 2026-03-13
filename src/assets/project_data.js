@@ -1,11 +1,14 @@
 // project_data.js
-import project1 from "../assets/project1.png";
+import project1 from "../assets/Project1.png";
+import project2 from "../assets/project2.png";
+import project3 from "../assets/project3.png";
+import project4 from "../assets/project4.png";
 
 const project_data = [
   {
     p_no: 1,
     p_img: project1,
-    p_href: "https://kognitokube.com/",
+    p_href: "https://manageprod.teachopia.org/",
     p_github: "#",
     p_name: "Kognito Kube - Internship Project",
     p_desc:
@@ -22,7 +25,45 @@ const project_data = [
   },
   {
     p_no: 2,
-    p_img: project1,
+    p_img: project2,
+    p_href: "https://bazario-frontend-one.vercel.app/",
+    p_github: "https://github.com/mdsahbazkhan/ecommerce-web",
+    p_name: "Bazario - E-Commerce Platform",
+    p_desc:
+      "Bazario is a full-stack e-commerce web application designed to provide a smooth and secure online shopping experience. The platform allows users to browse products, manage their cart, make secure payments, and track orders.",
+    tech: "React.js, Node.js, Express, MongoDB, Tailwind CSS, Git, GitHub",
+    features: [
+      "User authentication using JWT and Google OAuth",
+      "Product browsing with category filters and size variants",
+      "Real-time shopping cart management",
+      "Secure online payments with Stripe and Razorpay",
+      "Image upload and optimization using Cloudinary",
+      "Order history and tracking for users",
+      "Fully responsive UI with mobile-first design",
+    ],
+  },
+  {
+    p_no: 3,
+    p_img: project4,
+    p_href: "https://bazario-admin-seven.vercel.app/",
+    p_github: "https://github.com/mdsahbazkhan/ecommerce-web/tree/main/admin",
+    p_name: "Bazario Admin Portal",
+    p_desc:
+      "A comprehensive admin dashboard for managing the Bazario e-commerce platform. Allows administrators to manage products, orders, users, and analytics with a modern, intuitive interface.",
+    tech: "React.js, Node.js, Express, MongoDB, Tailwind CSS, Chart.js, Recharts",
+    features: [
+      "Dashboard with sales analytics and revenue charts",
+      "Product management - add, edit, delete products",
+      "Order management - view and update order status",
+      "User management - view and manage customer accounts",
+      "Category and inventory management",
+      "Revenue and sales reports",
+      "Responsive design for all devices",
+    ],
+  },
+  {
+    p_no: 4,
+    p_img: project3,
     p_href: "https://www.dropfixcontractor.in/",
     p_github: "#",
     p_name: "HA Plumber and Contractor",
@@ -37,28 +78,6 @@ const project_data = [
       "Service Showcase: Detailed service pages with transparent pricing",
       "Portfolio Gallery: Before/after project showcase",
       "Admin Panel: Response to enquiries, manage portfolio items",
-      "Lead Generation: Contact forms and call-to-action buttons",
-      "24/7 Emergency Services: Contact options",
-    ],
-  },
-  {
-    p_no: 3,
-    p_img: project1,
-    p_href: "https://bazario-frontend-one.vercel.app/",
-    p_github: "https://github.com/mdsahbazkhan/ecommerce-web",
-    p_name: "Bazario - E-Commerce Platform",
-    p_desc:
-      "Bazario is a full-stack e-commerce web application designed to provide a smooth and secure online shopping experience. The platform allows users to browse products, manage their cart, make secure payments, and track orders, while also providing an admin panel for product management.",
-    tech: "React.js, Node.js, Express, MongoDB, Tailwind CSS, Git, GitHub",
-    features: [
-      "User authentication using JWT and Google OAuth",
-      "Product browsing with category filters and size variants",
-      "Real-time shopping cart management",
-      "Secure online payments with Stripe and Razorpay",
-      "Image upload and optimization using Cloudinary",
-      "Order history and tracking for users",
-      "Admin dashboard to add, update, and delete products",
-      "Fully responsive UI with mobile-first design",
     ],
   },
 ];

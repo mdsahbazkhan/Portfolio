@@ -30,7 +30,7 @@ export default function ExperienceTimeline() {
   return (
     <section
       id="Experiences"
-      className="py-20 px-6 md:px-16 lg:px-24 text-white transition-colors duration-500 relative"
+      className="py-16 px-4 sm:px-6 text-white transition-colors duration-500"
     >
       {/* Background decoration */}
       <div className="absolute top-40 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
@@ -38,7 +38,7 @@ export default function ExperienceTimeline() {
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Heading */}
         <motion.h2
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-12 text-purple-400 text-center md:text-left"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-purple-400 text-center"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -46,80 +46,60 @@ export default function ExperienceTimeline() {
           Experience
         </motion.h2>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-8 md:left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-pink-500 to-purple-500" />
-
+        {/* Experience Cards */}
+        <div className="space-y-6">
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              className="mb-10 pl-16 md:pl-12 relative"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="bg-gray-800/50 backdrop-blur-sm p-5 sm:p-6 rounded-2xl border border-gray-700 shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
             >
-              {/* Timeline Circle with glow */}
-              <div className="absolute left-5 md:left-[-9px] top-0 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg shadow-purple-500/50 z-10" />
-
-              {/* Content Card */}
-              <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-700 shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02]">
-                <h3 className="text-2xl font-semibold text-purple-300 mb-2">
+              {/* Header */}
+              <div className="mb-4">
+                <h3 className="text-xl sm:text-2xl font-semibold text-purple-300 mb-1">
                   {exp.role}
                 </h3>
-                <p className="text-lg text-gray-400 mb-3">
+                <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base text-gray-400">
                   <a
                     href={exp.companyLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-purple-400 underline transition-colors inline-flex items-center gap-1"
+                    className="hover:text-purple-400 underline transition-colors"
                   >
                     {exp.company}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>{" "}
-                  <span className="text-gray-500">•</span>{" "}
+                  </a>
+                  <span className="text-gray-600">•</span>
                   <span className="text-purple-400">{exp.duration}</span>
-                </p>
-                <p className="text-gray-300 mb-4">
-                  <span className="font-semibold text-purple-300">
-                    Tech Stack:
-                  </span>{" "}
-                  <span className="inline-flex flex-wrap gap-2 mt-2">
-                    {exp.techStack.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 text-sm bg-purple-900/30 text-purple-300 rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </span>
-                </p>
-                <ul className="list-none space-y-2">
-                  {exp.description.map((point, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2 text-gray-300"
-                    >
-                      <span className="text-purple-400 mt-1.5">▹</span>
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+                </div>
               </div>
+
+              {/* Tech Stack - Compact */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {exp.techStack.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="px-2.5 py-1 text-xs bg-purple-900/30 text-purple-300 rounded-full"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Description - Compact List */}
+              <ul className="list-none space-y-1.5">
+                {exp.description.map((point, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-gray-300 text-sm"
+                  >
+                    <span className="text-purple-400 mt-0.5">▹</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           ))}
         </div>

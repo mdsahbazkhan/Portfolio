@@ -22,7 +22,6 @@ export default function About() {
           >
             About Me
           </motion.h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" />
         </motion.div>
 
         {/* Cards container */}
@@ -45,12 +44,17 @@ export default function About() {
             , a{" "}
             <span className="text-purple-300">Computer Science student</span>{" "}
             and passionate{" "}
-            <span className="text-purple-300">Frontend Developer</span>. I enjoy
-            building clean, responsive, and user-friendly web applications using{" "}
+            <span className="text-purple-300">MERN Stack Developer</span>. I
+            enjoy building modern, responsive, and scalable web applications
+            using{" "}
             <span className="text-purple-300">
-              JavaScript, Next.js, React.js, TypeScript, Tailwind CSS
+              JavaScript, React.js, Next.js, Node.js, MongoDB, TypeScript
             </span>
-            , and <span className="text-purple-300">Material UI</span>.
+            , along with{" "}
+            <span className="text-purple-300">
+              Tailwind CSS and Material UI
+            </span>
+            .
           </motion.p>
 
           <motion.p
@@ -62,11 +66,12 @@ export default function About() {
             I have completed an{" "}
             <span className="text-purple-300">
               internship as a Frontend Developer
-            </span>
-            , where I gained hands-on experience working on real projects and
-            improving my problem-solving skills. Along with that, I've built
-            multiple practice projects to strengthen my fundamentals and sharpen
-            my frontend development skills.
+            </span>{" "}
+            where I worked on real-world projects and improved my
+            problem-solving and development workflow. I have also built multiple
+            projects including full-stack applications to strengthen my
+            understanding of modern web development and scalable application
+            architecture.
           </motion.p>
 
           <motion.p
@@ -75,9 +80,11 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            Currently, I'm focused on enhancing my skills and looking for new
-            opportunities where I can contribute, learn, and grow as a
-            developer.
+           Currently, I’m focused on improving my full-stack development skills and
+building advanced projects using the MERN stack. I’m actively looking
+for opportunities where I can contribute to real products, collaborate
+with experienced developers, and continue growing as a software
+developer.
           </motion.p>
         </motion.div>
       </div>
