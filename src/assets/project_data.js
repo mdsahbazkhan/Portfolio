@@ -3,6 +3,7 @@ import project1 from "../assets/Project1.png";
 import project2 from "../assets/project2.png";
 import project3 from "../assets/project3.png";
 import project4 from "../assets/project4.png";
+import project5 from "../assets/project5.png";
 
 const project_data = [
   {
@@ -25,6 +26,28 @@ const project_data = [
   },
   {
     p_no: 2,
+    p_img: project5,
+    p_href: "https://collab-tasky.vercel.app/",
+    p_github: "https://github.com/mdsahbazkhan/CollabTasky",
+    p_name: "CollabTasky",
+    p_desc:
+      "CollabTasky is a full-stack SaaS project management and collaboration platform inspired by tools like Notion, Slack, and Trello. It enables teams to manage projects, assign tasks, collaborate in real-time, and improve productivity using AI-powered features.",
+    tech: "Next.js (App Router), TypeScript, Node.js, Express.js, MongoDB, Tailwind CSS, shadcn UI, JWT, Socket.IO, OpenAI API",
+    features: [
+      "User authentication with JWT and protected routes",
+      "Role-Based Access Control (Owner, Admin, Member)",
+      "Project creation, update, and deletion",
+      "Kanban board with drag-and-drop task management",
+      "Task assignment with priority and status tracking",
+      "Project-based team collaboration system",
+      "Real-time team chat using Socket.IO",
+      "AI-powered task suggestions and description generation",
+      "Optimistic UI updates for seamless user experience",
+      "Responsive and modern UI design",
+    ],
+  },
+  {
+    p_no: 3,
     p_img: project2,
     p_href: "https://bazario-frontend-one.vercel.app/",
     p_github: "https://github.com/mdsahbazkhan/ecommerce-web",
@@ -43,7 +66,7 @@ const project_data = [
     ],
   },
   {
-    p_no: 3,
+    p_no: 4,
     p_img: project4,
     p_href: "https://bazario-admin-seven.vercel.app/",
     p_github: "https://github.com/mdsahbazkhan/ecommerce-web/tree/main/admin",
@@ -62,7 +85,7 @@ const project_data = [
     ],
   },
   {
-    p_no: 4,
+    p_no: 5,
     p_img: project3,
     p_href: "https://www.dropfixcontractor.in/",
     p_github: "#",

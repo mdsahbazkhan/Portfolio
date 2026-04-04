@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -8,6 +9,9 @@ import {
   FaGithub,
   FaNodeJs,
   FaBootstrap,
+  FaPython,
+  FaHtml5,
+  FaCss3Alt,
 } from "react-icons/fa";
 import {
   SiTailwindcss,
@@ -16,6 +20,16 @@ import {
   SiTypescript,
   SiMysql,
   SiExpress,
+  SiRedux,
+  SiVite,
+  SiPostman,
+  SiFramer,
+  SiFastapi,
+  SiJsonwebtokens,
+  SiVercel,
+  SiRender,
+  SiNetlify,
+  SiOpenai,
 } from "react-icons/si";
 import { MdCode } from "react-icons/md";
 
@@ -25,9 +39,11 @@ const skillCategories = [
     id: "frontend",
     title: "Frontend",
     skills: [
+      { name: "HTML", icon: <FaHtml5 className="text-orange-500" /> },
+      { name: "CSS", icon: <FaCss3Alt className="text-blue-500" /> },
       { name: "JavaScript", icon: <FaJs className="text-yellow-500" /> },
-      { name: "React", icon: <FaReact className="text-cyan-400" /> },
       { name: "TypeScript", icon: <SiTypescript className="text-blue-600" /> },
+      { name: "React", icon: <FaReact className="text-cyan-400" /> },
       { name: "Next.js", icon: <SiNextdotjs className="text-white" /> },
       {
         name: "Tailwind CSS",
@@ -35,6 +51,8 @@ const skillCategories = [
       },
       { name: "Bootstrap", icon: <FaBootstrap className="text-purple-600" /> },
       { name: "Material UI", icon: <MdCode className="text-blue-500" /> },
+      { name: "Redux Toolkit", icon: <SiRedux className="text-purple-500" /> },
+      { name: "Framer Motion", icon: <SiFramer className="text-purple-400" /> },
     ],
   },
   {
@@ -43,8 +61,28 @@ const skillCategories = [
     skills: [
       { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
       { name: "Express.js", icon: <SiExpress className="text-gray-300" /> },
+      { name: "FastAPI", icon: <SiFastapi className="text-green-400" /> },
+      { name: "REST API", icon: <MdCode className="text-blue-400" /> },
+      {
+        name: "JWT Authentication",
+        icon: <SiJsonwebtokens className="text-pink-400" />,
+      },
+    ],
+  },
+  {
+    id: "database",
+    title: "Database",
+    skills: [
       { name: "MongoDB", icon: <SiMongodb className="text-green-500" /> },
       { name: "MySQL", icon: <SiMysql className="text-blue-500" /> },
+    ],
+  },
+  {
+    id: "languages",
+    title: "Languages",
+    skills: [
+      { name: "JavaScript", icon: <FaJs className="text-yellow-500" /> },
+      { name: "Python", icon: <FaPython className="text-blue-400" /> },
     ],
   },
   {
@@ -53,6 +91,30 @@ const skillCategories = [
     skills: [
       { name: "Git", icon: <FaGitAlt className="text-orange-600" /> },
       { name: "GitHub", icon: <FaGithub className="text-white" /> },
+      { name: "Vite", icon: <SiVite className="text-yellow-400" /> },
+      { name: "Postman", icon: <SiPostman className="text-orange-500" /> },
+      { name: "VS Code", icon: <MdCode className="text-blue-500" /> },
+      { name: "Cloudinary", icon: <MdCode className="text-blue-300" /> },
+    ],
+  },
+  {
+    id: "ai",
+    title: "AI-Assisted Development",
+    skills: [
+      { name: "ChatGPT", icon: <SiOpenai className="text-green-400" /> },
+      { name: "VS Code", icon: <MdCode className="text-blue-500" /> },
+      { name: "Claude", icon: <SiJsonwebtokens className="text-orange-400" /> },
+      { name: "GitHub Copilot", icon: <FaGithub className="text-white" /> },
+      { name: "Amazon Q", icon: <span className="text-orange-400">Q</span> },
+    ],
+  },
+  {
+    id: "deployment",
+    title: "Deployment",
+    skills: [
+      { name: "Netlify", icon: <SiNetlify className="text-teal-400" /> },
+      { name: "Vercel", icon: <SiVercel className="text-white" /> },
+      { name: "Render", icon: <SiRender className="text-purple-400" /> },
     ],
   },
 ];
@@ -92,7 +154,7 @@ export default function Skills() {
         Skills
       </motion.h2>
 
-      {/* Tab Navigation */}
+      {/* Tabs */}
       <div className="flex flex-wrap justify-center gap-2 mb-8">
         {skillCategories.map((category) => (
           <button
@@ -109,7 +171,7 @@ export default function Skills() {
         ))}
       </div>
 
-      {/* Skills Grid - Shows only active category */}
+      {/* Skills */}
       <motion.div
         key={activeTab}
         initial={{ opacity: 0, y: 10 }}
@@ -135,7 +197,7 @@ export default function Skills() {
             >
               <div className="flex flex-col items-center justify-center">
                 <div className="text-2xl sm:text-3xl mb-1 sm:mb-2 transform group-hover:scale-110 transition">
-                  {skill.icon}
+                  {skill.icon || <MdCode />}
                 </div>
                 <p className="text-xs sm:text-sm font-semibold text-center group-hover:text-purple-300">
                   {skill.name}
