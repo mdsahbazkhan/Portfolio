@@ -32,6 +32,7 @@ import {
   SiOpenai,
 } from "react-icons/si";
 import { MdCode } from "react-icons/md";
+import { Bot, Layers } from "lucide-react";
 
 // Skill categories
 const skillCategories = [
@@ -53,6 +54,8 @@ const skillCategories = [
       { name: "Material UI", icon: <MdCode className="text-blue-500" /> },
       { name: "Redux Toolkit", icon: <SiRedux className="text-purple-500" /> },
       { name: "Framer Motion", icon: <SiFramer className="text-purple-400" /> },
+
+      { name: "shadcn/ui", icon: <Layers className="text-sky-400" /> },
     ],
   },
   {
@@ -102,10 +105,10 @@ const skillCategories = [
     title: "AI-Assisted Development",
     skills: [
       { name: "ChatGPT", icon: <SiOpenai className="text-green-400" /> },
-      { name: "VS Code", icon: <MdCode className="text-blue-500" /> },
       { name: "Claude", icon: <SiJsonwebtokens className="text-orange-400" /> },
       { name: "GitHub Copilot", icon: <FaGithub className="text-white" /> },
       { name: "Amazon Q", icon: <span className="text-orange-400">Q</span> },
+      { name: "KILO", icon: <Bot className="text-purple-400" /> },
     ],
   },
   {
