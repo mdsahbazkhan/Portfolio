@@ -48,7 +48,7 @@ function Home() {
   // ----- Resume Download -----
   const handleDownload = () => {
     const url =
-      "https://www.dropbox.com/scl/fi/64sxfasuroi1l6k18z2e6/Sahbaz_MERN_Developer_Fresher-2026.pdf?rlkey=xq3yczqucmsl9p8uohbvlmfvf&st=0nblzcrb&dl=0";
+      "https://www.dropbox.com/scl/fi/2lammcnssjp36buvzjplv/Sahbaz_MERN_Developer.pdf?rlkey=hvuyb4w9y3vcmpb5n1p2c1lu8&st=9110cy04&dl=0";
     const anchor = document.createElement("a");
     anchor.href = url;
     anchor.download = "resume.pdf";
