@@ -1,7 +1,6 @@
 // project_data.js
 import project1 from "../assets/Project1.png";
 import project2 from "../assets/project2.png";
-import project3 from "../assets/project3.png";
 import project4 from "../assets/project4.png";
 import project5 from "../assets/project5.png";
 
@@ -84,25 +83,7 @@ const project_data = [
       "Responsive design for all devices",
     ],
   },
-  {
-    p_no: 5,
-    p_img: project3,
-    p_href: "https://www.dropfixcontractor.in/",
-    p_github: "#",
-    p_name: "HA Plumber and Contractor",
-    p_desc:
-      "A professional Next.js website for plumbing, construction, painting, and ACP services business. Features include lead generation, portfolio showcase, and admin panel for managing enquiries and portfolio.",
-    tech: "Next.js 14, TypeScript, Tailwind CSS, Lucide React",
-    features: [
-      "SEO Optimized: Server-side rendering, meta tags, sitemap, robots.txt",
-      "Mobile-First Design: Responsive design with Tailwind CSS",
-      "Fast Performance: Optimized images and code splitting",
-      "Contact Forms: Enquiry form with WhatsApp and call integration",
-      "Service Showcase: Detailed service pages with transparent pricing",
-      "Portfolio Gallery: Before/after project showcase",
-      "Admin Panel: Response to enquiries, manage portfolio items",
-    ],
-  },
+
 ];
 
 export default project_data;
