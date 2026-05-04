@@ -143,7 +143,7 @@ function Home() {
             <FaGithub />
           </a>
           <a
-            href="https://www.linkedin.com/in/sahbaz-alam-a95680262/"
+            href="https://www.linkedin.com/in/md-sahbaz-alam-a95680262/"
             target="_blank"
             rel="noreferrer"
             className="p-3 bg-white/5 rounded-full hover:bg-purple-500/30 hover:scale-110 transition-all"
