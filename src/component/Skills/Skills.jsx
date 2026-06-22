@@ -19,6 +19,8 @@ import {
   SiMongodb,
   SiTypescript,
   SiMysql,
+  SiPostgresql,
+  SiRedis,
   SiExpress,
   SiRedux,
   SiVite,
@@ -30,9 +32,12 @@ import {
   SiRender,
   SiNetlify,
   SiOpenai,
+  SiDocker,
+  SiLangchain,
+  SiHuggingface,
 } from "react-icons/si";
 import { MdCode } from "react-icons/md";
-import { Bot, Layers } from "lucide-react";
+import { Bot, Layers, BrainCircuit, Database } from "lucide-react";
 
 // Skill categories
 const skillCategories = [
@@ -53,7 +58,7 @@ const skillCategories = [
       { name: "Bootstrap", icon: <FaBootstrap className="text-purple-600" /> },
       { name: "Material UI", icon: <MdCode className="text-blue-500" /> },
       { name: "Redux Toolkit", icon: <SiRedux className="text-purple-500" /> },
-      { name: "Framer Motion", icon: <SiFramer className="text-purple-400" /> },
+      { name: "Framer Motion", icon: <SiFramer className="text-cyan-400" /> },
 
       { name: "shadcn/ui", icon: <Layers className="text-sky-400" /> },
     ],
@@ -77,7 +82,9 @@ const skillCategories = [
     title: "Database",
     skills: [
       { name: "MongoDB", icon: <SiMongodb className="text-green-500" /> },
+      { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-400" /> },
       { name: "MySQL", icon: <SiMysql className="text-blue-500" /> },
+      { name: "Redis", icon: <SiRedis className="text-red-500" /> },
     ],
   },
   {
@@ -85,7 +92,25 @@ const skillCategories = [
     title: "Languages",
     skills: [
       { name: "JavaScript", icon: <FaJs className="text-yellow-500" /> },
+      { name: "TypeScript", icon: <SiTypescript className="text-blue-600" /> },
       { name: "Python", icon: <FaPython className="text-blue-400" /> },
+      { name: "Java", icon: <MdCode className="text-orange-500" /> },
+    ],
+  },
+  {
+    id: "ai",
+    title: "Generative AI",
+    skills: [
+      { name: "LangChain", icon: <SiLangchain className="text-green-400" /> },
+      { name: "RAG", icon: <BrainCircuit className="text-cyan-400" /> },
+      { name: "Vector DBs", icon: <Database className="text-blue-400" /> },
+      { name: "ChromaDB", icon: <MdCode className="text-cyan-300" /> },
+      { name: "HuggingFace", icon: <SiHuggingface className="text-yellow-400" /> },
+      { name: "LLM APIs", icon: <SiOpenai className="text-green-400" /> },
+      { name: "LangSmith", icon: <Bot className="text-orange-400" /> },
+      { name: "Embeddings", icon: <BrainCircuit className="text-pink-400" /> },
+      { name: "FastAPI", icon: <SiFastapi className="text-green-400" /> },
+      { name: "Streamlit", icon: <MdCode className="text-red-400" /> },
     ],
   },
   {
@@ -94,30 +119,19 @@ const skillCategories = [
     skills: [
       { name: "Git", icon: <FaGitAlt className="text-orange-600" /> },
       { name: "GitHub", icon: <FaGithub className="text-white" /> },
-      { name: "Vite", icon: <SiVite className="text-yellow-400" /> },
+      { name: "Docker", icon: <SiDocker className="text-blue-400" /> },
       { name: "Postman", icon: <SiPostman className="text-orange-500" /> },
       { name: "VS Code", icon: <MdCode className="text-blue-500" /> },
-      { name: "Cloudinary", icon: <MdCode className="text-blue-300" /> },
-    ],
-  },
-  {
-    id: "ai",
-    title: "AI-Assisted Development",
-    skills: [
-      { name: "ChatGPT", icon: <SiOpenai className="text-green-400" /> },
-      { name: "Claude", icon: <SiJsonwebtokens className="text-orange-400" /> },
-      { name: "GitHub Copilot", icon: <FaGithub className="text-white" /> },
-      { name: "Amazon Q", icon: <span className="text-orange-400">Q</span> },
-      { name: "KILO", icon: <Bot className="text-purple-400" /> },
+      { name: "Vite", icon: <SiVite className="text-yellow-400" /> },
     ],
   },
   {
     id: "deployment",
     title: "Deployment",
     skills: [
-      { name: "Netlify", icon: <SiNetlify className="text-teal-400" /> },
       { name: "Vercel", icon: <SiVercel className="text-white" /> },
-      { name: "Render", icon: <SiRender className="text-purple-400" /> },
+      { name: "Netlify", icon: <SiNetlify className="text-teal-400" /> },
+      { name: "Render", icon: <SiRender className="text-cyan-400" /> },
     ],
   },
 ];
@@ -148,7 +162,7 @@ export default function Skills() {
     >
       {/* Heading */}
       <motion.h2
-        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-purple-400"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-cyan-400"
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -165,8 +179,8 @@ export default function Skills() {
             onClick={() => setActiveTab(category.id)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
               activeTab === category.id
-                ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30"
-                : "bg-gray-800/50 text-gray-400 hover:bg-gray-700 hover:text-purple-300 border border-gray-700"
+                ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/30"
+                : "bg-gray-800/50 text-gray-400 hover:bg-gray-700 hover:text-cyan-300 border border-gray-700"
             }`}
           >
             {category.title}
@@ -193,16 +207,16 @@ export default function Skills() {
               key={i}
               variants={item}
               className="group relative bg-gray-800/50 rounded-xl p-3 sm:p-4 backdrop-blur-sm
-                         border border-purple-500/10 hover:border-purple-500/30
-                         hover:bg-gradient-to-br hover:from-purple-600/20 hover:to-pink-600/20
+                         border border-cyan-500/10 hover:border-cyan-500/30
+                         hover:bg-gradient-to-br hover:from-cyan-600/20 hover:to-blue-600/20
                          transition-all duration-300 hover:scale-105
-                         shadow-lg hover:shadow-purple-500/20 cursor-pointer"
+                         shadow-lg hover:shadow-cyan-500/20 cursor-pointer"
             >
               <div className="flex flex-col items-center justify-center">
                 <div className="text-2xl sm:text-3xl mb-1 sm:mb-2 transform group-hover:scale-110 transition">
                   {skill.icon || <MdCode />}
                 </div>
-                <p className="text-xs sm:text-sm font-semibold text-center group-hover:text-purple-300">
+                <p className="text-xs sm:text-sm font-semibold text-center group-hover:text-cyan-300">
                   {skill.name}
                 </p>
               </div>

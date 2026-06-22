@@ -37,12 +37,12 @@ export default function Contact() {
       className="py-20 px-4 md:px-16 lg:px-24 text-white relative"
     >
       {/* Background decoration */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
 
       {/* Heading */}
       <motion.h1
-        className="text-4xl sm:text-5xl md:text-6xl font-bold mb-12 text-purple-400 text-center"
+        className="text-4xl sm:text-5xl md:text-6xl font-bold mb-12 text-cyan-400 text-center"
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -58,7 +58,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 text-transparent bg-clip-text">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-sky-300 text-transparent bg-clip-text">
             Let's Talk
           </h2>
           <p className="text-gray-300 text-lg leading-relaxed">
@@ -69,10 +69,10 @@ export default function Contact() {
           {/* Contact Cards */}
           <div className="flex flex-col gap-4">
             <a
-              className="group flex items-center gap-4 bg-gray-800/50 backdrop-blur-md p-4 rounded-2xl hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 border border-gray-700"
+              className="group flex items-center gap-4 bg-gray-800/50 backdrop-blur-md p-4 rounded-2xl hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 border border-gray-700"
               href="mailto:amdsahbaz19@gmail.com?subject=Hello%20Sahbaz&body=Hi%20Sahbaz,%20I%20would%20like%20to%20get%20in%20touch%20regarding..."
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center">
                 <img
                   src={mail_icon}
                   alt="Email"
@@ -81,16 +81,16 @@ export default function Contact() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="font-semibold text-white group-hover:text-purple-400 transition-colors">
+                <p className="font-semibold text-white group-hover:text-cyan-400 transition-colors">
                   amdsahbaz19@gmail.com
                 </p>
               </div>
             </a>
             <a
               href="tel:+916207785264"
-              className="group flex items-center gap-4 bg-gray-800/50 backdrop-blur-md p-4 rounded-2xl hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 border border-gray-700"
+              className="group flex items-center gap-4 bg-gray-800/50 backdrop-blur-md p-4 rounded-2xl hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 border border-gray-700"
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center">
                 <img
                   src={call_icon}
                   alt="Phone"
@@ -99,7 +99,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Phone</p>
-                <p className="font-semibold text-white group-hover:text-purple-400 transition-colors">
+                <p className="font-semibold text-white group-hover:text-cyan-400 transition-colors">
                   +91-6207785264
                 </p>
               </div>
@@ -108,9 +108,9 @@ export default function Contact() {
               href="https://www.google.com/maps?q=17.451769350940094,78.40719182064657"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 bg-gray-800/50 backdrop-blur-md p-4 rounded-2xl hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 border border-gray-700"
+              className="group flex items-center gap-4 bg-gray-800/50 backdrop-blur-md p-4 rounded-2xl hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 border border-gray-700"
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center">
                 <img
                   src={location_icon}
                   alt="Location"
@@ -119,7 +119,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Location</p>
-                <p className="font-semibold text-white group-hover:text-purple-400 transition-colors">
+                <p className="font-semibold text-white group-hover:text-cyan-400 transition-colors">
                   Hyderabad-18, Telangana, India
                 </p>
               </div>
@@ -140,26 +140,26 @@ export default function Contact() {
             type="text"
             name="name"
             placeholder="Your Name"
-            className="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all"
+            className="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all"
           />
           <input
             type="email"
             name="email"
             placeholder="your.email@example.com"
-            className="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all"
+            className="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all"
           />
           <textarea
             name="message"
             rows="5"
             placeholder="Your Message Here...."
-            className="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all resize-none"
+            className="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all resize-none"
           ></textarea>
           <button
             type="submit"
             className="inline-flex justify-center items-center px-8 py-4 mt-3 rounded-xl font-bold shadow-lg
-             bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500
+             bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:from-cyan-500 hover:to-blue-500
              transform hover:scale-105 hover:-translate-y-1
-             focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-gray-800
+             focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-800
              transition-all duration-300"
           >
             Send Message

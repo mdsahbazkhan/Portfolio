@@ -18,11 +18,11 @@ export default function ExperienceTimeline() {
         "Tailwind CSS",
       ],
       description: [
-        "Worked as a Frontend Developer Intern, contributing to the development and enhancement of responsive web applications under the guidance of a senior developer with 12 years of industry experience.",
-        "Developed and maintained dynamic user interfaces using React.js and Next.js, ensuring optimal performance and user experience.",
-        "Collaborated closely with backend developers utilizing NestJS and Node.js to integrate APIs and improve frontend-backend communication.",
-        "Worked with databases including PostgreSQL and MongoDB, gaining hands-on experience in data handling and API consumption.",
-        "Assisted in debugging, testing, and optimizing application components while adhering to best coding practices and project standards.",
+        "Built 10+ reusable, responsive UI components with React.js and Next.js that shipped to production for the TeachoPia LMS platform.",
+        "Integrated 10+ REST API endpoints enabling dynamic, real-time data rendering across course management and student tracking modules.",
+        "Resolved UI performance bottlenecks and accessibility issues, improving page load experience and overall user satisfaction.",
+        "Collaborated with backend engineers using NestJS and Node.js to align on API contracts, reducing integration friction across feature releases.",
+        "Contributed to multiple feature releases using Git workflows (branching, PRs, code reviews) in a cross-functional agile team.",
       ],
     },
   ];
@@ -38,7 +38,7 @@ export default function ExperienceTimeline() {
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Heading */}
         <motion.h2
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-purple-400 text-center"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-cyan-400 text-center"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -55,11 +55,11 @@ export default function ExperienceTimeline() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-gray-800/50 backdrop-blur-sm p-5 sm:p-6 rounded-2xl border border-gray-700 shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
+              className="bg-gray-800/50 backdrop-blur-sm p-5 sm:p-6 rounded-2xl border border-gray-700 shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
             >
               {/* Header */}
               <div className="mb-4">
-                <h3 className="text-xl sm:text-2xl font-semibold text-purple-300 mb-1">
+                <h3 className="text-xl sm:text-2xl font-semibold text-cyan-300 mb-1">
                   {exp.role}
                 </h3>
                 <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base text-gray-400">
@@ -67,12 +67,12 @@ export default function ExperienceTimeline() {
                     href={exp.companyLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-purple-400 underline transition-colors"
+                    className="hover:text-cyan-400 underline transition-colors"
                   >
                     {exp.company}
                   </a>
                   <span className="text-gray-600">•</span>
-                  <span className="text-purple-400">{exp.duration}</span>
+                  <span className="text-cyan-400">{exp.duration}</span>
                 </div>
               </div>
 
@@ -81,7 +81,7 @@ export default function ExperienceTimeline() {
                 {exp.techStack.map((tech, i) => (
                   <span
                     key={i}
-                    className="px-2.5 py-1 text-xs bg-purple-900/30 text-purple-300 rounded-full"
+                    className="px-2.5 py-1 text-xs bg-cyan-900/30 text-cyan-300 rounded-full"
                   >
                     {tech}
                   </span>
@@ -95,7 +95,7 @@ export default function ExperienceTimeline() {
                     key={i}
                     className="flex items-start gap-2 text-gray-300 text-sm"
                   >
-                    <span className="text-purple-400 mt-0.5">▹</span>
+                    <span className="text-cyan-400 mt-0.5">▹</span>
                     <span>{point}</span>
                   </li>
                 ))}

@@ -14,7 +14,7 @@ function Projects() {
     <section className="py-12 px-6" id="Projects">
       <div className="max-w-6xl mx-auto text-center mb-12">
         <motion.h2
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-purple-400"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-cyan-400"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -32,7 +32,7 @@ function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: (project.p_no - 1) * 0.1, duration: 0.5 }}
             viewport={{ once: true }}
-            className="group bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:-translate-y-2 self-start"
+            className="group bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-300 hover:-translate-y-2 self-start"
           >
             {/* Project Image */}
             <div className="h-44 overflow-hidden">
@@ -45,7 +45,7 @@ function Projects() {
 
             {/* Project Content */}
             <div className="p-6 space-y-4">
-              <h3 className="text-xl font-bold text-gray-200 group-hover:text-purple-400 transition-colors">
+              <h3 className="text-xl font-bold text-gray-200 group-hover:text-cyan-400 transition-colors">
                 {project.p_name}
               </h3>
 
@@ -56,7 +56,7 @@ function Projects() {
               {/* Key Features Preview */}
               {project.features && project.features.length > 0 && (
                 <div className="space-y-2">
-                  <p className="text-xs text-purple-400 font-semibold">
+                  <p className="text-xs text-cyan-400 font-semibold">
                     Highlights:
                   </p>
                   <div className="flex flex-wrap gap-1">
@@ -80,7 +80,7 @@ function Projects() {
                     {project.features.length > 2 && (
                       <button
                         onClick={() => toggleExpand(project.p_no)}
-                        className="text-xs text-purple-400 hover:text-purple-300 bg-purple-900/30 px-2 py-1 rounded border border-purple-700/50 flex items-center gap-1 cursor-pointer"
+                        className="text-xs text-cyan-400 hover:text-cyan-300 bg-cyan-900/30 px-2 py-1 rounded border border-cyan-700/50 flex items-center gap-1 cursor-pointer"
                       >
                         {expandedId === project.p_no ? (
                           <>
@@ -97,7 +97,7 @@ function Projects() {
 
               {/* Tech Stack */}
               <div className="space-y-2">
-                <p className="text-xs text-purple-400 font-semibold">
+                <p className="text-xs text-cyan-400 font-semibold">
                   Tech Stack:
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -105,7 +105,7 @@ function Projects() {
                     ? project.tech.split(",").map((tech, i) => (
                         <span
                           key={i}
-                          className="px-3 py-1 text-xs bg-purple-900/30 text-purple-300 rounded-full border border-purple-700/50"
+                          className="px-3 py-1 text-xs bg-cyan-900/30 text-cyan-300 rounded-full border border-cyan-700/50"
                         >
                           {tech.trim()}
                         </span>
@@ -116,7 +116,7 @@ function Projects() {
                         .map((tech, i) => (
                           <span
                             key={i}
-                            className="px-3 py-1 text-xs bg-purple-900/30 text-purple-300 rounded-full border border-purple-700/50"
+                            className="px-3 py-1 text-xs bg-cyan-900/30 text-cyan-300 rounded-full border border-cyan-700/50"
                           >
                             {tech.trim()}
                           </span>
@@ -124,7 +124,7 @@ function Projects() {
                   {project.tech.split(",").length > 4 && (
                     <button
                       onClick={() => toggleExpand(project.p_no)}
-                      className="px-3 py-1 text-xs text-purple-400 hover:text-purple-300 bg-purple-900/30 rounded-full border border-purple-700/50 flex items-center gap-1 cursor-pointer"
+                      className="px-3 py-1 text-xs text-cyan-400 hover:text-cyan-300 bg-cyan-900/30 rounded-full border border-cyan-700/50 flex items-center gap-1 cursor-pointer"
                     >
                       {expandedId === project.p_no ? (
                         <>
@@ -145,7 +145,7 @@ function Projects() {
                     href={project.p_href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 px-4 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium rounded-xl hover:from-purple-500 hover:to-pink-500 transition-all transform hover:scale-105 shadow-lg hover:shadow-purple-500/30 flex items-center justify-center gap-2"
+                    className="flex-1 px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-cyan-500 hover:to-blue-500 transition-all transform hover:scale-105 shadow-lg hover:shadow-cyan-500/30 flex items-center justify-center gap-2"
                   >
                     <FaExternalLinkAlt />
                     Demo

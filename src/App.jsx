@@ -17,11 +17,11 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen transition-colors duration-500 bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 text-white">
+    <div className="min-h-screen transition-colors duration-500 bg-gradient-to-br from-gray-900 via-cyan-900/20 to-gray-900 text-white">
       {/* Animated background orbs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full blur-3xl opacity-30 animate-pulse bg-purple-600"></div>
-        <div className="absolute top-1/2 -right-40 w-80 h-80 rounded-full blur-3xl opacity-30 animate-pulse delay-700 bg-pink-600"></div>
+        <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full blur-3xl opacity-30 animate-pulse bg-cyan-500"></div>
+        <div className="absolute top-1/2 -right-40 w-80 h-80 rounded-full blur-3xl opacity-30 animate-pulse delay-700 bg-blue-500"></div>
         <div className="absolute -bottom-40 left-1/3 w-96 h-96 rounded-full blur-3xl opacity-30 animate-pulse delay-1000 bg-blue-600"></div>
       </div>
       <div className="relative z-10">
