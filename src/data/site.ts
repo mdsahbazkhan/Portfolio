@@ -16,5 +16,5 @@ export const siteConfig: SiteConfig = {
     "https://www.dropbox.com/scl/fi/cj46rrcrc9jzrhs2jmdu4/Sahbaz_Alam_FullStack_Developer.pdf?rlkey=6r2dos31jhtj304s45g328mjw&dl=1",
   ogImage: "/images/og.png",
   profileImage: "/images/sahbaz.png",
-  siteUrl: "https://sahbazalam.dev",
+  siteUrl: "https://mdsahbaz.vercel.app",
 };
