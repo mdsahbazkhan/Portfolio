@@ -13,6 +13,7 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,7 +25,9 @@ export function Navbar() {
           const top = section.getBoundingClientRect().top + window.scrollY;
           const bottom = top + section.offsetHeight;
           if (scrollPos >= top && scrollPos < bottom) {
-            setActiveSection((current) => current === item.id ? current : item.id);
+            setActiveSection((current) =>
+              current === item.id ? current : item.id,
+            );
           }
         }
       });
@@ -36,12 +39,36 @@ export function Navbar() {
 
   useEffect(() => {
     const handleClickOutside = (event: PointerEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
+      const target = event.target as Node;
+      if (
+        menuRef.current?.contains(target) ||
+        toggleRef.current?.contains(target)
+      )
+        return;
+      setIsOpen(false);
     };
     document.addEventListener("pointerdown", handleClickOutside);
-    return () => document.removeEventListener("pointerdown", handleClickOutside);
+    return () =>
+      document.removeEventListener("pointerdown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isOpen) {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  useEffect(() => {
+    const closeAtDesktop = () => {
+      if (window.innerWidth >= 1024) setIsOpen(false);
+    };
+    window.addEventListener("resize", closeAtDesktop, { passive: true });
+    return () => window.removeEventListener("resize", closeAtDesktop);
   }, []);
 
   useEffect(() => {
@@ -60,7 +87,9 @@ export function Navbar() {
     document.body.style.overflow = "";
     const element = document.getElementById(href.replace("#", ""));
     if (element) {
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
       element.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
     } else {
       window.location.assign(`/${href}`);
@@ -73,7 +102,7 @@ export function Navbar() {
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
           ? "bg-[#090b0d]/90 backdrop-blur-xl border-b border-white/10 shadow-lg"
-          : "bg-transparent"
+          : "bg-transparent",
       )}
     >
       <nav
@@ -98,16 +127,20 @@ export function Navbar() {
                   "relative inline-flex items-center gap-1.5 text-xs font-medium transition-colors duration-200 xl:text-sm",
                   activeSection === item.id
                     ? "text-teal-200"
-                    : "text-stone-300 hover:text-teal-100"
+                    : "text-stone-300 hover:text-teal-100",
                 )}
-                aria-current={activeSection === item.id ? "location" : undefined}
+                aria-current={
+                  activeSection === item.id ? "location" : undefined
+                }
               >
-                <span className="font-mono text-[9px] text-teal-100/50">{String(index).padStart(2, "0")}</span>
+                <span className="font-mono text-[9px] text-teal-100/50">
+                  {String(index).padStart(2, "0")}
+                </span>
                 {item.label}
                 <span
                   className={cn(
                     "absolute bottom-[-4px] left-1/2 -translate-x-1/2 h-px bg-teal-200 transition-all duration-300",
-                    activeSection === item.id ? "w-full" : "w-0"
+                    activeSection === item.id ? "w-full" : "w-0",
                   )}
                 />
               </button>
@@ -132,12 +165,19 @@ export function Navbar() {
               Resume
             </Link>
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              ref={toggleRef}
+              type="button"
+              onClick={() => setIsOpen((open) => !open)}
               className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -146,27 +186,59 @@ export function Navbar() {
           {isOpen && (
             <motion.div
               ref={menuRef}
+              id="mobile-menu"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="fixed inset-x-0 top-full z-40 lg:hidden overflow-hidden bg-[#090b0d]/95 backdrop-blur-xl border-t border-white/10"
+              className="fixed inset-x-0 top-16 z-40 lg:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain bg-[#090b0d]/95 backdrop-blur-xl border-t border-white/10"
             >
               <div className="py-6 px-4 space-y-4">
                 {navItems.map((item, index) => (
-                  <button
+                  <a
                     key={item.id}
-                    onClick={() => scrollToSection(item.href)}
+                    href={item.href}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      const target = document.getElementById(item.id);
+                      if (target) {
+                        const reduceMotion = window.matchMedia(
+                          "(prefers-reduced-motion: reduce)",
+                        ).matches;
+                        const top = Math.max(
+                          0,
+                          target.getBoundingClientRect().top +
+                            window.scrollY -
+                            64,
+                        );
+                        document.body.style.overflow = "";
+                        window.history.pushState(null, "", item.href);
+                        if (reduceMotion) {
+                          window.scrollTo({ top, behavior: "instant" });
+                        } else {
+                          window.setTimeout(
+                            () => window.scrollTo({ top, behavior: "smooth" }),
+                            320,
+                          );
+                        }
+                      }
+                      setIsOpen(false);
+                      document.body.style.overflow = "";
+                    }}
                     className={cn(
-                      "w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-colors",
+                      "block w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-colors",
                       activeSection === item.id
                         ? "text-teal-100 bg-teal-100/10"
-                        : "text-stone-300 hover:text-white hover:bg-white/5"
+                        : "text-stone-300 hover:text-white hover:bg-white/5",
                     )}
-                    aria-current={activeSection === item.id ? "location" : undefined}
+                    aria-current={
+                      activeSection === item.id ? "location" : undefined
+                    }
                   >
-                    <span className="mr-3 font-mono text-xs text-teal-100/50">{String(index).padStart(2, "0")}</span>
+                    <span className="mr-3 font-mono text-xs text-teal-100/50">
+                      {String(index).padStart(2, "0")}
+                    </span>
                     {item.label}
-                  </button>
+                  </a>
                 ))}
                 <Link
                   href={siteConfig.resume}
