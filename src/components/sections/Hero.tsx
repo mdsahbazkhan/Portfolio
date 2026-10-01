@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { SiLeetcode } from "react-icons/si";
 
 const TYPING_TEXTS = [
   "Full Stack Developer",
@@ -111,9 +112,21 @@ export function Hero() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
             >
-              <SocialLink href={siteConfig.github} label="GitHub" icon={<Github className="h-5 w-5" />} />
-              <SocialLink href={siteConfig.linkedin} label="LinkedIn" icon={<Linkedin className="h-5 w-5" />} />
-              <SocialLink href={siteConfig.leetcode} label="LeetCode" icon={<Code className="h-5 w-5" />} />
+              <SocialLink
+                href={siteConfig.github}
+                label="GitHub"
+                icon={<Github className="h-5 w-5" />}
+              />
+              <SocialLink
+                href={siteConfig.linkedin}
+                label="LinkedIn"
+                icon={<Linkedin className="h-5 w-5" />}
+              />
+              <SocialLink
+                href={siteConfig.leetcode}
+                label="LeetCode"
+                icon={<SiLeetcode className="h-5 w-5" />}
+              />
             </motion.div>
           </motion.div>
 
@@ -175,22 +188,25 @@ function TypingAnimation({ texts }: { texts: string[] }) {
     const DELETING_SPEED = 40;
     const PAUSE_DURATION = 2000;
 
-    const timer = setTimeout(() => {
-      const currentText = texts[textIndex];
+    const timer = setTimeout(
+      () => {
+        const currentText = texts[textIndex];
 
-      if (!isDeleting && charIndex < currentText.length) {
-        setDisplayedText(currentText.substring(0, charIndex + 1));
-        setCharIndex(charIndex + 1);
-      } else if (!isDeleting && charIndex === currentText.length) {
-        setTimeout(() => setIsDeleting(true), PAUSE_DURATION);
-      } else if (isDeleting && charIndex > 0) {
-        setDisplayedText(currentText.substring(0, charIndex - 1));
-        setCharIndex(charIndex - 1);
-      } else if (isDeleting && charIndex === 0) {
-        setIsDeleting(false);
-        setTextIndex((textIndex + 1) % texts.length);
-      }
-    }, isDeleting ? DELETING_SPEED : TYPING_SPEED);
+        if (!isDeleting && charIndex < currentText.length) {
+          setDisplayedText(currentText.substring(0, charIndex + 1));
+          setCharIndex(charIndex + 1);
+        } else if (!isDeleting && charIndex === currentText.length) {
+          setTimeout(() => setIsDeleting(true), PAUSE_DURATION);
+        } else if (isDeleting && charIndex > 0) {
+          setDisplayedText(currentText.substring(0, charIndex - 1));
+          setCharIndex(charIndex - 1);
+        } else if (isDeleting && charIndex === 0) {
+          setIsDeleting(false);
+          setTextIndex((textIndex + 1) % texts.length);
+        }
+      },
+      isDeleting ? DELETING_SPEED : TYPING_SPEED,
+    );
 
     return () => clearTimeout(timer);
   }, [charIndex, isDeleting, textIndex, texts]);
@@ -201,7 +217,7 @@ function TypingAnimation({ texts }: { texts: string[] }) {
       <span
         className={cn(
           "inline-block w-0.5 h-6 sm:h-7 bg-cyan-400 ml-1",
-          "animate-bounce"
+          "animate-bounce",
         )}
       />
     </span>

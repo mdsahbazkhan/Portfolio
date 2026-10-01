@@ -35,20 +35,32 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: PointerEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("pointerdown", handleClickOutside);
+    return () => document.removeEventListener("pointerdown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const scrollToSection = (href: string) => {
+    setIsOpen(false);
+    document.body.style.overflow = "";
     const element = document.getElementById(href.replace("#", ""));
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
     }
   };
 
@@ -133,7 +145,7 @@ export function Navbar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden overflow-hidden bg-gray-950/95 backdrop-blur-xl border-t border-gray-800"
+              className="fixed inset-x-0 top-full z-40 md:hidden overflow-hidden bg-gray-950/95 backdrop-blur-xl border-t border-gray-800"
             >
               <div className="py-6 px-4 space-y-4">
                 {navItems.map((item) => (

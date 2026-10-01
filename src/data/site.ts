@@ -13,7 +13,7 @@ export const siteConfig: SiteConfig = {
   linkedin: "https://www.linkedin.com/in/md-sahbaz-alam-a95680262/",
   leetcode: "https://leetcode.com/u/sahbaz23/",
   resume:
-    "https://www.dropbox.com/scl/fi/cj46rrcrc9jzrhs2jmdu4/Sahbaz_Alam_FullStack_Developer.pdf?rlkey=6r2dos31jhtj304s45g328mjw&dl=1",
+    "https://drive.google.com/file/d/1pYLplIqwe2oVKLeVsa-fzXEfe8lEyYGS/view?usp=sharing",
   ogImage: "/images/og.png",
   profileImage: "/images/sahbaz.png",
   siteUrl: "https://mdsahbaz.vercel.app",
