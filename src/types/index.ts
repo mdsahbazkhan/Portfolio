@@ -72,11 +72,12 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-  { id: "home", label: "Home", href: "#home" },
-  { id: "about", label: "About", href: "#about" },
-  { id: "skills", label: "Skills", href: "#skills" },
+  { id: "home", label: "Intro", href: "#home" },
+  { id: "about", label: "Developer", href: "#about" },
+  { id: "projects", label: "Built Systems", href: "#projects" },
+  { id: "engineering", label: "GenAI", href: "#engineering" },
+  { id: "systems", label: "System Design", href: "#systems" },
   { id: "experience", label: "Experience", href: "#experience" },
-  { id: "projects", label: "Projects", href: "#projects" },
-  { id: "engineering", label: "System Design", href: "#engineering" },
+  { id: "skills", label: "Toolkit", href: "#skills" },
   { id: "contact", label: "Contact", href: "#contact" },
 ];

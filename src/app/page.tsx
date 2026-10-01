@@ -8,19 +8,21 @@ import { AIEngineering } from "@/components/sections/AIEngineering";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 import { StructuredData } from "@/components/SEO/StructuredData";
+import { VisualEnvironment } from "@/components/sections/VisualEnvironment";
 
 export default function HomePage() {
   return (
     <>
       <StructuredData />
       <Navbar />
+      <VisualEnvironment />
       <main>
         <Hero />
         <About />
-        <Skills />
-        <Experience />
         <Projects />
         <AIEngineering />
+        <Experience />
+        <Skills />
         <Contact />
       </main>
       <Footer />

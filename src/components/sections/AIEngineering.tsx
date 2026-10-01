@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { aiEngineeringAreas, engineeringCaseStudies } from "@/data/ai-engineering";
 import { Container } from "@/components/ui/Container";
+import { ArchitectureNetwork, RetrievalNetwork } from "@/components/sections/TechnicalNetworks";
 
 function CaseStudyItem({
   item,
@@ -69,12 +70,12 @@ export function AIEngineering() {
   return (
     <section
       id="engineering"
-      className="relative py-16 sm:py-20 lg:py-24 bg-gray-900/30"
+      className="relative py-24 sm:py-32 bg-[#0d1011]/70"
       aria-labelledby="engineering-heading"
     >
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-1/4 w-96 h-96 bg-teal-100/[.04] rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-teal-900/[.06] rounded-full blur-3xl" />
       </div>
 
       <Container className="relative">
@@ -87,12 +88,12 @@ export function AIEngineering() {
           className="mb-20"
         >
           <div className="max-w-2xl mb-8">
-            <p className="text-sm font-mono text-cyan-400 uppercase tracking-wider">
-              Generative AI
+            <p className="eyebrow">
+              03 / Intelligent systems
             </p>
             <h2
               id="ai-engineering-heading"
-              className="mt-2 text-3xl font-bold tracking-tight text-white md:text-4xl"
+              className="mt-3 text-4xl font-semibold tracking-[-.04em] text-white md:text-5xl"
             >
               AI Engineering
             </h2>
@@ -102,18 +103,20 @@ export function AIEngineering() {
             </p>
           </div>
 
+          <RetrievalNetwork />
+
           <div className="grid gap-4 md:grid-cols-2">
             {aiEngineeringAreas.map((area, index) => (
               <motion.article
                 key={area.title}
-                className="bg-gray-800/30 border border-gray-700/50 rounded-xl p-6 transition-all duration-300 hover:border-cyan-500/30 hover:bg-gray-800/50"
+                className="border editorial-rule bg-white/[.018] p-6 transition-colors duration-300 hover:bg-white/[.035]"
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
               >
                 <h3 className="text-lg font-semibold text-white">{area.title}</h3>
-                <p className="mt-1 font-mono text-xs text-cyan-300">
+                <p className="mt-1 font-mono text-xs text-teal-100">
                   {area.subtitle}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-gray-400">
@@ -126,18 +129,20 @@ export function AIEngineering() {
 
         {/* Engineering & System Design Section */}
         <motion.div
+          id="systems"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1 }}
+          className="scroll-mt-24"
         >
           <div className="max-w-3xl mb-8">
-            <p className="text-sm font-mono text-cyan-400 uppercase tracking-wider">
-              Case studies
+            <p className="eyebrow">
+              04 / System design
             </p>
             <h2
               id="system-design-heading"
-              className="mt-2 text-3xl font-bold tracking-tight text-white md:text-4xl"
+              className="mt-3 text-4xl font-semibold tracking-[-.04em] text-white md:text-5xl"
             >
               Engineering & System Design
             </h2>
@@ -146,6 +151,8 @@ export function AIEngineering() {
               roles. Each one is a learning case study tied to shipped code.
             </p>
           </div>
+
+          <ArchitectureNetwork />
 
           <div className="bg-gray-800/30 border border-gray-700/50 rounded-2xl overflow-hidden">
             {engineeringCaseStudies.map((item, index) => (

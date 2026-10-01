@@ -23,15 +23,15 @@ type SharedVariant = "primary" | "secondary" | "outline" | "ghost";
 type SharedSize = "sm" | "md" | "lg";
 
 const baseStyles =
-  "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+  "inline-flex items-center justify-center font-medium rounded-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#090b0d] disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variantClasses: Record<SharedVariant, string> = {
   primary:
-    "bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:from-cyan-500 hover:to-blue-500 shadow-lg shadow-cyan-500/30 focus:ring-cyan-400",
+    "bg-teal-100 text-[#090b0d] hover:bg-white focus:ring-teal-100",
   secondary:
     "bg-gray-800 text-white border border-gray-700 hover:bg-gray-700 focus:ring-gray-500",
   outline:
-    "border-2 border-gray-600 text-gray-200 hover:border-cyan-500 hover:text-cyan-400 hover:bg-cyan-500/10 focus:ring-cyan-400",
+    "border border-white/20 text-gray-200 hover:border-teal-100 hover:text-teal-100 hover:bg-teal-100/5 focus:ring-teal-100",
   ghost:
     "text-gray-300 hover:text-white hover:bg-gray-800/50 focus:ring-gray-500",
 };

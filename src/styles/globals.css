@@ -6,18 +6,18 @@
 :root {
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
   --font-mono: 'Fira Code', 'Monaco', 'Consolas', monospace;
-  --background: #0f172a;
-  --foreground: #e2e8f0;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --border: #334159;
-  --ring: #06b2d1;
-  --primary: #06b2d1;
+  --background: #090b0d;
+  --foreground: #ecebe6;
+  --muted: #15191b;
+  --muted-foreground: #a0a5a3;
+  --border: #293033;
+  --ring: #8fd8c8;
+  --primary: #8fd8c8;
   --primary-foreground: #f8fafc;
-  --secondary: #1e293b;
-  --secondary-foreground: #e2e8f0;
-  --accent: #06b2d1;
-  --accent-foreground: #0f172a;
+  --secondary: #15191b;
+  --secondary-foreground: #ecebe6;
+  --accent: #8fd8c8;
+  --accent-foreground: #090b0d;
 }
 
   * {
@@ -41,7 +41,10 @@
     color: var(--foreground);
     font-family: var(--font-sans);
     overflow-x: clip;
+    background-image: radial-gradient(ellipse at 50% -20%, rgba(73, 119, 110, .13), transparent 55%);
   }
+
+  main, footer { position: relative; z-index: 1; }
 }
 
 @layer components {
@@ -63,7 +66,7 @@
 
 @layer utilities {
   .bg-gradient-text {
-    background: linear-gradient(90deg, #06b2d1, #3b82f6, #0ea5e9);
+    background: linear-gradient(90deg, #a7e2d4, #72b5a6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -78,4 +81,50 @@
     outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
+}
+
+@layer components {
+  .eyebrow { @apply font-mono text-xs uppercase tracking-[.24em] text-teal-200/80; }
+  .editorial-rule { border-color: rgba(188, 207, 201, .14); }
+  .atmosphere-grid {
+    background-image: linear-gradient(rgba(180, 213, 204, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(180, 213, 204, .045) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(to bottom, black, transparent 88%);
+  }
+  .grain-overlay::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .12;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+  }
+  .visual-environment {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .82;
+  }
+  .visual-environment[data-failed="true"] { display: none; }
+  .rag-network-lines path, .architecture-network-lines path {
+    fill: none; stroke: rgba(155, 214, 199, .28); stroke-width: 1.1; stroke-dasharray: 3 8;
+    animation: network-flow 18s linear infinite;
+  }
+  .rag-core, .architecture-core {
+    z-index: 2; display: flex; min-height: 9rem; width: 9rem; flex-direction: column;
+    align-items: center; justify-content: center; border: 1px solid rgba(155, 214, 199, .25);
+    border-radius: 9999px; background: radial-gradient(circle, rgba(28, 52, 46, .92), rgba(9, 11, 13, .82) 72%);
+    box-shadow: 0 0 70px rgba(84, 153, 133, .08), inset 0 0 34px rgba(84, 153, 133, .06);
+  }
+  .architecture-core { min-height: 8rem; width: 8rem; }
+  .rag-node, .architecture-node {
+    z-index: 3; width: 10.5rem; border-left: 1px solid rgba(155, 214, 199, .38);
+    padding: .55rem .7rem; background: linear-gradient(90deg, rgba(9, 11, 13, .88), rgba(9, 11, 13, .28));
+  }
+  .architecture-node { width: 8.5rem; }
+  @keyframes network-flow { to { stroke-dashoffset: -88; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  [style*="opacity"], [style*="transform"] { opacity: 1 !important; transform: none !important; }
+  .rag-network-lines path, .architecture-network-lines path { animation: none !important; }
+}
+
+@media (max-width: 639px) {
+  .rag-core, .architecture-core { min-height: auto; width: auto; align-items: flex-start; border: 0; border-radius: 0; background: transparent; box-shadow: none; padding: 0 0 1rem; }
+  .rag-node, .architecture-node { position: static; width: auto; min-height: 5.1rem; border: 1px solid rgba(188, 207, 201, .14); background: rgba(255, 255, 255, .018); padding: .7rem; }
 }

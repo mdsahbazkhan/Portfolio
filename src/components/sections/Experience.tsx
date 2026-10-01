@@ -9,16 +9,16 @@ export function Experience() {
   return (
     <section
       id="experience"
-      className="relative py-16 sm:py-20 lg:py-24"
+      className="relative flex min-h-[78svh] items-center py-24 sm:py-32"
       aria-labelledby="experience-heading"
     >
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-1/4 w-80 h-80 bg-teal-100/[.04] rounded-full blur-3xl" />
       </div>
 
       <Container className="relative">
         <motion.div
-          className="text-center mb-12"
+          className="mb-12 border-b editorial-rule pb-7"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -26,10 +26,13 @@ export function Experience() {
         >
           <h2
             id="experience-heading"
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4"
+            className="text-4xl sm:text-5xl font-semibold tracking-[-.05em] text-white mb-4"
           >
             Experience
           </h2>
+          <p className="eyebrow mb-2">
+            05 / The journey
+          </p>
           <p className="text-gray-400 max-w-2xl mx-auto">
             My professional journey and key contributions.
           </p>
@@ -39,7 +42,7 @@ export function Experience() {
           {experiences.map((exp, index) => (
             <motion.article
               key={exp.id}
-              className="group bg-gray-800/30 rounded-2xl border border-gray-700/50 p-6 sm:p-8 transition-all duration-300 hover:border-gray-600 hover:bg-gray-800/50"
+              className="group border editorial-rule bg-white/[.018] p-6 sm:p-8 transition-colors duration-300 hover:bg-white/[.035]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
@@ -47,7 +50,7 @@ export function Experience() {
             >
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-white group-hover:text-teal-100 transition-colors">
                     {exp.role}
                   </h3>
                   <div className="flex flex-wrap items-center gap-2 mt-1 text-gray-300">

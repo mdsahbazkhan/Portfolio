@@ -1,84 +1,47 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/projects";
-import { ProjectCard } from "@/components/projects/ProjectCard";
 import { Container } from "@/components/ui/Container";
 
 export function Projects() {
   return (
-    <section
-      id="projects"
-      className="relative py-16 sm:py-20 lg:py-24"
-      aria-labelledby="projects-heading"
-    >
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 left-1/3 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-      </div>
-
+    <section id="projects" className="relative py-24 sm:py-32" aria-labelledby="projects-heading">
       <Container className="relative">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2
-            id="projects-heading"
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4"
-          >
-            My Projects
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            A selection of projects I&apos;ve built, spanning full-stack web applications
-            and Generative AI systems.
-          </p>
-        </motion.div>
-
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <ProjectCard project={project} />
-            </motion.div>
-          ))}
+        <div className="mb-14 flex flex-col justify-between gap-6 border-b editorial-rule pb-8 sm:flex-row sm:items-end">
+          <div>
+            <p className="eyebrow mb-4">02 / Built systems</p>
+            <h2 id="projects-heading" className="text-4xl font-semibold tracking-[-.05em] text-white sm:text-6xl">Built to be useful.</h2>
+          </div>
+          <p className="max-w-sm text-sm leading-6 text-stone-400">A selection of projects spanning full-stack products and generative AI systems.</p>
         </div>
 
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <Link
-            href="/projects"
-            className="text-cyan-300 hover:text-cyan-400 font-medium text-lg transition-colors inline-flex items-center gap-2"
-          >
-            View all projects
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </Link>
-        </motion.div>
+        <div className="space-y-8">
+          {projects.map((project, index) => (
+            <motion.article key={project.id} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.55 }} className="group grid overflow-hidden border editorial-rule bg-white/[.018] lg:min-h-[70svh] lg:grid-cols-[1.15fr_.85fr]">
+              <Link href={`/projects/${project.slug}`} className="relative block min-h-64 overflow-hidden bg-[#111719] focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-200 lg:min-h-[70svh]">
+                <Image src={project.image} alt={`${project.title} screenshot`} fill sizes="(max-width: 1024px) 100vw, 58vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.025]" />
+                <span className="absolute left-5 top-5 font-mono text-xs tracking-widest text-white/75">{String(index + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
+                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+              </Link>
+              <div className="flex flex-col justify-center p-6 sm:p-9 lg:p-11">
+                <p className="eyebrow">{project.category}</p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-stone-100 sm:text-3xl">{project.title}</h3>
+                <p className="mt-4 text-sm leading-6 text-stone-400">{project.shortDescription}</p>
+                <div className="mt-6 flex flex-wrap gap-x-3 gap-y-2 border-t editorial-rule pt-5">
+                  {project.technologies.slice(0, 5).map((tech) => <span key={tech} className="font-mono text-[11px] text-stone-400">{tech}</span>)}
+                </div>
+                <Link href={`/projects/${project.slug}`} className="mt-7 inline-flex w-fit items-center gap-2 text-sm font-medium text-teal-100 transition-colors hover:text-white">
+                  Explore project <ArrowUpRight size={16} aria-hidden="true" />
+                </Link>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+        <div className="mt-10 text-right"><Link href="/projects" className="eyebrow hover:text-white">All projects <span aria-hidden="true">↗</span></Link></div>
       </Container>
     </section>
   );

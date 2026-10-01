@@ -11,14 +11,14 @@ export function Footer() {
 
   return (
     <footer
-      className="relative border-t border-gray-800 bg-gray-950/50"
+      className="relative border-t border-white/10 bg-[#090b0d]/70"
       role="contentinfo"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/10 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-teal-900/[.08] to-transparent" />
       <Container className="relative py-12 lg:py-16">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <p className="text-center md:text-left text-sm text-gray-400">
-            <span className="font-semibold text-cyan-400">&copy; {currentYear} </span>
+            <span className="font-semibold text-teal-100">&copy; {currentYear} </span>
             {siteConfig.name}. All rights reserved.
           </p>
 
@@ -28,8 +28,8 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "p-3 rounded-full bg-gray-800/50 text-gray-400 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-300",
-                "focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-950"
+                "p-3 border border-white/10 text-gray-400 hover:text-teal-100 hover:border-teal-100/40 transition-colors duration-300",
+                "focus:outline-none focus:ring-2 focus:ring-teal-100 focus:ring-offset-2 focus:ring-offset-gray-950"
               )}
               aria-label="GitHub"
             >
@@ -40,8 +40,8 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "p-3 rounded-full bg-gray-800/50 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-300",
-                "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-950"
+                "p-3 border border-white/10 text-gray-400 hover:text-teal-100 hover:border-teal-100/40 transition-colors duration-300",
+                "focus:outline-none focus:ring-2 focus:ring-teal-100 focus:ring-offset-2 focus:ring-offset-gray-950"
               )}
               aria-label="LinkedIn"
             >
@@ -50,8 +50,8 @@ export function Footer() {
             <Link
               href={`mailto:${siteConfig.email}`}
               className={cn(
-                "p-3 rounded-full bg-gray-800/50 text-gray-400 hover:text-sky-400 hover:bg-sky-500/10 transition-all duration-300",
-                "focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-gray-950"
+                "p-3 border border-white/10 text-gray-400 hover:text-teal-100 hover:border-teal-100/40 transition-colors duration-300",
+                "focus:outline-none focus:ring-2 focus:ring-teal-100 focus:ring-offset-2 focus:ring-offset-gray-950"
               )}
               aria-label="Email"
             >
@@ -61,8 +61,8 @@ export function Footer() {
         </div>
 
         <div className="mt-8 text-center text-xs text-gray-500">
-          <span className="text-cyan-500">✦</span> Designed & Built by {siteConfig.shortName}{" "}
-          <span className="text-cyan-500">✦</span>
+          <span className="text-teal-200">✦</span> Designed & Built by {siteConfig.shortName}{" "}
+          <span className="text-teal-200">✦</span>
         </div>
       </Container>
     </footer>

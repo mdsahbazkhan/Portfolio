@@ -1,32 +1,28 @@
 "use client";
 
-import { useState, useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Github, Linkedin, Code } from "lucide-react";
+import { ArrowRight, ChevronDown, Download, Github, Linkedin } from "lucide-react";
 import { siteConfig } from "@/data/site";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SiLeetcode } from "react-icons/si";
 
-const TYPING_TEXTS = [
-  "Full Stack Developer",
-  "Generative AI Engineer",
-  "Building AI-Powered Applications",
-];
-
 export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-16"
+      className="grain-overlay relative isolate min-h-[92svh] flex items-center overflow-hidden pt-16"
       aria-label="Hero section"
     >
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-1/2 left-1/4 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-blue-500/5 blur-3xl" />
+      <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <div className="atmosphere-grid absolute inset-0 opacity-60" />
+        <div className="absolute -top-40 right-[8%] h-[34rem] w-[34rem] rounded-full bg-teal-200/[.07] blur-[120px]" />
+        <div className="absolute bottom-[-18rem] left-[20%] h-[34rem] w-[34rem] rounded-full bg-teal-900/25 blur-[100px]" />
+        <div className="absolute right-[14%] top-1/2 hidden h-[min(62vw,680px)] w-[min(62vw,680px)] -translate-y-1/2 rounded-full border border-teal-100/10 lg:block" />
+        <div className="absolute right-[17%] top-1/2 hidden h-[min(49vw,540px)] w-[min(49vw,540px)] -translate-y-1/2 rounded-full border border-teal-100/[.07] lg:block" />
       </div>
 
       <Container className="pb-20">
@@ -39,35 +35,36 @@ export function Hero() {
             transition={{ duration: 0.6 }}
           >
             <motion.p
-              className="text-sm font-medium text-cyan-300 mb-4 inline-flex items-center gap-2"
+              className="eyebrow mb-7 inline-flex items-center gap-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1 }}
             >
-              <span className="w-2 h-2 bg-green-400 rounded-full" />
+              <span className="font-mono text-[10px] tracking-[.2em] text-teal-100/60">00 / OPENING</span>
+              <span className="h-px w-8 bg-teal-200/70" />
               Open to Full Stack & AI Engineering Roles
             </motion.p>
 
             <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4"
+              className="max-w-4xl text-5xl font-semibold leading-[.98] tracking-[-.065em] text-[#f1f0eb] sm:text-6xl md:text-7xl lg:text-[6.5rem] mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Md Sahbaz Alam
+              Md Sahbaz Alam<span className="text-teal-200">.</span>
             </motion.h1>
 
             <motion.div
-              className="text-xl sm:text-2xl md:text-3xl font-semibold mb-6 min-h-[2.5rem]"
+              className="text-lg sm:text-xl font-medium mb-6 min-h-[2.5rem]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              <TypingAnimation texts={TYPING_TEXTS} />
+              <span className="text-teal-200">Full Stack Developer · Generative AI Engineer</span>
             </motion.div>
 
             <motion.p
-              className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl lg:max-w-xl"
+              className="text-lg sm:text-xl leading-relaxed text-stone-300/80 mb-9 max-w-2xl lg:max-w-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -107,7 +104,7 @@ export function Hero() {
             </motion.div>
 
             <motion.div
-              className="flex gap-6 mt-8"
+              className="flex gap-3 mt-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
@@ -137,13 +134,13 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+            <div className="relative w-52 h-64 sm:w-60 sm:h-72 md:w-72 md:h-80 lg:w-80 lg:h-[26rem]">
               <Image
                 src={siteConfig.profileImage}
                 alt={`${siteConfig.name} profile photo`}
                 fill
                 sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 384px"
-                className="object-cover rounded-full"
+                className="object-cover rounded-[48%] border border-teal-100/15 grayscale-[.22]"
                 priority
                 style={{ objectPosition: "center top" }}
               />
@@ -151,6 +148,12 @@ export function Hero() {
           </motion.div>
         </div>
       </Container>
+      <a
+        href="#about"
+        className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-3 font-mono text-[10px] uppercase tracking-[.22em] text-stone-400 transition-colors hover:text-teal-100 sm:flex"
+      >
+        Scroll to explore <ChevronDown size={14} aria-hidden="true" />
+      </a>
     </section>
   );
 }
@@ -174,52 +177,5 @@ function SocialLink({
     >
       {icon}
     </a>
-  );
-}
-
-function TypingAnimation({ texts }: { texts: string[] }) {
-  const [displayedText, setDisplayedText] = useState("");
-  const [textIndex, setTextIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const TYPING_SPEED = 80;
-    const DELETING_SPEED = 40;
-    const PAUSE_DURATION = 2000;
-
-    const timer = setTimeout(
-      () => {
-        const currentText = texts[textIndex];
-
-        if (!isDeleting && charIndex < currentText.length) {
-          setDisplayedText(currentText.substring(0, charIndex + 1));
-          setCharIndex(charIndex + 1);
-        } else if (!isDeleting && charIndex === currentText.length) {
-          setTimeout(() => setIsDeleting(true), PAUSE_DURATION);
-        } else if (isDeleting && charIndex > 0) {
-          setDisplayedText(currentText.substring(0, charIndex - 1));
-          setCharIndex(charIndex - 1);
-        } else if (isDeleting && charIndex === 0) {
-          setIsDeleting(false);
-          setTextIndex((textIndex + 1) % texts.length);
-        }
-      },
-      isDeleting ? DELETING_SPEED : TYPING_SPEED,
-    );
-
-    return () => clearTimeout(timer);
-  }, [charIndex, isDeleting, textIndex, texts]);
-
-  return (
-    <span className="text-cyan-400">
-      {displayedText}
-      <span
-        className={cn(
-          "inline-block w-0.5 h-6 sm:h-7 bg-cyan-400 ml-1",
-          "animate-bounce",
-        )}
-      />
-    </span>
   );
 }

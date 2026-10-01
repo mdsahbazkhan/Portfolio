@@ -56,7 +56,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-16 sm:py-20 lg:py-24"
+      className="relative flex min-h-[90svh] items-center py-24 sm:py-32"
       aria-labelledby="contact-heading"
     >
       <div className="absolute inset-0 -z-10">
@@ -65,16 +65,19 @@ export function Contact() {
       </div>
 
       <Container className="relative">
-        <motion.h2
+        <div className="mb-6">
+          <p className="eyebrow mb-4">07 / Closing scene</p>
+          <motion.h2
           id="contact-heading"
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-white mb-12"
+          className="text-4xl sm:text-6xl font-semibold tracking-[-.05em] text-white mb-12"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           Let&apos;s Connect
-        </motion.h2>
+          </motion.h2>
+        </div>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
@@ -115,7 +118,7 @@ export function Contact() {
           {/* Contact Form */}
           <motion.form
             onSubmit={handleSubmit}
-            className="space-y-5 p-8 bg-gray-800/30 border border-gray-700/50 rounded-2xl"
+            className="space-y-5 p-6 sm:p-8 bg-white/[.02] border editorial-rule"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -217,16 +220,16 @@ function ContactItem({
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      className="flex items-start gap-4 p-4 bg-gray-800/30 border border-gray-700/50 rounded-xl transition-all duration-300 hover:border-cyan-500/30 hover:bg-gray-800/50 group"
+      className="flex items-start gap-4 border-b editorial-rule py-5 transition-colors duration-300 hover:bg-white/[.025] group"
     >
-      <div className="mt-0.5 p-2.5 bg-gradient-to-br from-cyan-600 to-blue-600 rounded-xl text-white">
+      <div className="mt-0.5 p-2.5 border border-teal-100/20 text-teal-100">
         {icon}
       </div>
       <div>
-        <p className="text-xs font-mono text-cyan-300 uppercase tracking-wider">
+        <p className="eyebrow">
           {label}
         </p>
-        <p className="mt-0.5 text-white group-hover:text-cyan-400 transition-colors">
+        <p className="mt-0.5 text-white group-hover:text-teal-100 transition-colors">
           {value}
         </p>
       </div>

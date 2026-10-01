@@ -58,11 +58,11 @@ export default async function ProjectPage({
           <header className="mb-12">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors mb-6"
+              className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-teal-100 transition-colors mb-6"
             >
               ← Back to Projects
             </Link>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            <h1 className="text-4xl sm:text-6xl font-semibold tracking-[-.05em] text-white mb-4">
               {project.title}
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed">
@@ -71,7 +71,7 @@ export default async function ProjectPage({
           </header>
 
           {/* Screenshot */}
-          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-gray-700/50 mb-12">
+          <div className="relative aspect-[16/9] overflow-hidden border editorial-rule mb-12">
             <Image
               src={project.image}
               alt={`${project.title} screenshot`}
@@ -111,7 +111,7 @@ export default async function ProjectPage({
                     key={idx}
                     className="flex items-start gap-3 text-gray-300 leading-relaxed"
                   >
-                    <span className="text-cyan-400 mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0" />
+                    <span className="text-teal-200 mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0" />
                     <span>{feature}</span>
                   </li>
                 ))}
