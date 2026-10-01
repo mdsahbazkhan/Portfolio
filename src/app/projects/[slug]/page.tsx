@@ -3,7 +3,7 @@ import { projects } from "@/data/projects";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { ProjectStructuredData } from "@/components/SEO/StructuredData";
 import type { Metadata } from "next";
@@ -83,20 +83,16 @@ export default async function ProjectPage({
           {/* Links */}
           <div className="flex gap-4 mb-12">
             {project.liveUrl && project.liveUrl !== "#" && (
-              <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                <Button variant="primary" className="gap-2">
+              <ButtonLink href={project.liveUrl} target="_blank" rel="noopener noreferrer" variant="primary" className="gap-2">
                   <ExternalLink className="h-5 w-5" />
                   Live Demo
-                </Button>
-              </Link>
+              </ButtonLink>
             )}
             {project.githubUrl && project.githubUrl !== "#" && (
-              <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <Button variant="secondary" className="gap-2">
+              <ButtonLink href={project.githubUrl} target="_blank" rel="noopener noreferrer" variant="secondary" className="gap-2">
                   <Github className="h-5 w-5" />
                   GitHub
-                </Button>
-              </Link>
+              </ButtonLink>
             )}
           </div>
 

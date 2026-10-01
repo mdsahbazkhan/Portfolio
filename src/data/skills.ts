@@ -25,6 +25,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Node.js", icon: "nodejs" },
       { name: "Express.js", icon: "express" },
+      { name: "NestJS", icon: "nestjs" },
       { name: "FastAPI", icon: "fastapi" },
       { name: "REST API", icon: "api" },
       { name: "JWT Authentication", icon: "jwt" },
@@ -48,6 +49,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "TypeScript", icon: "typescript" },
       { name: "Python", icon: "python" },
       { name: "Java", icon: "java" },
+      {name: "SQL", icon: "sql" },
     ],
   },
   {

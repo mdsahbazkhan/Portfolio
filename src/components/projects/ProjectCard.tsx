@@ -11,9 +11,9 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Link href={`/projects/${project.slug}`} className="block group">
-      <article className="h-full bg-gray-800/30 rounded-2xl border border-gray-700/50 overflow-hidden transition-all duration-300 hover:border-cyan-500/30 hover:bg-gray-800/50 flex flex-col">
-        <div className="relative aspect-[16/9] overflow-hidden">
+    <article className="group h-full bg-gray-800/30 rounded-2xl border border-gray-700/50 overflow-hidden transition-all duration-300 hover:border-cyan-500/30 hover:bg-gray-800/50 flex flex-col">
+      <Link href={`/projects/${project.slug}`} className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400">
+        <div className="relative aspect-[2/1] overflow-hidden">
           <Image
             src={project.image}
             alt={`${project.title} screenshot`}
@@ -29,26 +29,27 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
           )}
         </div>
+      </Link>
 
-        <div className="p-6 flex-1 flex flex-col">
-          <div className="flex items-start justify-between gap-2 mb-3">
-            <h3 className="text-lg font-bold text-gray-200 group-hover:text-cyan-400 transition-colors line-clamp-1">
-              {project.title}
+        <div className="p-4 flex-1 flex flex-col sm:p-5">
+          <div className="flex items-start justify-between gap-2 mb-2">
+            <h3 className="text-base font-bold text-gray-200 group-hover:text-cyan-400 transition-colors line-clamp-1">
+              <Link href={`/projects/${project.slug}`} className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400">{project.title}</Link>
             </h3>
             <span className="text-xs px-2.5 py-1 bg-gray-900/50 text-gray-400 rounded-full whitespace-nowrap">
               {project.category}
             </span>
           </div>
 
-          <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-2 flex-1">
+          <p className="text-gray-400 text-sm leading-relaxed mb-3 line-clamp-2 flex-1">
             {project.shortDescription}
           </p>
 
-          <div className="flex flex-wrap gap-1.5 mb-4">
+          <div className="flex flex-wrap gap-1.5 mb-3">
             {project.technologies.slice(0, 5).map((tech) => (
               <span
                 key={tech}
-                className="px-2.5 py-1 text-xs font-medium text-cyan-300 bg-cyan-900/20 rounded-full border border-cyan-800/30"
+                className="px-2 py-0.5 text-[11px] font-medium text-cyan-300 bg-cyan-900/20 rounded-full border border-cyan-800/30"
               >
                 {tech}
               </span>
@@ -62,7 +63,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
           <div className="flex gap-3 pt-4 mt-auto border-t border-gray-700/50">
             {project.liveUrl && project.liveUrl !== "#" && (
-              <Link
+              <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -71,10 +72,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
               >
                 <ExternalLink className="h-4 w-4" />
                 Demo
-              </Link>
+              </a>
             )}
             {project.githubUrl && project.githubUrl !== "#" && (
-              <Link
+              <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -83,11 +84,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
               >
                 <Github className="h-4 w-4" />
                 Code
-              </Link>
+              </a>
             )}
           </div>
         </div>
       </article>
-    </Link>
   );
 }

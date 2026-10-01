@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { projects } from "@/data/projects";
 import { Container } from "@/components/ui/Container";
 
@@ -34,9 +34,21 @@ export function Projects() {
                 <div className="mt-6 flex flex-wrap gap-x-3 gap-y-2 border-t editorial-rule pt-5">
                   {project.technologies.slice(0, 5).map((tech) => <span key={tech} className="font-mono text-[11px] text-stone-400">{tech}</span>)}
                 </div>
-                <Link href={`/projects/${project.slug}`} className="mt-7 inline-flex w-fit items-center gap-2 text-sm font-medium text-teal-100 transition-colors hover:text-white">
-                  Explore project <ArrowUpRight size={16} aria-hidden="true" />
-                </Link>
+                <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+                  <Link href={`/projects/${project.slug}`} className="inline-flex w-fit items-center gap-2 text-sm font-medium text-teal-100 transition-colors hover:text-white">
+                    Explore project <ArrowUpRight size={16} aria-hidden="true" />
+                  </Link>
+                  {project.liveUrl && project.liveUrl !== "#" && (
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-stone-300 transition-colors hover:text-white">
+                      <ExternalLink size={15} aria-hidden="true" /> Live demo
+                    </a>
+                  )}
+                  {project.githubUrl && project.githubUrl !== "#" && (
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-stone-300 transition-colors hover:text-white">
+                      <Github size={15} aria-hidden="true" /> Source
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.article>
           ))}

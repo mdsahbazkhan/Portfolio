@@ -8,6 +8,8 @@ import {
   FaGitAlt,
   FaGithub,
   FaBootstrap,
+  FaJava,
+  FaAws,
 } from "react-icons/fa";
 import {
   SiTailwindcss,
@@ -30,8 +32,9 @@ import {
   SiDocker,
   SiLangchain,
   SiHuggingface,
+  SiNestjs,
 } from "react-icons/si";
-import { Cloud } from "lucide-react";
+
 import { MdCode } from "react-icons/md";
 import { Database, Bot, BrainCircuit, Layers } from "lucide-react";
 import { type Skill } from "@/types";
@@ -59,7 +62,7 @@ const iconMap: Record<string, React.ReactNode> = {
   mysql: <SiMysql className="text-blue-500" />,
   redis: <SiRedis className="text-red-500" />,
   python: <FaPython className="text-blue-400" />,
-  java: <MdCode className="text-orange-500" />,
+  java: <FaJava className="text-orange-500" />,
   langchain: <SiLangchain className="text-green-400" />,
   rag: <BrainCircuit className="text-cyan-400" />,
   vectordb: <Database className="text-blue-400" />,
@@ -78,11 +81,17 @@ const iconMap: Record<string, React.ReactNode> = {
   vercel: <SiVercel className="text-white" />,
   netlify: <SiNetlify className="text-teal-400" />,
   render: <SiRender className="text-cyan-400" />,
-  aws: <Cloud className="text-orange-500" />,
+  nestjs: <SiNestjs className="text-gray-400" />,
+  aws: <FaAws className="text-orange-500" />,
+  sql: <MdCode className="text-blue-400" />,
 };
 
 export function SkillIcon({ skill }: { skill: Skill }) {
-  return <span className="text-3xl sm:text-4xl">{iconMap[skill.icon] || <MdCode className="text-gray-400" />}</span>;
+  return (
+    <span className="text-3xl sm:text-4xl">
+      {iconMap[skill.icon] || <MdCode className="text-gray-400" />}
+    </span>
+  );
 }
 
 export function TechIcon({ name }: { name: string }) {
