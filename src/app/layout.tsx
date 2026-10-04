@@ -7,7 +7,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#0f172a",
+  themeColor: "#090b0d",
 };
 
 export const metadata: Metadata = {
@@ -70,12 +70,7 @@ export const metadata: Metadata = {
     canonical: siteConfig.siteUrl,
   },
   icons: {
-    icon: [
-      { url: "/favicon.svg" },
-      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
-    ],
-    shortcut: "/favicon.svg",
-    apple: "/favicon.png",
+    icon: "/favicon.svg",
   },
   verification: {
     google: "qYsCDN_-GI0iPUjgw50iDUmd-XJhyKY6XbrPta1UGxo",

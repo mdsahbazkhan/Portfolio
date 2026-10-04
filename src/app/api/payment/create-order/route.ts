@@ -75,6 +75,7 @@ export async function POST(request: Request) {
       throw new Error("Production payment returns require an HTTPS site URL.");
     }
     returnUrl.searchParams.set("order_id", "{order_id}");
+    returnUrl.searchParams.set("payment_return", "1");
 
     const cashfreeResponse = await fetch(`${config.baseUrl}/orders`, {
       method: "POST",

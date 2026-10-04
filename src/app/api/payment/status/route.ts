@@ -3,7 +3,11 @@ import { cashfreeHeaders, getCashfreeConfig } from "@/lib/cashfree";
 
 export const runtime = "nodejs";
 
-type CashfreeOrder = { order_status?: string; order_amount?: number };
+type CashfreeOrder = {
+  order_id?: string;
+  order_status?: string;
+  order_amount?: number;
+};
 type CashfreePayment = { payment_status?: string };
 export type PaymentStatus = "SUCCESS" | "PENDING" | "FAILED";
 
@@ -48,23 +52,44 @@ export async function GET(request: Request) {
 
     const order = (await orderResponse.json()) as CashfreeOrder;
     const payments = (await paymentsResponse.json()) as CashfreePayment[];
+    if (order.order_id !== orderId) {
+      console.error("Cashfree returned a mismatched order ID");
+      return NextResponse.json(
+        { error: "Unable to verify payment status." },
+        { status: 502 },
+      );
+    }
     const successful =
       Array.isArray(payments) &&
       payments.some((payment) => payment.payment_status === "SUCCESS");
     const pending =
       Array.isArray(payments) &&
       payments.some((payment) => payment.payment_status === "PENDING");
+    const failedPaymentStates = new Set([
+      "FAILED",
+      "USER_DROPPED",
+      "CANCELLED",
+      "CANCELED",
+      "EXPIRED",
+    ]);
+    const allAttemptsFailed =
+      Array.isArray(payments) &&
+      payments.length > 0 &&
+      payments.every(
+        (payment) =>
+          typeof payment.payment_status === "string" &&
+          failedPaymentStates.has(payment.payment_status),
+      );
+    const closedWithoutAttempts =
+      Array.isArray(payments) &&
+      payments.length === 0 &&
+      (order.order_status === "EXPIRED" ||
+        order.order_status === "TERMINATED");
     let status: PaymentStatus = "PENDING";
 
     if (order.order_status === "PAID" || successful) status = "SUCCESS";
     else if (pending) status = "PENDING";
-    else if (
-      order.order_status === "EXPIRED" ||
-      order.order_status === "TERMINATED" ||
-      (Array.isArray(payments) && payments.length > 0)
-    ) {
-      status = "FAILED";
-    }
+    else if (allAttemptsFailed || closedWithoutAttempts) status = "FAILED";
 
     return NextResponse.json({
       orderId,

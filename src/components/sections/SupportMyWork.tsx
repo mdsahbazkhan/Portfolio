@@ -38,6 +38,31 @@ const amounts = [50, 100, 250] as const;
 const presets = [...amounts, "custom"] as const;
 const minAmount = 10;
 const maxAmount = 10_000;
+const orderStorageKey = "support-order-id";
+
+function readStoredOrderId() {
+  try {
+    return window.sessionStorage.getItem(orderStorageKey);
+  } catch {
+    return null;
+  }
+}
+
+function saveStoredOrderId(orderId: string) {
+  try {
+    window.sessionStorage.setItem(orderStorageKey, orderId);
+  } catch {
+    // The return URL still carries the order ID if session storage is unavailable.
+  }
+}
+
+function clearStoredOrderId() {
+  try {
+    window.sessionStorage.removeItem(orderStorageKey);
+  } catch {
+    // Storage can be disabled; the visible return URL is cleaned separately.
+  }
+}
 
 export function SupportMyWork() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -53,7 +78,7 @@ export function SupportMyWork() {
   const [orderId, setOrderId] = useState("");
   const [status, setStatus] = useState<PaymentStatus | null>(null);
   const [confirmedAmount, setConfirmedAmount] = useState<number | null>(null);
-  const [returnOrderId, setReturnOrderId] = useState("");
+  const [isResultFlow, setIsResultFlow] = useState(false);
 
   const amount = selected === "custom" ? Number(customAmount) : selected;
   const amountIsValid =
@@ -77,37 +102,53 @@ export function SupportMyWork() {
         { cache: "no-store" },
       );
       const data: StatusResponse | { error?: string } = await response.json();
-      if (!response.ok || !("status" in data))
+      if (
+        !response.ok ||
+        !("status" in data) ||
+        !["SUCCESS", "PENDING", "FAILED"].includes(data.status)
+      )
         throw new Error(
           "error" in data ? data.error : "Unable to check payment status.",
         );
       setOrderId(data.orderId);
       setStatus(data.status);
       setConfirmedAmount(typeof data.amount === "number" ? data.amount : null);
-      setReturnOrderId("");
-    } catch (cause) {
-      setError(
-        cause instanceof Error
-          ? cause.message
-          : "Unable to check payment status.",
-      );
+    } catch {
+      setError("We couldn't confirm the payment right now. Please check again.");
     } finally {
       setIsCheckingStatus(false);
+      const url = new URL(window.location.href);
+      if (url.searchParams.get("order_id") === id) {
+        url.searchParams.delete("order_id");
+        url.searchParams.delete("payment_return");
+        window.history.replaceState({}, "", url);
+      }
     }
   }, []);
 
   useEffect(() => {
-    const idFromUrl = new URLSearchParams(window.location.search).get(
-      "order_id",
-    );
-    const idFromStorage = window.sessionStorage.getItem("support-order-id");
+    const params = new URLSearchParams(window.location.search);
+    const idFromUrl = params.get("order_id");
+    const idFromStorage = readStoredOrderId();
+    const isPaymentReturn = params.get("payment_return") === "1";
     const id = idFromUrl || idFromStorage;
-    if (!id || !/^support_[a-f0-9]{32}$/.test(id)) return;
+    if (!id && !isPaymentReturn) return;
 
-    setReturnOrderId(id);
-    setOrderId(id);
+    setIsResultFlow(true);
     setStatus(null);
+    setConfirmedAmount(null);
+    setError("");
     showDialog();
+    if (!id) {
+      setError("We couldn't determine the payment order. Please return to the support form and try again.");
+      return;
+    }
+    setOrderId(id);
+    if (!/^support_[a-f0-9]{32}$/.test(id)) {
+      setError("This payment return did not include a valid order ID.");
+      return;
+    }
+    saveStoredOrderId(id);
     void checkStatus(id);
   }, [checkStatus, showDialog]);
 
@@ -121,6 +162,7 @@ export function SupportMyWork() {
   const createOrderAndCheckout = async () => {
     if (!amountIsValid || isBusy || checkoutStarted.current) return;
     checkoutStarted.current = true;
+    setIsResultFlow(false);
     setError("");
     setStatus(null);
     setOrderId("");
@@ -144,7 +186,7 @@ export function SupportMyWork() {
         );
       }
 
-      window.sessionStorage.setItem("support-order-id", data.orderId);
+      saveStoredOrderId(data.orderId);
       setOrderId(data.orderId);
       if (!window.Cashfree)
         throw new Error(
@@ -177,13 +219,14 @@ export function SupportMyWork() {
   };
 
   const retryPayment = () => {
-    window.sessionStorage.removeItem("support-order-id");
+    clearStoredOrderId();
     const url = new URL(window.location.href);
     url.searchParams.delete("order_id");
+    url.searchParams.delete("payment_return");
     window.history.replaceState({}, "", url);
     setStatus(null);
+    setIsResultFlow(false);
     setOrderId("");
-    setReturnOrderId("");
     setError("");
     checkoutStarted.current = false;
   };
@@ -227,6 +270,12 @@ export function SupportMyWork() {
         <button
           type="button"
           onClick={() => {
+            clearStoredOrderId();
+            const url = new URL(window.location.href);
+            url.searchParams.delete("order_id");
+            url.searchParams.delete("payment_return");
+            window.history.replaceState({}, "", url);
+            setIsResultFlow(false);
             setStatus(null);
             setError("");
             showDialog();
@@ -244,7 +293,7 @@ export function SupportMyWork() {
           if (event.target === dialogRef.current) closeDialog();
         }}
         onClose={() => {
-          if (!returnOrderId) checkoutStarted.current = false;
+          if (!isResultFlow) checkoutStarted.current = false;
         }}
         className="m-auto w-[calc(100%-2rem)] max-w-lg border border-white/10 bg-[#0d1112] p-0 text-gray-100 shadow-2xl backdrop:bg-black/75 backdrop:backdrop-blur-sm open:animate-[support-in_.18s_ease-out]"
       >
@@ -257,12 +306,16 @@ export function SupportMyWork() {
                 className="text-2xl font-semibold tracking-tight text-white"
               >
                 {status === "SUCCESS"
-                  ? "Thank you!"
+                  ? "Payment Successful"
                   : status === "PENDING"
-                    ? "Still processing"
+                    ? "Payment Pending"
                     : status === "FAILED"
-                      ? "Payment wasn’t completed"
-                      : "Choose an amount"}
+                      ? "Payment Failed"
+                      : isResultFlow
+                        ? isCheckingStatus
+                          ? "Checking payment status"
+                          : "Unable to verify payment"
+                        : "Choose an amount"}
               </h2>
             </div>
             <button
@@ -278,8 +331,7 @@ export function SupportMyWork() {
           {status === "SUCCESS" ? (
             <div role="status" className="space-y-4">
               <p className="flex items-center gap-2 text-teal-100">
-                <Check className="h-5 w-5" /> Your support helps me keep
-                building and experimenting.
+                <Check className="h-5 w-5" /> Thank you for supporting my work.
               </p>
               {confirmedAmount !== null && (
                 <p className="text-3xl font-semibold text-white">
@@ -303,8 +355,8 @@ export function SupportMyWork() {
           ) : status === "PENDING" ? (
             <div role="status" className="space-y-5">
               <p className="text-sm leading-relaxed text-gray-300">
-                Your payment is still being processed. You can safely check
-                again in a moment.
+                Your payment is still being processed. Please wait while we
+                confirm it, or check again in a moment.
               </p>
               {error && (
                 <p role="alert" className="text-sm text-rose-300">
@@ -319,15 +371,23 @@ export function SupportMyWork() {
               >
                 {isCheckingStatus && (
                   <LoaderCircle className="h-4 w-4 animate-spin" />
-                )}{" "}
-                Check status
+                )}
+                {isCheckingStatus ? "Checking payment…" : "Check status"}
               </button>
+              <Link
+                href="/"
+                onClick={closeDialog}
+                className="ml-4 text-sm text-gray-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100"
+              >
+                Back to portfolio
+              </Link>
             </div>
           ) : status === "FAILED" ? (
             <div role="status" className="space-y-5">
               <p className="text-sm leading-relaxed text-gray-300">
-                The payment was not completed. You can try again whenever you’re
-                ready.
+                Cashfree reports no successful payment for this order. If your
+                bank shows a debit, it may take time to reverse a pending
+                transaction.
               </p>
               <button
                 type="button"
@@ -336,6 +396,49 @@ export function SupportMyWork() {
               >
                 Try again <ArrowRight className="h-4 w-4" />
               </button>
+              <Link
+                href="/"
+                onClick={closeDialog}
+                className="ml-4 text-sm text-gray-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100"
+              >
+                Back to portfolio
+              </Link>
+            </div>
+          ) : isResultFlow ? (
+            <div role="status" aria-live="polite" className="space-y-5">
+              {isCheckingStatus ? (
+                <p className="flex items-center gap-3 text-sm text-gray-300">
+                  <LoaderCircle className="h-5 w-5 animate-spin text-teal-100" />
+                  Checking payment status… Please wait.
+                </p>
+              ) : (
+                <>
+                  <p className="text-sm leading-relaxed text-gray-300">
+                    {error ||
+                      "We couldn't confirm the payment right now. Please check again."}
+                  </p>
+                  {/^support_[a-f0-9]{32}$/.test(orderId) && (
+                    <button
+                      type="button"
+                      onClick={() => void checkStatus(orderId)}
+                      disabled={isBusy}
+                      className="inline-flex items-center gap-2 border border-teal-100/30 px-4 py-2.5 text-sm text-teal-100 hover:bg-teal-100/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100 disabled:opacity-50"
+                    >
+                      {isCheckingStatus && (
+                        <LoaderCircle className="h-4 w-4 animate-spin" />
+                      )}
+                      {isCheckingStatus ? "Checking payment…" : "Check status"}
+                    </button>
+                  )}
+                  <Link
+                    href="/"
+                    onClick={closeDialog}
+                    className="ml-4 text-sm text-gray-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100"
+                  >
+                    Back to portfolio
+                  </Link>
+                </>
+              )}
             </div>
           ) : (
             <>
