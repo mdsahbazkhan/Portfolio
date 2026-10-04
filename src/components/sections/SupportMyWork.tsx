@@ -39,6 +39,8 @@ const presets = [...amounts, "custom"] as const;
 const minAmount = 10;
 const maxAmount = 10_000;
 const orderStorageKey = "support-order-id";
+const isSupportOrderId = (value: string | null): value is string =>
+  value !== null && /^support_[a-f0-9]{32}$/.test(value);
 
 function readStoredOrderId() {
   try {
@@ -118,7 +120,10 @@ export function SupportMyWork() {
     } finally {
       setIsCheckingStatus(false);
       const url = new URL(window.location.href);
-      if (url.searchParams.get("order_id") === id) {
+      if (
+        url.searchParams.get("order_id") === id ||
+        url.searchParams.get("payment_return") === "1"
+      ) {
         url.searchParams.delete("order_id");
         url.searchParams.delete("payment_return");
         window.history.replaceState({}, "", url);
@@ -128,10 +133,18 @@ export function SupportMyWork() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const idFromUrl = params.get("order_id");
+    const urlOrderIds = params.getAll("order_id");
+    const idFromUrl =
+      urlOrderIds.find(isSupportOrderId) ?? urlOrderIds[0] ?? null;
     const idFromStorage = readStoredOrderId();
     const isPaymentReturn = params.get("payment_return") === "1";
-    const id = idFromUrl || idFromStorage;
+    // Cashfree can append order_id after the return URL. Prefer a well-formed
+    // returned ID, then fall back to the order ID saved before checkout.
+    const id = isSupportOrderId(idFromUrl)
+      ? idFromUrl
+      : isSupportOrderId(idFromStorage)
+        ? idFromStorage
+        : idFromUrl || idFromStorage;
     if (!id && !isPaymentReturn) return;
 
     setIsResultFlow(true);
@@ -144,7 +157,7 @@ export function SupportMyWork() {
       return;
     }
     setOrderId(id);
-    if (!/^support_[a-f0-9]{32}$/.test(id)) {
+    if (!isSupportOrderId(id)) {
       setError("This payment return did not include a valid order ID.");
       return;
     }
@@ -417,7 +430,7 @@ export function SupportMyWork() {
                     {error ||
                       "We couldn't confirm the payment right now. Please check again."}
                   </p>
-                  {/^support_[a-f0-9]{32}$/.test(orderId) && (
+                  {isSupportOrderId(orderId) && (
                     <button
                       type="button"
                       onClick={() => void checkStatus(orderId)}

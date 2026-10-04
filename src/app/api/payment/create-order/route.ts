@@ -74,7 +74,6 @@ export async function POST(request: Request) {
     ) {
       throw new Error("Production payment returns require an HTTPS site URL.");
     }
-    returnUrl.searchParams.set("order_id", "{order_id}");
     returnUrl.searchParams.set("payment_return", "1");
 
     const cashfreeResponse = await fetch(`${config.baseUrl}/orders`, {
@@ -112,7 +111,10 @@ export async function POST(request: Request) {
     }
 
     const result = (await cashfreeResponse.json()) as CreateOrderPayload;
-    if (!result.order_id || !result.payment_session_id) {
+    if (
+      result.order_id !== orderId ||
+      !result.payment_session_id
+    ) {
       console.error("Cashfree order response was incomplete", { requestId });
       return NextResponse.json(
         { error: "We couldn't start payment. Please try again shortly." },
