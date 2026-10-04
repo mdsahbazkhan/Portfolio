@@ -14,7 +14,6 @@ export const experiences: Experience[] = [
       "NestJS",
       "Node.js",
       "PostgreSQL",
-      "MongoDB",
       "Tailwind CSS",
     ],
     description: [

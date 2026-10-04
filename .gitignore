@@ -5,10 +5,13 @@ node_modules
 .next
 .out
 dist
+.cache
+src/data/ai/knowledge-index.json
 
 # Environment Variables
 .env
 .env.local
+.env.example
 .env.development
 .env.production
 .env.test

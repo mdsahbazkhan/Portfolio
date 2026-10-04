@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/data/site";
+import PortfolioChatbot from "@/components/chatbot/PortfolioChatbot";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -89,6 +90,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {children}
+        <PortfolioChatbot />
       </body>
     </html>
   );

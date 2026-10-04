@@ -83,8 +83,8 @@ export const projects: Project[] = [
       "Redux Toolkit",
       "Tailwind CSS",
       "REST API Integration",
+      "NestJs",
       "PostgreSQL",
-      "MongoDB",
     ],
     features: [
       "5+ LMS modules: course management, student tracking, academic dashboards",

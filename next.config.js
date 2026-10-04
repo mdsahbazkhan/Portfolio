@@ -1,5 +1,8 @@
 module.exports = {
   reactStrictMode: true,
+  outputFileTracingIncludes: {
+    "/api/chat": ["./src/data/ai/knowledge-index.json", "./.cache/transformers/**/*"],
+  },
   images: {
     remotePatterns: [
       {
