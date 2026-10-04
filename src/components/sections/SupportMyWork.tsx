@@ -301,11 +301,10 @@ export function SupportMyWork() {
               id="support-heading"
               className="text-xl font-semibold tracking-tight text-white"
             >
-              Support My Work
+              ☕ Support My Work
             </h3>
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-gray-400">
-              If my projects or engineering work helped you, you can support
-              what I build next.
+              If my work helped or inspired you, you can support what I build next.
             </p>
           </div>
           <Heart
