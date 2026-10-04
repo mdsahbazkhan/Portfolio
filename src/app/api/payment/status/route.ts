@@ -20,29 +20,21 @@ export async function GET(request: Request) {
   try {
     const config = getCashfreeConfig();
     const headers = cashfreeHeaders(config.appId, config.secretKey);
-    const [orderResponse, paymentsResponse] = await Promise.all([
-      fetch(`${config.baseUrl}/orders/${encodeURIComponent(orderId)}`, {
+    const orderResponse = await fetch(
+      `${config.baseUrl}/orders/${encodeURIComponent(orderId)}`,
+      {
         headers,
         cache: "no-store",
         signal: AbortSignal.timeout(10_000),
-      }),
-      fetch(
-        `${config.baseUrl}/orders/${encodeURIComponent(orderId)}/payments`,
-        {
-          headers,
-          cache: "no-store",
-          signal: AbortSignal.timeout(10_000),
-        },
-      ),
-    ]);
+      },
+    );
 
     if (orderResponse.status === 404) {
       return NextResponse.json({ error: "Order not found." }, { status: 404 });
     }
-    if (!orderResponse.ok || !paymentsResponse.ok) {
+    if (!orderResponse.ok) {
       console.error("Cashfree payment status lookup failed", {
         orderStatus: orderResponse.status,
-        paymentsStatus: paymentsResponse.status,
       });
       return NextResponse.json(
         { error: "Unable to check payment status." },
@@ -51,7 +43,6 @@ export async function GET(request: Request) {
     }
 
     const order = (await orderResponse.json()) as CashfreeOrder;
-    const payments = (await paymentsResponse.json()) as CashfreePayment[];
     if (order.order_id !== orderId) {
       console.error("Cashfree returned a mismatched order ID");
       return NextResponse.json(
@@ -59,6 +50,38 @@ export async function GET(request: Request) {
         { status: 502 },
       );
     }
+    if (order.order_status === "PAID") {
+      return NextResponse.json({
+        orderId,
+        status: "SUCCESS" satisfies PaymentStatus,
+        ...(typeof order.order_amount === "number"
+          ? { amount: order.order_amount }
+          : {}),
+      });
+    }
+
+    const paymentsResponse = await fetch(
+      `${config.baseUrl}/orders/${encodeURIComponent(orderId)}/payments`,
+      {
+        headers,
+        cache: "no-store",
+        signal: AbortSignal.timeout(10_000),
+      },
+    );
+    if (!paymentsResponse.ok) {
+      console.error("Cashfree payment attempts are temporarily unavailable", {
+        status: paymentsResponse.status,
+      });
+      return NextResponse.json({
+        orderId,
+        status: "PENDING" satisfies PaymentStatus,
+        ...(typeof order.order_amount === "number"
+          ? { amount: order.order_amount }
+          : {}),
+      });
+    }
+
+    const payments = (await paymentsResponse.json()) as CashfreePayment[];
     const successful =
       Array.isArray(payments) &&
       payments.some((payment) => payment.payment_status === "SUCCESS");

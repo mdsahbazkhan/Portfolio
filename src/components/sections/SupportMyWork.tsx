@@ -69,6 +69,7 @@ function clearStoredOrderId() {
 export function SupportMyWork() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const checkoutStarted = useRef(false);
+  const autoCheckOrderId = useRef("");
   const [scriptReady, setScriptReady] = useState(false);
   const [selected, setSelected] = useState<number | "custom">(100);
   const [customAmount, setCustomAmount] = useState("");
@@ -76,6 +77,7 @@ export function SupportMyWork() {
   const [email, setEmail] = useState("");
   const [isCreatingOrder, setIsCreatingOrder] = useState(false);
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
+  const [isAutoCheckingStatus, setIsAutoCheckingStatus] = useState(false);
   const [error, setError] = useState("");
   const [orderId, setOrderId] = useState("");
   const [savedOrderIdForCheck, setSavedOrderIdForCheck] = useState("");
@@ -89,14 +91,14 @@ export function SupportMyWork() {
     amount >= minAmount &&
     amount <= maxAmount &&
     Math.round(amount * 100) === amount * 100;
-  const isBusy = isCreatingOrder || isCheckingStatus;
+  const isBusy = isCreatingOrder || isCheckingStatus || isAutoCheckingStatus;
 
   const showDialog = useCallback(() => {
     const dialog = dialogRef.current;
     if (dialog && !dialog.open) dialog.showModal();
   }, []);
 
-  const checkStatus = useCallback(async (id: string) => {
+  const checkStatus = useCallback(async (id: string): Promise<PaymentStatus | null> => {
     setIsCheckingStatus(true);
     setError("");
     try {
@@ -120,16 +122,35 @@ export function SupportMyWork() {
       setOrderId(data.orderId);
       setStatus(data.status);
       setConfirmedAmount(typeof data.amount === "number" ? data.amount : null);
+      return data.status;
     } catch (cause) {
       setError(
         cause instanceof Error
           ? cause.message
           : "We couldn't confirm the payment right now. Please check again.",
       );
+      return null;
     } finally {
       setIsCheckingStatus(false);
     }
   }, []);
+
+  const verifyReturnedPayment = useCallback(async (id: string) => {
+    if (autoCheckOrderId.current === id) return;
+    autoCheckOrderId.current = id;
+    setIsAutoCheckingStatus(true);
+    try {
+      for (let attempt = 0; attempt < 5; attempt += 1) {
+        const result = await checkStatus(id);
+        if (result === "SUCCESS" || result === "FAILED") return;
+        if (attempt < 4) {
+          await new Promise<void>((resolve) => window.setTimeout(resolve, 3000));
+        }
+      }
+    } finally {
+      setIsAutoCheckingStatus(false);
+    }
+  }, [checkStatus]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -172,8 +193,8 @@ export function SupportMyWork() {
       url.search = params.toString();
       window.history.replaceState({}, "", url);
     }
-    void checkStatus(id);
-  }, [checkStatus, showDialog]);
+    void verifyReturnedPayment(id);
+  }, [showDialog, verifyReturnedPayment]);
 
   const closeDialog = () => {
     if (dialogRef.current?.open) dialogRef.current.close();
@@ -340,7 +361,7 @@ export function SupportMyWork() {
                     : status === "FAILED"
                       ? "Payment Failed"
                       : isResultFlow
-                        ? isCheckingStatus
+                        ? isCheckingStatus || isAutoCheckingStatus
                           ? "Checking payment status"
                           : "Unable to verify payment"
                         : "Choose an amount"}
@@ -397,10 +418,12 @@ export function SupportMyWork() {
                 disabled={isBusy}
                 className="inline-flex items-center gap-2 border border-teal-100/30 px-4 py-2.5 text-sm text-teal-100 hover:bg-teal-100/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100 disabled:opacity-50"
               >
-                {isCheckingStatus && (
+                {(isCheckingStatus || isAutoCheckingStatus) && (
                   <LoaderCircle className="h-4 w-4 animate-spin" />
                 )}
-                {isCheckingStatus ? "Checking payment…" : "Check status"}
+                {isCheckingStatus || isAutoCheckingStatus
+                  ? "Checking payment…"
+                  : "Check status"}
               </button>
               <Link
                 href="/"
@@ -434,7 +457,7 @@ export function SupportMyWork() {
             </div>
           ) : isResultFlow ? (
             <div role="status" aria-live="polite" className="space-y-5">
-              {isCheckingStatus ? (
+              {isCheckingStatus || isAutoCheckingStatus ? (
                 <p className="flex items-center gap-3 text-sm text-gray-300">
                   <LoaderCircle className="h-5 w-5 animate-spin text-teal-100" />
                   Checking payment status… Please wait.
@@ -452,10 +475,12 @@ export function SupportMyWork() {
                       disabled={isBusy}
                       className="inline-flex items-center gap-2 border border-teal-100/30 px-4 py-2.5 text-sm text-teal-100 hover:bg-teal-100/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100 disabled:opacity-50"
                     >
-                      {isCheckingStatus && (
+                      {(isCheckingStatus || isAutoCheckingStatus) && (
                         <LoaderCircle className="h-4 w-4 animate-spin" />
                       )}
-                      {isCheckingStatus ? "Checking payment…" : "Check status"}
+                      {isCheckingStatus || isAutoCheckingStatus
+                        ? "Checking payment…"
+                        : "Check status"}
                     </button>
                   )}
                   <Link
