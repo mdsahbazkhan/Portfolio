@@ -6,10 +6,13 @@ import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { SupportMyWork } from "@/components/sections/SupportMyWork";
 
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,14 +71,14 @@ export function Contact() {
         <div className="mb-6">
           <p className="eyebrow mb-4">07 / Closing scene</p>
           <motion.h2
-          id="contact-heading"
-          className="text-4xl sm:text-6xl font-semibold tracking-[-.05em] text-white mb-12"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          Let&apos;s Connect
+            id="contact-heading"
+            className="text-4xl sm:text-6xl font-semibold tracking-[-.05em] text-white mb-12"
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Let&apos;s Connect
           </motion.h2>
         </div>
 
@@ -89,8 +92,8 @@ export function Contact() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-gray-300 text-lg leading-relaxed">
-              I&apos;m open to exciting projects and opportunities! Feel free to reach
-              out anytime, I&apos;ll respond as soon as possible.
+              I&apos;m open to exciting projects and opportunities! Feel free to
+              reach out anytime, I&apos;ll respond as soon as possible.
             </p>
 
             <div className="space-y-4">
@@ -125,10 +128,15 @@ export function Contact() {
             transition={{ duration: 0.6 }}
             aria-label="Contact form"
           >
-            <h3 className="text-xl font-bold text-white mb-2">Send a Message</h3>
+            <h3 className="text-xl font-bold text-white mb-2">
+              Send a Message
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="sm:col-span-2">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-300 mb-1"
+                >
                   Your Name
                 </label>
                 <input
@@ -141,7 +149,10 @@ export function Contact() {
                 />
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-300 mb-1"
+                >
                   Your Email
                 </label>
                 <input
@@ -154,7 +165,10 @@ export function Contact() {
                 />
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-300 mb-1"
+                >
                   Your Message
                 </label>
                 <textarea
@@ -199,6 +213,16 @@ export function Contact() {
             )}
           </motion.form>
         </div>
+
+        <motion.div
+          className="mx-auto mt-16 max-w-6xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
+        >
+          <SupportMyWork />
+        </motion.div>
       </Container>
     </section>
   );
@@ -226,9 +250,7 @@ function ContactItem({
         {icon}
       </div>
       <div>
-        <p className="eyebrow">
-          {label}
-        </p>
+        <p className="eyebrow">{label}</p>
         <p className="mt-0.5 text-white group-hover:text-teal-100 transition-colors">
           {value}
         </p>
