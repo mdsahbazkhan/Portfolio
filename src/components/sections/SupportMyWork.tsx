@@ -78,6 +78,7 @@ export function SupportMyWork() {
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
   const [error, setError] = useState("");
   const [orderId, setOrderId] = useState("");
+  const [savedOrderIdForCheck, setSavedOrderIdForCheck] = useState("");
   const [status, setStatus] = useState<PaymentStatus | null>(null);
   const [confirmedAmount, setConfirmedAmount] = useState<number | null>(null);
   const [isResultFlow, setIsResultFlow] = useState(false);
@@ -104,30 +105,29 @@ export function SupportMyWork() {
         { cache: "no-store" },
       );
       const data: StatusResponse | { error?: string } = await response.json();
+      if (response.status === 404) {
+        throw new Error(
+          "Cashfree could not find this order in the configured payment environment. Do not pay again; check the order status after confirming the sandbox credentials.",
+        );
+      }
       if (
         !response.ok ||
         !("status" in data) ||
         !["SUCCESS", "PENDING", "FAILED"].includes(data.status)
-      )
-        throw new Error(
-          "error" in data ? data.error : "Unable to check payment status.",
-        );
+      ) {
+        throw new Error("Unable to verify the payment right now.");
+      }
       setOrderId(data.orderId);
       setStatus(data.status);
       setConfirmedAmount(typeof data.amount === "number" ? data.amount : null);
-    } catch {
-      setError("We couldn't confirm the payment right now. Please check again.");
+    } catch (cause) {
+      setError(
+        cause instanceof Error
+          ? cause.message
+          : "We couldn't confirm the payment right now. Please check again.",
+      );
     } finally {
       setIsCheckingStatus(false);
-      const url = new URL(window.location.href);
-      if (
-        url.searchParams.get("order_id") === id ||
-        url.searchParams.get("payment_return") === "1"
-      ) {
-        url.searchParams.delete("order_id");
-        url.searchParams.delete("payment_return");
-        window.history.replaceState({}, "", url);
-      }
     }
   }, []);
 
@@ -136,8 +136,8 @@ export function SupportMyWork() {
     const urlOrderIds = params.getAll("order_id");
     const idFromUrl =
       urlOrderIds.find(isSupportOrderId) ?? urlOrderIds[0] ?? null;
-    const idFromStorage = readStoredOrderId();
     const isPaymentReturn = params.get("payment_return") === "1";
+    const idFromStorage = isPaymentReturn ? readStoredOrderId() : null;
     // Cashfree can append order_id after the return URL. Prefer a well-formed
     // returned ID, then fall back to the order ID saved before checkout.
     const id = isSupportOrderId(idFromUrl)
@@ -162,6 +162,16 @@ export function SupportMyWork() {
       return;
     }
     saveStoredOrderId(id);
+    // Keep the verified order ID in the URL so refreshes recheck this order,
+    // while replacing any encoded placeholder or duplicate query parameters.
+    if (idFromUrl !== id || urlOrderIds.length !== 1 || isPaymentReturn) {
+      params.delete("order_id");
+      params.set("order_id", id);
+      params.delete("payment_return");
+      const url = new URL(window.location.href);
+      url.search = params.toString();
+      window.history.replaceState({}, "", url);
+    }
     void checkStatus(id);
   }, [checkStatus, showDialog]);
 
@@ -200,6 +210,7 @@ export function SupportMyWork() {
       }
 
       saveStoredOrderId(data.orderId);
+      setSavedOrderIdForCheck("");
       setOrderId(data.orderId);
       if (!window.Cashfree)
         throw new Error(
@@ -240,6 +251,7 @@ export function SupportMyWork() {
     setStatus(null);
     setIsResultFlow(false);
     setOrderId("");
+    setSavedOrderIdForCheck("");
     setError("");
     checkoutStarted.current = false;
   };
@@ -283,7 +295,10 @@ export function SupportMyWork() {
         <button
           type="button"
           onClick={() => {
-            clearStoredOrderId();
+            const savedOrderId = readStoredOrderId();
+            setSavedOrderIdForCheck(
+              isSupportOrderId(savedOrderId) ? savedOrderId : "",
+            );
             const url = new URL(window.location.href);
             url.searchParams.delete("order_id");
             url.searchParams.delete("payment_return");
@@ -582,6 +597,22 @@ export function SupportMyWork() {
               <p className="mt-4 text-center text-xs text-gray-500">
                 Payments are securely handled by Cashfree.
               </p>
+              {isSupportOrderId(savedOrderIdForCheck) && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOrderId(savedOrderIdForCheck);
+                    setIsResultFlow(true);
+                    setStatus(null);
+                    setError("");
+                    void checkStatus(savedOrderIdForCheck);
+                  }}
+                  disabled={isBusy}
+                  className="mx-auto mt-3 block text-xs text-gray-400 underline decoration-white/20 underline-offset-4 transition-colors hover:text-teal-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100 disabled:opacity-50"
+                >
+                  Check status for your last payment
+                </button>
+              )}
             </>
           )}
         </div>
