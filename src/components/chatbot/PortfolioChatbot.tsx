@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { MessageCircle, Sparkles, X } from "lucide-react";
+import { MessageCircle, Sparkles, Volume2, VolumeX, X } from "lucide-react";
 import { ChatWindow } from "./ChatWindow";
 import type { Message } from "./types";
 
@@ -13,84 +13,52 @@ const initialMessage: Message = {
     "Hi! I'm Sahbaz's AI assistant. Ask me about his projects, skills, experience, or technical background.",
 };
 
-const teaserSessionKey = "portfolio-assistant-teaser-seen-v2";
+const teaserSessionKey = "portfolio-assistant-teaser-seen-v3";
+const soundPreferenceKey = "portfolio-assistant-sound-muted";
 const teaserQuestions = ["Who is Sahbaz?", "What has Sahbaz built?"];
-
-function createAudioContext() {
-  try {
-    const AudioContextConstructor =
-      window.AudioContext ||
-      (window as typeof window & { webkitAudioContext?: typeof AudioContext })
-        .webkitAudioContext;
-    return AudioContextConstructor ? new AudioContextConstructor() : null;
-  } catch {
-    return null;
-  }
-}
-
-function playTeaserChime(context: AudioContext) {
-  try {
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(740, context.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(
-      560,
-      context.currentTime + 0.12,
-    );
-    gain.gain.setValueAtTime(0.0001, context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(
-      0.12,
-      context.currentTime + 0.015,
-    );
-    gain.gain.exponentialRampToValueAtTime(
-      0.0001,
-      context.currentTime + 0.14,
-    );
-    oscillator.connect(gain);
-    gain.connect(context.destination);
-    oscillator.start();
-    oscillator.stop(context.currentTime + 0.15);
-  } catch {
-    // Audio is optional; the visual invitation remains available if playback fails.
-  }
-}
 
 export default function PortfolioChatbot() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [isLoading, setIsLoading] = useState(false);
   const [teaserVisible, setTeaserVisible] = useState(false);
+  const [soundMuted, setSoundMuted] = useState(false);
   const requestPending = useRef(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const teaserVisibleRef = useRef(false);
-  const chimePlayedRef = useRef(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const soundPlayedRef = useRef(false);
   const reduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    const playOnce = (context: AudioContext) => {
-      if (chimePlayedRef.current) return;
-      chimePlayedRef.current = true;
-      playTeaserChime(context);
-    };
-    const unlockAudio = () => {
-      let context: AudioContext | null = audioContextRef.current;
-      if (!context) {
-        context = createAudioContext();
-        if (!context) return;
-        audioContextRef.current = context;
+  const playTeaserSound = useCallback(() => {
+    if (soundMuted || soundPlayedRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
+    try {
+      audio.currentTime = 0;
+      const playback = audio.play();
+      if (playback) {
+        void playback
+          .then(() => {
+            soundPlayedRef.current = true;
+          })
+          .catch(() => undefined);
+      } else {
+        soundPlayedRef.current = true;
       }
-      void context.resume().then(() => {
-        if (context?.state === "running" && teaserVisibleRef.current) {
-          playOnce(context);
-        }
-      }).catch(() => undefined);
-    };
+    } catch {
+      // A blocked or unavailable sound must not interrupt opening the assistant.
+    }
+  }, [soundMuted]);
 
-    document.addEventListener("pointerdown", unlockAudio, { once: true });
-    document.addEventListener("keydown", unlockAudio, { once: true });
-
+  useEffect(() => {
+    const audio = new Audio("/sound/chatbot-notification.wav");
+    audio.preload = "auto";
+    audioRef.current = audio;
+    try {
+      setSoundMuted(window.localStorage.getItem(soundPreferenceKey) === "true");
+    } catch {
+      // Use the default unmuted state if browser storage is unavailable.
+    }
     let timer: number | undefined;
     try {
       if (!window.sessionStorage.getItem(teaserSessionKey)) {
@@ -100,39 +68,36 @@ export default function PortfolioChatbot() {
           } catch {
             // Keep the teaser usable when storage is unavailable.
           }
-          teaserVisibleRef.current = true;
           setTeaserVisible(true);
-          const context = audioContextRef.current;
-          if (context?.state === "running") playOnce(context);
-          else if (context) {
-            void context
-              .resume()
-              .then(() => {
-                if (context.state === "running") playOnce(context);
-              })
-              .catch(() => undefined);
-          }
-        }, 4000);
+          playTeaserSound();
+        }, 2500);
       }
     } catch {
       // Storage may be disabled; still show the invitation once for this mount.
       timer = window.setTimeout(() => {
-        teaserVisibleRef.current = true;
         setTeaserVisible(true);
-        const context = audioContextRef.current;
-        if (context?.state === "running") playOnce(context);
-      }, 4000);
+        playTeaserSound();
+      }, 2500);
     }
     return () => {
       if (timer !== undefined) window.clearTimeout(timer);
-      document.removeEventListener("pointerdown", unlockAudio);
-      document.removeEventListener("keydown", unlockAudio);
-      void audioContextRef.current?.close().catch(() => undefined);
-      audioContextRef.current = null;
+      audio.pause();
+      audioRef.current = null;
     };
-  }, []);
+  }, [playTeaserSound]);
 
   const dismissTeaser = useCallback(() => setTeaserVisible(false), []);
+  const toggleSoundMuted = useCallback(() => {
+    setSoundMuted((muted) => {
+      const nextMuted = !muted;
+      try {
+        window.localStorage.setItem(soundPreferenceKey, String(nextMuted));
+      } catch {
+        // Keep the current-page preference if browser storage is unavailable.
+      }
+      return nextMuted;
+    });
+  }, []);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -243,11 +208,12 @@ export default function PortfolioChatbot() {
   );
   const askSuggestedQuestion = useCallback(
     (question: string) => {
+      playTeaserSound();
       setTeaserVisible(false);
       setOpen(true);
       void sendMessage(question);
     },
-    [sendMessage],
+    [playTeaserSound, sendMessage],
   );
 
   return (
@@ -288,14 +254,25 @@ export default function PortfolioChatbot() {
                   ✨ Curious about Sahbaz?
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={dismissTeaser}
-                aria-label="Dismiss AI assistant suggestions"
-                className="-mr-1 -mt-1 rounded-sm p-1.5 text-stone-500 transition-colors hover:bg-white/5 hover:text-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100"
-              >
-                <X size={14} aria-hidden="true" />
-              </button>
+              <div className="-mr-1 -mt-1 flex shrink-0 items-center">
+                <button
+                  type="button"
+                  onClick={toggleSoundMuted}
+                  aria-label={soundMuted ? "Unmute assistant sound" : "Mute assistant sound"}
+                  aria-pressed={soundMuted}
+                  className="rounded-sm p-1.5 text-stone-500 transition-colors hover:bg-white/5 hover:text-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100"
+                >
+                  {soundMuted ? <VolumeX size={14} aria-hidden="true" /> : <Volume2 size={14} aria-hidden="true" />}
+                </button>
+                <button
+                  type="button"
+                  onClick={dismissTeaser}
+                  aria-label="Dismiss AI assistant suggestions"
+                  className="rounded-sm p-1.5 text-stone-500 transition-colors hover:bg-white/5 hover:text-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100"
+                >
+                  <X size={14} aria-hidden="true" />
+                </button>
+              </div>
             </div>
             <div className="mt-2.5 flex flex-col items-start gap-1.5 pl-9">
               {teaserQuestions.map((question) => (
