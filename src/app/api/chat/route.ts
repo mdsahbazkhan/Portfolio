@@ -7,6 +7,10 @@ import { OUT_OF_SCOPE_ANSWER, UNKNOWN_ANSWER, type ChatTurn } from "@/lib/portfo
 export const runtime = "nodejs";
 export const maxDuration = 45;
 
+export async function GET() {
+  return NextResponse.json({ status: "ok" });
+}
+
 const OUT_OF_SCOPE_PATTERN = /\b(weather|forecast|tell (?:me )?a joke|make me laugh|write (?:me )?(?:a|an) (?:python|javascript|typescript|program)|prime minister|president of|world politics|political news|solve (?:this )?(?:math|equation)|recipe for|stock price|bitcoin price)\b/i;
 const PORTFOLIO_TERMS = /\b(sahbaz|portfolio|velquix|collabtasky|bazario|teachopia|kognito(?: kube)?|internship|intern|experience|education|degree|career|skills?|tech stack|technolog(?:y|ies)|project|github|linkedin|contact|email|phone|rag|retrieval augmented generation|aws|docker|react|next\.js|node(?:\.js)?|python|fastapi|langchain|langgraph|mongodb|postgres(?:ql)?|redis|frontend|backend|generative ai|full[- ]stack|what does he|what did he|what is his|where did he|who is he|his work|his role)\b/i;
 

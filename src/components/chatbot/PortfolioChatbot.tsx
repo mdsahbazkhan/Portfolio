@@ -34,12 +34,16 @@ export default function PortfolioChatbot() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open, close]);
 
-  const sendMessage = useCallback(async (content: string) => {
+  const sendMessage = useCallback(async (content: string, isRetry = false) => {
     const message = content.trim();
     if (!message || requestPending.current) return;
-    const history = messages.slice(1).map(({ role, content: text }) => ({ role, content: text }));
+    const history = messages.slice(1).filter((entry) => !entry.isError).map(({ role, content: text }) => ({ role, content: text }));
+    if (isRetry && history.at(-1)?.role === "user" && history.at(-1)?.content === message) history.pop();
     requestPending.current = true;
-    setMessages((current) => [...current, { id: crypto.randomUUID(), role: "user", content: message }]);
+    setMessages((current) => {
+      const withoutError = current.filter((entry) => !(entry.isError && entry.retryContent === message));
+      return isRetry ? withoutError : [...withoutError, { id: crypto.randomUUID(), role: "user", content: message }];
+    });
     setIsLoading(true);
     try {
       const response = await fetch("/api/chat", {
@@ -47,21 +51,35 @@ export default function PortfolioChatbot() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message, history }),
       });
-      const result = await response.json() as { answer?: string; sources?: string[]; error?: string };
+      const contentType = response.headers.get("content-type") ?? "";
+      if (!contentType.includes("application/json")) {
+        throw new Error("The assistant is temporarily unavailable. Please try again.");
+      }
+      let result: { answer?: string; sources?: string[]; error?: string };
+      try {
+        result = await response.json() as typeof result;
+      } catch {
+        throw new Error("The assistant returned an unreadable response. Please try again.");
+      }
       if (!response.ok || !result.answer) throw new Error(result.error || "Sorry, I'm unable to answer right now. Please try again.");
       setMessages((current) => [...current, { id: crypto.randomUUID(), role: "assistant", content: result.answer!, sources: result.sources }]);
     } catch (error) {
-      const content = error instanceof Error ? error.message : "Sorry, I'm unable to answer right now. Please try again.";
-      setMessages((current) => [...current, { id: crypto.randomUUID(), role: "assistant", content }]);
+      const errorMessage = error instanceof Error ? error.message : "";
+      const isNetworkError = /failed to fetch|networkerror|load failed/i.test(errorMessage);
+      const content = !errorMessage || isNetworkError
+        ? "I couldn't connect to the assistant. Check your connection and try again."
+        : errorMessage;
+      setMessages((current) => [...current, { id: crypto.randomUUID(), role: "assistant", content, isError: true, retryContent: message }]);
     } finally {
       requestPending.current = false;
       setIsLoading(false);
     }
   }, [messages]);
+  const retryMessage = useCallback((message: string) => { void sendMessage(message, true); }, [sendMessage]);
 
   return (
     <>
-      <ChatWindow open={open} onClose={close} messages={messages} onSend={sendMessage} isLoading={isLoading} />
+      <ChatWindow open={open} onClose={close} messages={messages} onSend={sendMessage} onRetry={retryMessage} isLoading={isLoading} />
       <motion.button
         ref={triggerRef}
         type="button"

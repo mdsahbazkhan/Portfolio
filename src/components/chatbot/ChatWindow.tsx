@@ -19,12 +19,14 @@ export function ChatWindow({
   onClose,
   messages,
   onSend,
+  onRetry,
   isLoading,
 }: {
   open: boolean;
   onClose: () => void;
   messages: Message[];
   onSend: (message: string) => void;
+  onRetry: (message: string) => void;
   isLoading: boolean;
 }) {
   const reduceMotion = useReducedMotion();
@@ -62,7 +64,13 @@ export function ChatWindow({
 
           <div className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain p-4" aria-live="polite">
             <ChatMessage message={messages[0]} />
-            {messages.slice(1).map((message) => <ChatMessage key={message.id} message={message} />)}
+            {messages.slice(1).map((message) => (
+              <ChatMessage
+                key={message.id}
+                message={message}
+                onRetry={message.isError && message.retryContent ? () => onRetry(message.retryContent!) : undefined}
+              />
+            ))}
             {messages.length === 1 && (
               <div className="pt-2">
                 <p className="mb-2 font-mono text-[10px] uppercase tracking-[.16em] text-stone-500">Suggested questions</p>
@@ -76,9 +84,14 @@ export function ChatWindow({
               </div>
             )}
             {isLoading && (
-              <div role="status" className="flex items-center gap-2 text-xs text-stone-400">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-100" />
-                Searching Sahbaz&apos;s portfolio...
+              <div role="status" className="flex items-start gap-2 text-xs text-stone-400">
+                <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-teal-100/15 bg-teal-100/[.06] text-teal-100/80" aria-hidden="true"><MessageCircle size={12} /></span>
+                <span className="inline-flex items-center gap-2 rounded-sm border border-white/[.07] bg-white/[.035] px-3 py-2.5">
+                  Searching the portfolio
+                  <span className="inline-flex gap-1" aria-hidden="true">
+                    {[0, 1, 2].map((dot) => <span key={dot} className="h-1 w-1 animate-pulse rounded-full bg-teal-100" style={{ animationDelay: `${dot * 160}ms` }} />)}
+                  </span>
+                </span>
               </div>
             )}
             <div ref={messagesEndRef} />
