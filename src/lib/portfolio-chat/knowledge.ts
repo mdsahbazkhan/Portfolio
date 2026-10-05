@@ -59,11 +59,18 @@ export async function retrieveKnowledge(question: string): Promise<RetrievedChun
   const retrievalQuery = profileIntent
     ? `${question}\nSahbaz profile software developer full stack generative AI about bio`
     : question;
-  const [queryVector] = await embedTexts([retrievalQuery]);
+  let queryVector: number[] = [];
+  try {
+    [queryVector] = await embedTexts([retrievalQuery]);
+  } catch (error) {
+    // Keep retrieval available on hosts where the local ONNX model cannot initialize.
+    console.error("Portfolio query embedding failed; using lexical retrieval:", error);
+  }
+  const hasQueryVector = queryVector.length > 0;
   const terms = queryTerms(retrievalQuery);
   return index
     .map(({ embedding, ...chunk }) => {
-      const semantic = cosineSimilarity(queryVector, embedding);
+      const semantic = hasQueryVector ? cosineSimilarity(queryVector, embedding) : 0;
       const lexical = lexicalCoverage(terms, `${chunk.source}\n${chunk.section}\n${chunk.content}`);
       const sourceTerms = queryTerms(chunk.source);
       const sourceMatch = terms.some((term) => sourceTerms.includes(term)) ? 1 : 0;
@@ -71,9 +78,12 @@ export async function retrieveKnowledge(question: string): Promise<RetrievedChun
         ? 0.5
         : 0;
       // Semantic similarity handles paraphrases; term overlap favors exact details such as links and technologies.
-      return { ...chunk, score: semantic * 0.45 + lexical * 0.3 + sourceMatch * 0.15 + profileBoost };
+      const score = hasQueryVector
+        ? semantic * 0.45 + lexical * 0.3 + sourceMatch * 0.15 + profileBoost
+        : lexical * 0.7 + sourceMatch * 0.2 + profileBoost;
+      return { ...chunk, score };
     })
     .sort((a, b) => b.score - a.score)
-    .filter((chunk) => chunk.score >= 0.28)
+    .filter((chunk) => chunk.score >= (hasQueryVector ? 0.28 : 0.12))
     .slice(0, 5);
 }
