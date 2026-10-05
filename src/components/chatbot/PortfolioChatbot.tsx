@@ -16,53 +16,43 @@ const initialMessage: Message = {
 const teaserSessionKey = "portfolio-assistant-teaser-seen-v2";
 const teaserQuestions = ["Who is Sahbaz?", "What has Sahbaz built?"];
 
-function playTeaserChime() {
+function createAudioContext() {
   try {
     const AudioContextConstructor =
       window.AudioContext ||
       (window as typeof window & { webkitAudioContext?: typeof AudioContext })
         .webkitAudioContext;
-    if (!AudioContextConstructor) return;
-    const context = new AudioContextConstructor();
-    const play = () => {
-      const oscillator = context.createOscillator();
-      const gain = context.createGain();
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(740, context.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(
-        560,
-        context.currentTime + 0.12,
-      );
-      gain.gain.setValueAtTime(0.0001, context.currentTime);
-      gain.gain.exponentialRampToValueAtTime(
-        0.12,
-        context.currentTime + 0.015,
-      );
-      gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        context.currentTime + 0.14,
-      );
-      oscillator.connect(gain);
-      gain.connect(context.destination);
-      oscillator.start();
-      oscillator.stop(context.currentTime + 0.15);
-      window.setTimeout(() => {
-        void context.close().catch(() => undefined);
-      }, 250);
-    };
-    if (context.state === "running") play();
-    else
-      void context
-        .resume()
-        .then(() => {
-          if (context.state === "running") play();
-          else void context.close().catch(() => undefined);
-        })
-        .catch(() => {
-          void context.close().catch(() => undefined);
-        });
+    return AudioContextConstructor ? new AudioContextConstructor() : null;
   } catch {
-    // Audio is optional; the visual invitation remains available when blocked.
+    return null;
+  }
+}
+
+function playTeaserChime(context: AudioContext) {
+  try {
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(740, context.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(
+      560,
+      context.currentTime + 0.12,
+    );
+    gain.gain.setValueAtTime(0.0001, context.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+      0.12,
+      context.currentTime + 0.015,
+    );
+    gain.gain.exponentialRampToValueAtTime(
+      0.0001,
+      context.currentTime + 0.14,
+    );
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+    oscillator.start();
+    oscillator.stop(context.currentTime + 0.15);
+  } catch {
+    // Audio is optional; the visual invitation remains available if playback fails.
   }
 }
 
@@ -73,29 +63,73 @@ export default function PortfolioChatbot() {
   const [teaserVisible, setTeaserVisible] = useState(false);
   const requestPending = useRef(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const teaserVisibleRef = useRef(false);
+  const chimePlayedRef = useRef(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    try {
-      if (window.sessionStorage.getItem(teaserSessionKey)) return;
-      const timer = window.setTimeout(() => {
-        try {
-          window.sessionStorage.setItem(teaserSessionKey, "1");
-        } catch {
-          // Keep the teaser usable when storage is unavailable.
+    const playOnce = (context: AudioContext) => {
+      if (chimePlayedRef.current) return;
+      chimePlayedRef.current = true;
+      playTeaserChime(context);
+    };
+    const unlockAudio = () => {
+      let context: AudioContext | null = audioContextRef.current;
+      if (!context) {
+        context = createAudioContext();
+        if (!context) return;
+        audioContextRef.current = context;
+      }
+      void context.resume().then(() => {
+        if (context?.state === "running" && teaserVisibleRef.current) {
+          playOnce(context);
         }
-        setTeaserVisible(true);
-        playTeaserChime();
-      }, 4000);
-      return () => window.clearTimeout(timer);
+      }).catch(() => undefined);
+    };
+
+    document.addEventListener("pointerdown", unlockAudio, { once: true });
+    document.addEventListener("keydown", unlockAudio, { once: true });
+
+    let timer: number | undefined;
+    try {
+      if (!window.sessionStorage.getItem(teaserSessionKey)) {
+        timer = window.setTimeout(() => {
+          try {
+            window.sessionStorage.setItem(teaserSessionKey, "1");
+          } catch {
+            // Keep the teaser usable when storage is unavailable.
+          }
+          teaserVisibleRef.current = true;
+          setTeaserVisible(true);
+          const context = audioContextRef.current;
+          if (context?.state === "running") playOnce(context);
+          else if (context) {
+            void context
+              .resume()
+              .then(() => {
+                if (context.state === "running") playOnce(context);
+              })
+              .catch(() => undefined);
+          }
+        }, 4000);
+      }
     } catch {
       // Storage may be disabled; still show the invitation once for this mount.
-      const timer = window.setTimeout(() => {
+      timer = window.setTimeout(() => {
+        teaserVisibleRef.current = true;
         setTeaserVisible(true);
-        playTeaserChime();
+        const context = audioContextRef.current;
+        if (context?.state === "running") playOnce(context);
       }, 4000);
-      return () => window.clearTimeout(timer);
     }
+    return () => {
+      if (timer !== undefined) window.clearTimeout(timer);
+      document.removeEventListener("pointerdown", unlockAudio);
+      document.removeEventListener("keydown", unlockAudio);
+      void audioContextRef.current?.close().catch(() => undefined);
+      audioContextRef.current = null;
+    };
   }, []);
 
   const dismissTeaser = useCallback(() => setTeaserVisible(false), []);
