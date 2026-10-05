@@ -41,8 +41,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    const recentUserQuestion = [...history].reverse().find((turn) => turn.role === "user")?.content;
-    const retrievalQuestion = recentUserQuestion ? `${recentUserQuestion}\n${message}` : message;
+    const recentConversation = history.slice(-4).map((turn) => turn.content).join("\n").slice(-1200);
+    const retrievalQuestion = recentConversation ? `${recentConversation}\n${message}` : message;
     let chunks;
     try {
       chunks = await retrieveKnowledge(retrievalQuestion);

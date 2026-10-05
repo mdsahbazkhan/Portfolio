@@ -53,16 +53,25 @@ function lexicalCoverage(questionTerms: string[], content: string) {
 
 export async function retrieveKnowledge(question: string): Promise<RetrievedChunk[]> {
   const index = await loadIndex();
-  const [queryVector] = await embedTexts([question]);
-  const terms = queryTerms(question);
+  // Short identity questions often contain only stop words and Sahbaz's name.
+  // Add profile intent terms so they retrieve the concise About Sahbaz entry.
+  const profileIntent = /\b(who is|tell me about|what does|about)\b/i.test(question) && /\bsahbaz\b/i.test(question);
+  const retrievalQuery = profileIntent
+    ? `${question}\nSahbaz profile software developer full stack generative AI about bio`
+    : question;
+  const [queryVector] = await embedTexts([retrievalQuery]);
+  const terms = queryTerms(retrievalQuery);
   return index
     .map(({ embedding, ...chunk }) => {
       const semantic = cosineSimilarity(queryVector, embedding);
       const lexical = lexicalCoverage(terms, `${chunk.source}\n${chunk.section}\n${chunk.content}`);
       const sourceTerms = queryTerms(chunk.source);
       const sourceMatch = terms.some((term) => sourceTerms.includes(term)) ? 1 : 0;
+      const profileBoost = profileIntent && chunk.source === "faq.md" && /about sahbaz|who is sahbaz/i.test(chunk.section)
+        ? 0.5
+        : 0;
       // Semantic similarity handles paraphrases; term overlap favors exact details such as links and technologies.
-      return { ...chunk, score: semantic * 0.5 + lexical * 0.3 + sourceMatch * 0.2 };
+      return { ...chunk, score: semantic * 0.45 + lexical * 0.3 + sourceMatch * 0.15 + profileBoost };
     })
     .sort((a, b) => b.score - a.score)
     .filter((chunk) => chunk.score >= 0.28)
