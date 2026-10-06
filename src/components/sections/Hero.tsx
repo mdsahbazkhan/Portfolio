@@ -19,10 +19,10 @@ export function Hero() {
     >
       <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
         <div className="atmosphere-grid absolute inset-0 opacity-60" />
-        <div className="absolute -top-40 right-[8%] h-[34rem] w-[34rem] rounded-full bg-teal-200/[.07] blur-[120px]" />
+        <div className="absolute -top-50 right-[6%] h-[34rem] w-[34rem] rounded-full bg-teal-200/[.07] blur-[120px]" />
         <div className="absolute bottom-[-18rem] left-[20%] h-[34rem] w-[34rem] rounded-full bg-teal-900/25 blur-[100px]" />
-        <div className="absolute right-[14%] top-1/2 hidden h-[min(62vw,680px)] w-[min(62vw,680px)] -translate-y-1/2 rounded-full border border-teal-100/10 lg:block" />
-        <div className="absolute right-[17%] top-1/2 hidden h-[min(49vw,540px)] w-[min(49vw,540px)] -translate-y-1/2 rounded-full border border-teal-100/[.07] lg:block" />
+        <div className="absolute left-[74%] top-1/2 hidden h-[min(40vw,420px)] w-[min(40vw,420px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-teal-100/10 md:block lg:left-[76%] lg:h-[min(44vw,580px)] lg:w-[min(44vw,580px)]" />
+        <div className="absolute left-[74%] top-1/2 hidden h-[min(32vw,340px)] w-[min(32vw,340px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-teal-100/[.07] md:block lg:left-[76%] lg:h-[min(36vw,470px)] lg:w-[min(36vw,470px)]" />
       </div>
 
       <Container className="pb-20">
@@ -134,7 +134,7 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative w-52 h-64 sm:w-60 sm:h-72 md:w-72 md:h-80 lg:w-80 lg:h-[26rem]">
+            <div className="relative w-64 h-64 sm:w-60 sm:h-72 md:w-72 md:h-80 lg:w-80 lg:h-[26rem]">
               <Image
                 src={siteConfig.profileImage}
                 alt={`${siteConfig.name} profile photo`}

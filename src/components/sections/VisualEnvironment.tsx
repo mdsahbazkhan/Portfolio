@@ -40,7 +40,7 @@ export function VisualEnvironment() {
       progress += (targetProgress - progress) * (reducedMotion.matches ? 1 : 0.035);
       const eased = progress * progress * (3 - 2 * progress);
       const parallaxEnabled = !coarsePointer.matches && !reducedMotion.matches;
-      world.position.x = (coarsePointer.matches ? 1.15 - eased * 1.1 : 2.8 - eased * 4.2) + pointerX * (parallaxEnabled ? 0.28 : 0);
+      world.position.x = (coarsePointer.matches ? 1.15 - eased * 1.1 : 1.5 - eased * 4.2) + pointerX * (parallaxEnabled ? 0.28 : 0);
       world.position.y = Math.sin(eased * Math.PI * 2) * 0.32 + pointerY * (parallaxEnabled ? 0.2 : 0);
       world.rotation.y = time * (reducedMotion.matches ? 0 : 0.000055) + eased * 1.55;
       world.rotation.x = 0.13 + pointerY * (coarsePointer.matches ? 0 : 0.08) + Math.sin(eased * Math.PI) * 0.12;
